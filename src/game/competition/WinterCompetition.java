@@ -36,25 +36,10 @@ public class WinterCompetition extends Competition {
     @Override
     public boolean isValidCompetitor(Competitor competitor) {
         if(competitor instanceof WinterSportsman){
-            if(league.isInLeague(((WinterSportsman) competitor).getAge())){
-                if(((WinterSportsman) competitor).getGender() == this.gender){
-                    if(((WinterSportsman) competitor).getDiscipline() == this.discipline)
-                        return true;
-                }
-            }
-        }
-        if(competitor instanceof Skier){
-            if(league.isInLeague(((Skier) competitor).getAge())){
-                if(((Skier) competitor).getGender() == this.gender){
-                    if(((Skier) competitor).getDiscipline() == this.discipline)
-                        return true;
-                }
-            }
-        }
-        if(competitor instanceof Snowboarder){
-            if(league.isInLeague(((Snowboarder) competitor).getAge())){
-                if(((Snowboarder) competitor).getGender() == this.gender){
-                    if(((Snowboarder) competitor).getDiscipline() == this.discipline)
+            WinterSportsman comp = (WinterSportsman) competitor;
+            if(league.isInLeague(comp.getAge())){
+                if(comp.getGender() == this.gender){
+                    if(comp.getDiscipline() == this.discipline)
                         return true;
                 }
             }

@@ -23,8 +23,8 @@ public class MobileEntity extends Entity implements IMobileEntity {
     }
     private void setSpeed(double speed){
         ValidationUtils.assertNotNegative(speed);
-        if(speed > maxSpeed || this.speed + speed > maxSpeed)
-            throw new IllegalArgumentException("Speed is out of range");
+        if(speed >= maxSpeed)
+            speed = maxSpeed;
         this.speed = speed;
     }
 
@@ -41,9 +41,9 @@ public class MobileEntity extends Entity implements IMobileEntity {
     }
 
     public void move(double friction){
+        this.setSpeed(this.getSpeed() + ( 1 - friction) * getAcceleration());
         double x = this.getLocation().getX() + getSpeed();
         Point move = new Point(x,0);
         this.setLocation(move);
-        this.setSpeed(this.getSpeed() + ( 1 - friction) * getAcceleration());
     }
 }

@@ -39,17 +39,16 @@ public abstract class Competition {
     public void playTurn(){
         ArrayList<Competitor> temp = new ArrayList<>(activeCompetitors);
         for(Competitor i: temp){
+            i.move(arena.getFriction());
             if(arena.isFinished(i)){
                 activeCompetitors.remove(i);
                 finishedCompetitors.add(i);
             }
-            else{
-                i.move(arena.getFriction());
-            }
+
         }
     }
     public boolean hasActiveCompetitors(){
-        return activeCompetitors.isEmpty();
+        return activeCompetitors.size() > 0;
     }
 
     public ArrayList<Competitor> getFinishedCompetitors(){

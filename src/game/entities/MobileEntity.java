@@ -1,5 +1,6 @@
 package game.entities;
 
+import game.enums.League;
 import utilities.Point;
 import utilities.ValidationUtils;
 

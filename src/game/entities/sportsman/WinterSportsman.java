@@ -3,6 +3,7 @@ package game.entities.sportsman;
 import game.competition.Competitor;
 import game.enums.Discipline;
 import game.enums.Gender;
+import game.enums.League;
 import utilities.Point;
 import utilities.ValidationUtils;
 
@@ -10,7 +11,7 @@ public class WinterSportsman extends Sportsman implements Competitor {
     private Discipline discipline;
 
     public WinterSportsman(String name, double age, Gender gender, Discipline discipline, double maxSpeed, double acceleration){
-        super(name, age, gender, maxSpeed, acceleration);
+        super(name, age, gender, maxSpeed, League.calcAccelerationBonus(age) + acceleration);
         this.setDiscipline(discipline);
     }
     private void setDiscipline(Discipline discipline){

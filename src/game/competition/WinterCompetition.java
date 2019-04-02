@@ -1,8 +1,6 @@
 package game.competition;
 
 import game.arena.IArena;
-import game.entities.sportsman.Skier;
-import game.entities.sportsman.Snowboarder;
 import game.entities.sportsman.WinterSportsman;
 import game.enums.Discipline;
 import game.enums.Gender;
@@ -40,6 +38,7 @@ public class WinterCompetition extends Competition {
             if(league.isInLeague(comp.getAge())){
                 if(comp.getGender() == this.gender){
                     if(comp.getDiscipline() == this.discipline)
+
                         return true;
                 }
             }

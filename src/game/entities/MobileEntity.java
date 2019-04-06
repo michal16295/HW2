@@ -9,7 +9,7 @@ import utilities.ValidationUtils;
  * @author Dima Zagorodny - 320552243
  * @author Michal Barski - 205870934
  */
-public class MobileEntity extends Entity implements IMobileEntity {
+public abstract class MobileEntity extends Entity implements IMobileEntity {
     private double maxSpeed;
     private double acceleration;
     private double speed;

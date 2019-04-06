@@ -4,13 +4,13 @@ import game.arena.IArena;
 import utilities.ValidationUtils;
 
 import java.util.ArrayList;
+
 /**
  * Competition class
  * Represents an general competition.
  * @author Dima Zagorodny - 320552243
  * @author Michal Barski - 205870934
  */
-
 public abstract class Competition {
     private IArena arena;
     private int maxCompetitors;

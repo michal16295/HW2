@@ -54,11 +54,12 @@ public abstract class Competition {
      * @param competitor
      */
     public void addCompetitor(Competitor competitor){
+        ValidationUtils.assertNotNull(competitor);
         if(activeCompetitors.size() == maxCompetitors){
             throw new IllegalStateException("The Competition is full");
         }
         if(!isValidCompetitor(competitor)){
-            throw new IllegalArgumentException("INVALID COMPETITOR");
+            throw new IllegalArgumentException("Invalid competitor " + competitor);
         }
         competitor.initRace();
         activeCompetitors.add(competitor);
@@ -102,6 +103,6 @@ public abstract class Competition {
      * @param competitor
      * @return
      */
-    abstract public boolean isValidCompetitor(Competitor competitor);
+    abstract protected boolean isValidCompetitor(Competitor competitor);
 
 }

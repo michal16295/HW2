@@ -64,7 +64,7 @@ public class WinterCompetition extends Competition {
      * @return True if the competitor is valid
      */
     @Override
-    public boolean isValidCompetitor(Competitor competitor) {
+    protected boolean isValidCompetitor(Competitor competitor) {
         if(competitor instanceof WinterSportsman){
             WinterSportsman comp = (WinterSportsman) competitor;
             if(league.isInLeague(comp.getAge())){

@@ -96,7 +96,7 @@ public class WinterArena implements IArena {
      * @return true if crossed, false otherwise
      */
     public boolean isFinished(IMobileEntity me){
-        return me.getLocation().getX() > getLength();
+        return me.getLocation().getX() >= getLength();
     }
 
     @Override

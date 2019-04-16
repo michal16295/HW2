@@ -1,9 +1,13 @@
 package game.competition;
 
 import game.arena.IArena;
+import game.entities.sportsman.Sportsman;
 import utilities.ValidationUtils;
 
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
+
 /**
  * Competition class
  * Represents an general competition.
@@ -11,7 +15,7 @@ import java.util.ArrayList;
  * @author Michal Barski - 205870934
  */
 
-public abstract class Competition {
+public abstract class Competition implements Observer {
     private IArena arena;
     private int maxCompetitors;
     private ArrayList<Competitor> activeCompetitors;
@@ -63,24 +67,8 @@ public abstract class Competition {
         }
         competitor.initRace();
         activeCompetitors.add(competitor);
-
     }
 
-    /**
-     * each active competitor makes a move
-     * if the competitors finished the race - moves to the finished competitors list and removed from the active competitors list
-     */
-    public void playTurn(){
-        ArrayList<Competitor> temp = new ArrayList<>(activeCompetitors);
-        for(Competitor i: temp){
-            i.move(arena.getFriction());
-            if(arena.isFinished(i)){
-                activeCompetitors.remove(i);
-                finishedCompetitors.add(i);
-            }
-
-        }
-    }
 
     /**
      * Returns the competition status
@@ -104,5 +92,26 @@ public abstract class Competition {
      * @return
      */
     abstract protected boolean isValidCompetitor(Competitor competitor);
+
+
+    /**
+     * Start race: creates thread for each competitor in the current competition
+     * Adding each competitor to the Observer
+     */
+    public void startRace(){
+        for(Competitor comp: activeCompetitors){
+            Sportsman sportsman = (Sportsman) comp;
+            sportsman.addObserver(this);
+            new Thread(comp).start();
+
+        }
+    }
+
+    @Override
+    public synchronized void update(Observable o, Object arg){
+        finishedCompetitors.add((Competitor)o);
+        activeCompetitors.remove(o);
+        o.deleteObserver(this);
+    }
 
 }

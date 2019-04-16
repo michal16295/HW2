@@ -1,6 +1,7 @@
 package game.entities.sportsman;
 
 
+import game.arena.WinterArena;
 import game.entities.MobileEntity;
 import game.enums.Gender;
 import utilities.ValidationUtils;
@@ -11,7 +12,7 @@ import utilities.ValidationUtils;
  * @author Dima Zagorodny - 320552243
  * @author Michal Barski - 205870934
  */
-public class Sportsman extends MobileEntity {
+public class Sportsman extends MobileEntity{
     private String name;
     private Double age;
     private Gender gender;
@@ -86,4 +87,9 @@ public class Sportsman extends MobileEntity {
     public String toString(){
         return getClass().getSimpleName() + ' ' + getName();
     }
+
+
+
+
+
 }

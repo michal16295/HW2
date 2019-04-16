@@ -1,11 +1,16 @@
 package game.entities.sportsman;
 
+import game.arena.IArena;
+import game.arena.WinterArena;
 import game.competition.Competitor;
 import game.enums.Discipline;
 import game.enums.Gender;
 import game.enums.League;
 import utilities.Point;
 import utilities.ValidationUtils;
+
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Sportsman class
@@ -15,6 +20,7 @@ import utilities.ValidationUtils;
  */
 public class WinterSportsman extends Sportsman implements Competitor {
     private Discipline discipline;
+    private IArena arena;
 
     /**
      * Ctor that creates a sportsman with parameters.
@@ -54,8 +60,36 @@ public class WinterSportsman extends Sportsman implements Competitor {
         this.setLocation(new Point());
     }
 
+    public void setArena(IArena arena){
+        ValidationUtils.assertNotNull(arena);
+        this.arena = arena;
+    }
+
     @Override
     public String toString(){
         return getClass().getSimpleName() + ' ' + getName();
+    }
+
+    /**
+     * Makes a move until the finish line , with a delay of 100ms
+     * Notify's the observer
+     */
+    @Override
+    public void run() {
+        while(!arena.isFinished(this)){
+            move(arena.getFriction());
+            try
+            {
+                Thread.sleep(100);
+            }
+            catch(InterruptedException ex)
+            {
+                Thread.currentThread().interrupt();
+            }
+        }
+        setChanged();
+        notifyObservers();
+
+
     }
 }

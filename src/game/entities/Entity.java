@@ -3,13 +3,15 @@ package game.entities;
 import utilities.Point;
 import utilities.ValidationUtils;
 
+import java.util.Observable;
+
 /**
  * Entity class
  * Represents an static entity in the system with location
  * @author Dima Zagorodny - 320552243
  * @author Michal Barski - 205870934
  */
-public abstract class Entity {
+public abstract class Entity extends Observable {
     private Point location;
 
     /**

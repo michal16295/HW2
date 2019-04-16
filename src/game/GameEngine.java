@@ -38,12 +38,7 @@ public class GameEngine {
 	 */
 	public void startRace(Competition competition) {
 		ValidationUtils.assertNotNull(competition);
-		int step;
-		for(step = 0 ; competition.hasActiveCompetitors() ; step++){
-			competition.playTurn();
-		}
-		System.out.println("race finished in " + step + " steps");
-		printResults(competition);
+		competition.startRace();
 	}
 
 	/**

@@ -1,6 +1,5 @@
 package game;
 
-import game.arena.WinterArena;
 import game.competition.Competition;
 import game.competition.Competitor;
 import utilities.ValidationUtils;

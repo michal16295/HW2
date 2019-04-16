@@ -1,7 +1,6 @@
 package game.entities.sportsman;
 
 
-import game.arena.WinterArena;
 import game.entities.MobileEntity;
 import game.enums.Gender;
 import utilities.ValidationUtils;

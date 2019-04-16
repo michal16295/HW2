@@ -1,5 +1,6 @@
 package game.entities.sportsman;
 
+import game.arena.IArena;
 import game.enums.Discipline;
 import game.enums.Gender;
 
@@ -18,8 +19,8 @@ public class Snowboarder extends WinterSportsman {
      * @param maxSpeed the maximum speed
      * @param acceleration the acceleration
      */
-    public Snowboarder(String name, double age, Gender gender, double acceleration, double maxSpeed, Discipline discipline){
-        super(name, age, gender, discipline, maxSpeed, acceleration);
+    public Snowboarder(String name, double age, Gender gender, double acceleration, double maxSpeed, Discipline discipline, IArena arena){
+        super(name, age, gender, discipline, maxSpeed, acceleration, arena);
     }
 
     @Override

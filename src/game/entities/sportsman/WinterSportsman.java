@@ -1,16 +1,12 @@
 package game.entities.sportsman;
 
 import game.arena.IArena;
-import game.arena.WinterArena;
 import game.competition.Competitor;
 import game.enums.Discipline;
 import game.enums.Gender;
 import game.enums.League;
 import utilities.Point;
 import utilities.ValidationUtils;
-
-import java.util.Observable;
-import java.util.Observer;
 
 /**
  * Sportsman class

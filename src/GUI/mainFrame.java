@@ -19,6 +19,7 @@ public class mainFrame {
         p.add(input, BorderLayout.EAST);
         frame.add(p);
         frame.pack();
+        frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(new Dimension(1000, 700));
         frame.setVisible(true);

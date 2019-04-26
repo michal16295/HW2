@@ -1,5 +1,6 @@
 package game;
 
+import game.arena.IArena;
 import game.arena.WinterArena;
 import game.competition.Competition;
 import game.competition.Competitor;
@@ -10,6 +11,7 @@ import utilities.ValidationUtils;
  */
 public class GameEngine {
 	private WinterArena arena;
+	private Competition comp;
 
 	/**
 	 * Class singleton instance
@@ -35,5 +37,11 @@ public class GameEngine {
 		this.arena = arena;
 
 	}
+	public IArena getArena(){
+		return arena;
+	}
 
+	public void setComp(Competition comp) {
+		this.comp = comp;
+	}
 }

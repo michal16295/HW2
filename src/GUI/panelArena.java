@@ -70,7 +70,14 @@ public class panelArena extends JPanel {
                     ArenaLengthText.setText("700");
                 }
                 try{
-                    double len = Double.parseDouble(ArenaLengthText.getText());
+                    double len;
+                    try{
+                        len = Double.parseDouble(ArenaLengthText.getText());
+                    }catch (Exception ex){
+                        JOptionPane.showMessageDialog(null, "Arena length should be a number", "Message", JOptionPane.ERROR_MESSAGE);
+                        ex.printStackTrace();
+                        return;
+                    }
                     if(len < 700 || len > 900){
                         JOptionPane.showMessageDialog(null, "Invalid input values! Please try again.", "Message", JOptionPane.ERROR_MESSAGE);
                         return;

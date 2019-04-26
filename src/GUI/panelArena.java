@@ -27,7 +27,7 @@ public class panelArena extends JPanel {
     private Border blackline;
 
 
-    public panelArena(panelGame _panelGame) {
+    public panelArena(panelGame _panelGame, mainFrame _mainFrame) {
         //Setting the layout
         setLayout(new GridLayout(8,1));
 
@@ -71,9 +71,15 @@ public class panelArena extends JPanel {
                 }
                 try{
                     double len = Double.parseDouble(ArenaLengthText.getText());
+                    if(len < 700 || len > 900){
+                        JOptionPane.showMessageDialog(null, "Invalid input values! Please try again.", "Message", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
                     ARENA = new WinterArena(len, (SnowSurface)SnowSurfaceCombobox.getSelectedItem(), (WeatherCondition)WeatherConditionCombobox.getSelectedItem());
                     GameEngine.getInstance().setArena(ARENA);
                     _panelGame.setImage((WeatherCondition)WeatherConditionCombobox.getSelectedItem());
+                    _panelGame.resize(1000, (int)len);
+                    _mainFrame.setSize(1000,(int)len);
 
 
                 }catch (Exception ex){

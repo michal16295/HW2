@@ -14,7 +14,7 @@ public class mainFrame {
         //LEFT PANEL
         panelGame gamePane = new panelGame();
         //RIGHT PANEL
-        inputPane input = new inputPane(gamePane);
+        inputPane input = new inputPane(gamePane, this);
         p.add(gamePane, BorderLayout.CENTER);
         p.add(input, BorderLayout.EAST);
         frame.add(p);
@@ -22,6 +22,9 @@ public class mainFrame {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(new Dimension(1000, 700));
         frame.setVisible(true);
+    }
+    public void setSize(int w, int h){
+        frame.setSize(new Dimension(w, h));
     }
 
 

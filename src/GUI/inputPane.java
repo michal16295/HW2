@@ -9,8 +9,8 @@ public class inputPane extends JPanel {
     private panelCompetitor competitor;
     private panelInfo info;
 
-    public inputPane(panelGame _panelGame){
-        arena = new panelArena(_panelGame);
+    public inputPane(panelGame _panelGame, mainFrame _mainFrame){
+        arena = new panelArena(_panelGame, _mainFrame);
         comp = new panelCompetition();
         competitor = new panelCompetitor();
         info = new panelInfo();

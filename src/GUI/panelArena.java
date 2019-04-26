@@ -24,11 +24,10 @@ public class panelArena extends JPanel {
 
     private JButton BuildArenaBtn;
     private WinterArena ARENA;
-    private GameEngine game;
     private Border blackline;
 
 
-    public panelArena() {
+    public panelArena(panelGame _panelGame) {
         //Setting the layout
         setLayout(new GridLayout(8,1));
 
@@ -73,9 +72,8 @@ public class panelArena extends JPanel {
                 try{
                     double len = Double.parseDouble(ArenaLengthText.getText());
                     ARENA = new WinterArena(len, (SnowSurface)SnowSurfaceCombobox.getSelectedItem(), (WeatherCondition)WeatherConditionCombobox.getSelectedItem());
-                    game.setArena(ARENA);
-                    panelGame img = new panelGame();
-                    img.setImage((WeatherCondition)WeatherConditionCombobox.getSelectedItem());
+                    GameEngine.getInstance().setArena(ARENA);
+                    _panelGame.setImage((WeatherCondition)WeatherConditionCombobox.getSelectedItem());
 
 
                 }catch (Exception ex){

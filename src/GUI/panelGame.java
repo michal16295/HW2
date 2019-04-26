@@ -17,34 +17,33 @@ public class panelGame extends JPanel {
     public panelGame() {
 
     }
-    public void setImage(WeatherCondition weatherCondition){
-
-        if(weatherCondition == WeatherCondition.CLOUDY){
+    public void setImage(WeatherCondition weatherCondition) {
+        if (weatherCondition == WeatherCondition.CLOUDY) {
             try {
                 image = ImageIO.read(new File("assets/Cloudy.jpg"));
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
         }
-        else if(weatherCondition == WeatherCondition.SUNNY){
+        else if (weatherCondition == WeatherCondition.SUNNY) {
             try {
                 image = ImageIO.read(new File("assets/Sunny.jpg"));
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
         }
-        else if(weatherCondition == WeatherCondition.STORMY){
+        else if (weatherCondition == WeatherCondition.STORMY) {
             try {
                 image = ImageIO.read(new File("assets/Stormy.jpg"));
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
         }
-
-
+        updateUI();
     }
     public void paintComponent(Graphics g){
         g.drawImage(image, 0, 0, null);
+
     }
 
 }

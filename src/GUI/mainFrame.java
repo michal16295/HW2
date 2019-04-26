@@ -14,7 +14,7 @@ public class mainFrame {
         //LEFT PANEL
         panelGame gamePane = new panelGame();
         //RIGHT PANEL
-        inputPane input = new inputPane();
+        inputPane input = new inputPane(gamePane);
         p.add(gamePane, BorderLayout.CENTER);
         p.add(input, BorderLayout.EAST);
         frame.add(p);

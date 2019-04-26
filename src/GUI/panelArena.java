@@ -1,5 +1,6 @@
 package GUI;
 
+import game.GameEngine;
 import game.arena.WinterArena;
 import game.enums.SnowSurface;
 import game.enums.WeatherCondition;
@@ -23,7 +24,9 @@ public class panelArena extends JPanel {
 
     private JButton BuildArenaBtn;
     private WinterArena ARENA;
+    private GameEngine game;
     private Border blackline;
+
 
     public panelArena() {
         //Setting the layout
@@ -70,10 +73,13 @@ public class panelArena extends JPanel {
                 try{
                     double len = Double.parseDouble(ArenaLengthText.getText());
                     ARENA = new WinterArena(len, (SnowSurface)SnowSurfaceCombobox.getSelectedItem(), (WeatherCondition)WeatherConditionCombobox.getSelectedItem());
+                    game.setArena(ARENA);
+                    panelGame img = new panelGame();
+                    img.setImage((WeatherCondition)WeatherConditionCombobox.getSelectedItem());
 
 
-                }catch (Exception e){
-
+                }catch (Exception ex){
+                    ex.printStackTrace();
 
                 }
             }

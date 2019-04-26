@@ -1,5 +1,6 @@
 package game;
 
+import game.arena.WinterArena;
 import game.competition.Competition;
 import game.competition.Competitor;
 import utilities.ValidationUtils;
@@ -8,6 +9,7 @@ import utilities.ValidationUtils;
  * Engine that runs the game step by step.
  */
 public class GameEngine {
+	private WinterArena arena;
 
 	/**
 	 * Class singleton instance
@@ -29,28 +31,9 @@ public class GameEngine {
 	 */
 	private GameEngine() {
 	}
+	public void setArena(WinterArena arena){
+		this.arena = arena;
 
-
-	/**
-	 * play all turns of the competition and print results at the end
-	 * @param competition competition to run
-	 */
-	public void startRace(Competition competition) {
-		ValidationUtils.assertNotNull(competition);
-		competition.startRace();
-	}
-
-	/**
-	 * print competition result from first to last
-	 * @param competition printed competition
-	 */
-	private void printResults(Competition competition){
-		System.out.println("Race results:");
-		int place = 1;
-		for(Competitor skier : competition.getFinishedCompetitors()){
-			System.out.println(place + ". " + skier);
-			place++;
-		}
 	}
 
 }

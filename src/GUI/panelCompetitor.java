@@ -1,17 +1,18 @@
 package GUI;
 
 import game.GameEngine;
+import game.arena.IArena;
 import game.competition.Competition;
-import game.entities.sportsman.Skier;
-import game.entities.sportsman.Snowboarder;
 import game.entities.sportsman.WinterSportsman;
 import game.enums.Discipline;
+import game.enums.Gender;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Constructor;
 
 public class panelCompetitor extends JPanel {
     private JLabel AddCompetitorLabel;
@@ -58,7 +59,7 @@ public class panelCompetitor extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try{
-                    String type = "";
+
                     Competition comp = GameEngine.getInstance().getComp();
                     //Name
                     String name = NameTextField.getText();
@@ -71,23 +72,13 @@ public class panelCompetitor extends JPanel {
 
                     //Acceleration
                     double acceleration = Double.parseDouble(AccelerationText.getText());
-                    try{
-                        switch (GameEngine.getInstance().getType().toString()){
-                            case "Ski":
-                                Skier skier = new Skier(name, age, comp.getGender(),acceleration,maxSpeed, comp.getDiscipline(), GameEngine.getInstance().getArena());
-                                GameEngine.getInstance().addtSportsman(skier);
-                                break;
-                            case "Snowboard":
-                                Snowboarder snowboarder = new Snowboarder(name, age, comp.getGender(),acceleration,maxSpeed, comp.getDiscipline(), GameEngine.getInstance().getArena());
-                                GameEngine.getInstance().addtSportsman(snowboarder);
-                                break;
 
-                        }
-                    }catch (Exception ex){
-                        JOptionPane.showMessageDialog(null, "Reached maximum competitors", "Message", JOptionPane.ERROR_MESSAGE);
-                        ex.printStackTrace();
-                        return;
-                    }
+                    String type = GameEngine.getInstance().getPlayerType();
+                    Class aClass = getClass().getClassLoader().loadClass(type);
+                    Constructor ctor = aClass.getConstructor(String.class, double.class, Gender.class, double.class, double.class, Discipline.class, IArena.class);
+                    Object o = ctor.newInstance(name, age, comp.getGender(),acceleration ,maxSpeed ,comp.getDiscipline(),GameEngine.getInstance().getArena());
+                    GameEngine.getInstance().addtSportsman((WinterSportsman)o);
+
 
                 }catch (Exception ex){
                     JOptionPane.showMessageDialog(null, "Invalid input! try again", "Message", JOptionPane.ERROR_MESSAGE);

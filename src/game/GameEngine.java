@@ -63,7 +63,9 @@ public class GameEngine {
 	public void setType(game.enums.Competition type){
 		this.type = type;
 	}
-	public game.enums.Competition getType(){
-		return type;
+	public String getPlayerType(){
+		if(type == game.enums.Competition.Ski) return "game.entities.sportsman.Skier";
+		return "game.entities.sportsman.Snowboarder";
+
 	}
 }

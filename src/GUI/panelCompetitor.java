@@ -1,5 +1,10 @@
 package GUI;
 
+import game.GameEngine;
+import game.competition.Competition;
+import game.entities.sportsman.Skier;
+import game.entities.sportsman.Snowboarder;
+import game.entities.sportsman.WinterSportsman;
 import game.enums.Discipline;
 
 import javax.swing.*;
@@ -20,6 +25,7 @@ public class panelCompetitor extends JPanel {
     private JTextField MaxSpeedText;
     private JTextField AccelerationText;
     private JButton AddCompetitorBtn;
+
 
 
     public panelCompetitor(){
@@ -51,17 +57,44 @@ public class panelCompetitor extends JPanel {
         AddCompetitorBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //Name
-                String name = (String)NameTextField.getText();
+                try{
+                    String type = "";
+                    Competition comp = GameEngine.getInstance().getComp();
+                    //Name
+                    String name = NameTextField.getText();
 
-                //Age
-                double age = Double.parseDouble(AgeTextField.getText());
+                    //Age
+                    double age = Double.parseDouble(AgeTextField.getText());
 
-                //Max Speed
-                double maxSpeed = Double.parseDouble(MaxSpeedText.getText());
+                    //Max Speed
+                    double maxSpeed = Double.parseDouble(MaxSpeedText.getText());
 
-                //Acceleration
-                double acceleration = Double.parseDouble(AccelerationText.getText());
+                    //Acceleration
+                    double acceleration = Double.parseDouble(AccelerationText.getText());
+                    try{
+                        switch (GameEngine.getInstance().getType().toString()){
+                            case "Ski":
+                                Skier skier = new Skier(name, age, comp.getGender(),acceleration,maxSpeed, comp.getDiscipline(), GameEngine.getInstance().getArena());
+                                GameEngine.getInstance().addtSportsman(skier);
+                                break;
+                            case "Snowboard":
+                                Snowboarder snowboarder = new Snowboarder(name, age, comp.getGender(),acceleration,maxSpeed, comp.getDiscipline(), GameEngine.getInstance().getArena());
+                                GameEngine.getInstance().addtSportsman(snowboarder);
+                                break;
+
+                        }
+                    }catch (Exception ex){
+                        JOptionPane.showMessageDialog(null, "Reached maximum competitors", "Message", JOptionPane.ERROR_MESSAGE);
+                        ex.printStackTrace();
+                        return;
+                    }
+
+                }catch (Exception ex){
+                    JOptionPane.showMessageDialog(null, "Invalid input! try again", "Message", JOptionPane.ERROR_MESSAGE);
+                    ex.printStackTrace();
+                }
+
+
             }
         });
 

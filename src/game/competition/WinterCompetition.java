@@ -40,6 +40,9 @@ public class WinterCompetition extends Competition {
         ValidationUtils.assertNotNull(discipline);
         this.discipline = discipline;
     }
+    public Discipline getDiscipline(){
+        return discipline;
+    }
 
     /**
      * Sets the league type
@@ -56,6 +59,10 @@ public class WinterCompetition extends Competition {
      */
     private void setGender(Gender gender){
         this.gender = gender;
+    }
+
+    public Gender getGender() {
+        return gender;
     }
 
     /**

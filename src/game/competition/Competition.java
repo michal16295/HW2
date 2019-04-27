@@ -2,6 +2,8 @@ package game.competition;
 
 import game.arena.IArena;
 import game.entities.sportsman.Sportsman;
+import game.enums.Discipline;
+import game.enums.Gender;
 import utilities.ValidationUtils;
 
 import java.util.ArrayList;
@@ -93,6 +95,10 @@ public abstract class Competition implements Observer {
      */
     abstract protected boolean isValidCompetitor(Competitor competitor);
 
+    abstract public Gender getGender();
+
+    abstract public Discipline getDiscipline();
+
 
     /**
      * Start race: creates thread for each competitor in the current competition
@@ -105,6 +111,9 @@ public abstract class Competition implements Observer {
             new Thread(comp).start();
 
         }
+    }
+    public int getMaxCompetitors(){
+        return maxCompetitors;
     }
 
     @Override

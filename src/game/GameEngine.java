@@ -4,6 +4,8 @@ import game.arena.IArena;
 import game.arena.WinterArena;
 import game.competition.Competition;
 import game.competition.Competitor;
+import game.competition.WinterCompetition;
+import game.entities.sportsman.WinterSportsman;
 import utilities.ValidationUtils;
 
 /**
@@ -12,6 +14,8 @@ import utilities.ValidationUtils;
 public class GameEngine {
 	private WinterArena arena;
 	private Competition comp;
+	private WinterSportsman sportsman;
+	private game.enums.Competition type;
 
 	/**
 	 * Class singleton instance
@@ -43,5 +47,23 @@ public class GameEngine {
 
 	public void setComp(Competition comp) {
 		this.comp = comp;
+	}
+
+	public Competition getComp() {
+		return comp;
+	}
+
+	public void addtSportsman(WinterSportsman sportsman){
+		getComp().addCompetitor(sportsman);
+
+	}
+	public WinterSportsman getSportsman(){
+		return sportsman;
+	}
+	public void setType(game.enums.Competition type){
+		this.type = type;
+	}
+	public game.enums.Competition getType(){
+		return type;
 	}
 }

@@ -91,9 +91,7 @@ public class panelCompetition extends JPanel {
                         if(maxComp < 1 || maxComp > 20){
                             JOptionPane.showMessageDialog(null, "Max competitors should be a between 1 to 20", "Message", JOptionPane.ERROR_MESSAGE);
                             return;
-
                         }
-
                     }
                     catch(Exception ex){
                         JOptionPane.showMessageDialog(null, "Max competitors should be a number", "Message", JOptionPane.ERROR_MESSAGE);
@@ -109,6 +107,9 @@ public class panelCompetition extends JPanel {
 
                     //Gender
                     Gender gender = (Gender)GenderCombobox.getSelectedItem();
+
+                    //Competitor type
+                    GameEngine.getInstance().setType((Competition)ChooseCompCombobox.getSelectedItem());
 
                     Class aClass = getClass().getClassLoader().loadClass(type);
                     Constructor ctor = aClass.getConstructor(IArena.class, int.class, Discipline.class, League.class, Gender.class);

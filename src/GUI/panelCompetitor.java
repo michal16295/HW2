@@ -27,9 +27,7 @@ public class panelCompetitor extends JPanel {
     private JTextField AccelerationText;
     private JButton AddCompetitorBtn;
 
-
-
-    public panelCompetitor(){
+    public panelCompetitor(panelGame _panelGame){
         setLayout(new GridLayout(10 ,1));
         Border blackline = BorderFactory.createLineBorder(Color.black);
 
@@ -59,28 +57,46 @@ public class panelCompetitor extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try{
+                    if(GameEngine.getInstance().getArena() == null && GameEngine.getInstance().getComp() == null){
+                        JOptionPane.showMessageDialog(null, "Please build arena, create competition and then add competitors", "Message", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                    if(GameEngine.getInstance().getComp() == null){
+                        JOptionPane.showMessageDialog(null, "Please create competition and then add competitors", "Message", JOptionPane.ERROR_MESSAGE);
+                        return;
 
+                    }
                     Competition comp = GameEngine.getInstance().getComp();
                     //Name
                     String name = NameTextField.getText();
+                    NameTextField.setText("");
 
                     //Age
                     double age = Double.parseDouble(AgeTextField.getText());
+                    AgeTextField.setText("");
 
                     //Max Speed
                     double maxSpeed = Double.parseDouble(MaxSpeedText.getText());
+                    MaxSpeedText.setText("");
 
                     //Acceleration
                     double acceleration = Double.parseDouble(AccelerationText.getText());
+                    AccelerationText.setText("");
 
                     String type = GameEngine.getInstance().getPlayerType();
                     Class aClass = getClass().getClassLoader().loadClass(type);
                     Constructor ctor = aClass.getConstructor(String.class, double.class, Gender.class, double.class, double.class, Discipline.class, IArena.class);
                     Object o = ctor.newInstance(name, age, comp.getGender(),acceleration ,maxSpeed ,comp.getDiscipline(),GameEngine.getInstance().getArena());
                     GameEngine.getInstance().addtSportsman((WinterSportsman)o);
+                    _panelGame.playerIcon((WinterSportsman)o);
 
 
-                }catch (Exception ex){
+                }catch (IllegalStateException ex){
+                    JOptionPane.showMessageDialog(null, "Reached maximum competitors", "Message", JOptionPane.ERROR_MESSAGE);
+                    ex.printStackTrace();
+
+                }
+                catch (Exception ex){
                     JOptionPane.showMessageDialog(null, "Invalid input! try again", "Message", JOptionPane.ERROR_MESSAGE);
                     ex.printStackTrace();
                 }
@@ -88,7 +104,6 @@ public class panelCompetitor extends JPanel {
 
             }
         });
-
 
         add(AddCompetitorLabel);
         add(NameLabel);

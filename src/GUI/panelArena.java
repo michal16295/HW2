@@ -69,6 +69,8 @@ public class panelArena extends JPanel {
                 if(ArenaLengthText.getText().isEmpty()){
                     ArenaLengthText.setText("700");
                 }
+                GameEngine.getInstance().setComp(null);
+                _panelGame.setIcon(null);
                 try{
                     double len;
                     try{
@@ -85,7 +87,7 @@ public class panelArena extends JPanel {
                     ARENA = new WinterArena(len, (SnowSurface)SnowSurfaceCombobox.getSelectedItem(), (WeatherCondition)WeatherConditionCombobox.getSelectedItem());
                     GameEngine.getInstance().setArena(ARENA);
                     _panelGame.setImage((WeatherCondition)WeatherConditionCombobox.getSelectedItem());
-                    _panelGame.resize(1000, (int)len);
+                    _panelGame.setImage(_panelGame.resizeImage(1000, (int)len,_panelGame.getImage()));
                     _mainFrame.setSize(1000,(int)len);
 
 

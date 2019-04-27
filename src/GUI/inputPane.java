@@ -12,7 +12,7 @@ public class inputPane extends JPanel {
     public inputPane(panelGame _panelGame, mainFrame _mainFrame){
         arena = new panelArena(_panelGame, _mainFrame);
         comp = new panelCompetition();
-        competitor = new panelCompetitor();
+        competitor = new panelCompetitor(_panelGame);
         info = new panelInfo();
 
         setLayout(new GridBagLayout());

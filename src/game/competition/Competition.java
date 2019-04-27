@@ -122,5 +122,8 @@ public abstract class Competition implements Observer {
         activeCompetitors.remove(o);
         o.deleteObserver(this);
     }
+    public ArrayList<Competitor> getActiveCompetitors(){
+        return activeCompetitors;
+    }
 
 }

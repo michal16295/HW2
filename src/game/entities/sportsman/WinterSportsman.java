@@ -87,6 +87,5 @@ public class WinterSportsman extends Sportsman implements Competitor {
         setChanged();
         notifyObservers();
 
-
     }
 }

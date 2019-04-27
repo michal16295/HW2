@@ -1,5 +1,8 @@
 package GUI;
 
+import game.GameEngine;
+import game.competition.Competition;
+import game.competition.Competitor;
 import game.entities.sportsman.Skier;
 import game.entities.sportsman.WinterSportsman;
 import game.enums.WeatherCondition;
@@ -10,16 +13,15 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class panelGame extends JPanel {
     private BufferedImage image;
     private BufferedImage icon;
+    ArrayList <Competitor> tempActive;
 
 
-    public panelGame() {
-
-    }
-
+    public panelGame() { }
     /**
      * Setting the background image
      * @param weatherCondition
@@ -93,8 +95,11 @@ public class panelGame extends JPanel {
     public void paintComponent(Graphics g){
         g.drawImage(image,0, 0, null);
         g.drawImage(icon, 0, 0, null);
-
-
+                int j = 0;
+        for(Competitor i: tempActive){
+            g.drawImage(icon, j, (int)i.getLocation().getX(), null);
+            j += 100;
+        }
     }
 
     /**
@@ -137,6 +142,10 @@ public class panelGame extends JPanel {
         }
         icon = resizeImage(50,50,icon);
         updateUI();
+    }
+    public void startRace(){
+        Competition comp = GameEngine.getInstance().getComp();
+        tempActive = new ArrayList<>(comp.getActiveCompetitors());
     }
 
 }

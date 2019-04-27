@@ -1,6 +1,7 @@
 package game.competition;
 
 import game.entities.IMobileEntity;
+import utilities.Point;
 
 /**
  * Competitor interface
@@ -11,4 +12,4 @@ import game.entities.IMobileEntity;
 public interface Competitor extends IMobileEntity, Runnable{
     void initRace();
 
-}
+    }

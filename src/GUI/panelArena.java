@@ -4,14 +4,15 @@ import game.GameEngine;
 import game.arena.WinterArena;
 import game.enums.SnowSurface;
 import game.enums.WeatherCondition;
-import sun.java2d.Surface;
-
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Arena panel - Builds the arena
+ */
 public class panelArena extends JPanel {
     private JLabel BuildArenaLabel;
     private JLabel SnowSurfaceLabel;
@@ -28,41 +29,8 @@ public class panelArena extends JPanel {
 
 
     public panelArena() {
-        //Setting the layout
-        setLayout(new GridLayout(8,1));
-
-        //Setting the border
-        blackline = BorderFactory.createLineBorder(Color.black);
-
-        //Build arena label
-        BuildArenaLabel = new JLabel("BUILD ARENA");
-        BuildArenaLabel.setForeground(Color.blue);
-
-        //Arena length label
-        ArenaLengthLabel = new JLabel("Arena Length");
-
-        //Snow surface label
-        SnowSurfaceLabel = new JLabel("Snow Surface");
-
-        //Weather condition label
-        WeatherConditionLabel = new JLabel("Weather Condition");
-
-        //Arena Length text field
-        ArenaLengthText = new JTextField("700");
-
-
-        //Snow surface combobox
-        SnowSurfaceCombobox = new JComboBox();
-        SnowSurfaceCombobox.setModel(new DefaultComboBoxModel(SnowSurface.values()));
-        SnowSurfaceCombobox.setPreferredSize(new Dimension(140, 20));
-        SnowSurfaceCombobox.setMaximumSize(new Dimension(140,20));
-
-        //Weather condition combobox
-        WeatherConditionCombobox = new JComboBox();
-        WeatherConditionCombobox.setModel(new DefaultComboBoxModel(WeatherCondition.values()));
-
-        //Build arena button
-        BuildArenaBtn = new JButton("Build Arena");
+        createData();
+        //After pressing the button
         BuildArenaBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -86,15 +54,7 @@ public class panelArena extends JPanel {
                         JOptionPane.showMessageDialog(null, "Invalid input values! Please try again.", "Message", JOptionPane.ERROR_MESSAGE);
                         return;
                     }
-                    ARENA = new WinterArena(len, (SnowSurface)SnowSurfaceCombobox.getSelectedItem(), (WeatherCondition)WeatherConditionCombobox.getSelectedItem());
-                    GameEngine.getInstance().setArena(ARENA);
-                    game.setImage((WeatherCondition)WeatherConditionCombobox.getSelectedItem());
-                    game.setImage(game.resizeImage(1000, (int)len,game.getImage()));
-                    frame.setSize(1000,(int)len);
-                    game.clearArray();
-                    game.setRatio();
-
-                    InfoTable.getModel().deleteData();
+                    buildArena(game, frame, len);
 
                 }catch (Exception ex){
                     ex.printStackTrace();
@@ -104,6 +64,44 @@ public class panelArena extends JPanel {
         });
 
         //adding to the panel
+        addData();
+
+    }
+
+    /**
+     * creating the labels, comboboxes and text fields
+     */
+    public void createData(){
+        //Setting the layout
+        setLayout(new GridLayout(8,1));
+
+        //Setting the border
+        blackline = BorderFactory.createLineBorder(Color.black);
+
+        //Build arena label
+        BuildArenaLabel = new JLabel("BUILD ARENA");
+        BuildArenaLabel.setForeground(Color.blue);
+
+        //Arena length
+        ArenaLengthLabel = new JLabel("Arena Length");
+        ArenaLengthText = new JTextField("700");
+
+        //Snow surface
+        SnowSurfaceLabel = new JLabel("Snow Surface");
+        SnowSurfaceCombobox = new JComboBox(SnowSurface.values());
+
+        //Weather condition label
+        WeatherConditionLabel = new JLabel("Weather Condition");
+        WeatherConditionCombobox = new JComboBox(WeatherCondition.values());
+
+        //Build arena button
+        BuildArenaBtn = new JButton("Build Arena");
+    }
+
+    /**
+     * adding the data to the panel
+     */
+    public void addData(){
         add(BuildArenaLabel);
         add(ArenaLengthLabel);
         add(ArenaLengthText);
@@ -113,8 +111,23 @@ public class panelArena extends JPanel {
         add(WeatherConditionCombobox);
         add(BuildArenaBtn);
         setBorder(blackline);
+    }
 
-
+    /**
+     * Building the arena
+     * @param game
+     * @param frame
+     * @param len
+     */
+    public void buildArena(panelGame game, mainFrame frame, double len){
+        ARENA = new WinterArena(len, (SnowSurface)SnowSurfaceCombobox.getSelectedItem(), (WeatherCondition)WeatherConditionCombobox.getSelectedItem());
+        GameEngine.getInstance().setArena(ARENA);
+        game.setImage((WeatherCondition)WeatherConditionCombobox.getSelectedItem());
+        game.setImage(game.resizeImage(1000, (int)len,game.getImage()));
+        frame.setSize(1000,(int)len);
+        game.clearArray();
+        game.setRatio();
+        InfoTable.getModel().deleteData();
     }
 
 

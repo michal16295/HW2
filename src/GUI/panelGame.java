@@ -1,7 +1,6 @@
 package GUI;
 
 import game.GameEngine;
-import game.competition.Competition;
 import game.competition.Competitor;
 import game.entities.sportsman.Skier;
 import game.entities.sportsman.WinterSportsman;
@@ -15,6 +14,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Game panel
+ */
 public class panelGame extends JPanel implements Runnable{
     private BufferedImage image;
     private BufferedImage icon;
@@ -164,6 +166,9 @@ public class panelGame extends JPanel implements Runnable{
         ratio = (GameEngine.getInstance().getArena().getLength() - 90) / GameEngine.getInstance().getArena().getLength();
     }
 
+    /**
+     * while has active player - update the info table every 30millis
+     */
     @Override
     public void run() {
         while(GameEngine.getInstance().getComp().hasActiveCompetitors()){

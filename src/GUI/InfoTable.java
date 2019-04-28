@@ -5,12 +5,19 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+/**
+ * Information table
+ * hold the information on each competitor before, during and after the competition
+ */
 public class InfoTable extends JFrame {
     private JTable table;
     private static InfoTableModel model = new InfoTableModel();
     private static InfoTable instance;
     private static boolean opened;
 
+    /**
+     * Info table ctor
+     */
     private InfoTable(){
         super("Competitors information");
         pack();
@@ -38,6 +45,10 @@ public class InfoTable extends JFrame {
         opened = true;
     }
 
+    /**
+     * get instance
+     * @return Info table instance
+     */
     public static InfoTable getInstance() {
         if (instance == null) {
             instance = new InfoTable();
@@ -45,6 +56,10 @@ public class InfoTable extends JFrame {
         return instance;
     }
 
+    /**
+     *
+     * @return
+     */
     public static boolean isOpened() {
         return opened;
     }

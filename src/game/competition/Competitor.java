@@ -11,5 +11,8 @@ import utilities.Point;
  */
 public interface Competitor extends IMobileEntity, Runnable{
     void initRace();
+    double getSpeed();
+    boolean isFinished();
 
-    }
+    void resetLocation();
+}

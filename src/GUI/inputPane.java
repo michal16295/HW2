@@ -9,11 +9,11 @@ public class inputPane extends JPanel {
     private panelCompetitor competitor;
     private panelInfo info;
 
-    public inputPane(panelGame _panelGame, mainFrame _mainFrame){
-        info = new panelInfo(_panelGame);
-        arena = new panelArena(_panelGame, _mainFrame);
-        comp = new panelCompetition(_panelGame,info);
-        competitor = new panelCompetitor(_panelGame);
+    public inputPane(){
+        info = new panelInfo();
+        arena = new panelArena();
+        comp = new panelCompetition();
+        competitor = new panelCompetitor();
 
 
         setLayout(new GridBagLayout());
@@ -41,6 +41,13 @@ public class inputPane extends JPanel {
         gbc.weighty = 0.1;
         add(info, gbc);
 
+        this.setGuiManager();
 
+    }
+    public void setGuiManager(){
+        GuiManager.getInstance().set_panelInfo(info);
+        GuiManager.getInstance().set_panelArena(arena);
+        GuiManager.getInstance().set_panelCompetition(comp);
+        GuiManager.getInstance().set_panelCompetitor(competitor);
     }
 }

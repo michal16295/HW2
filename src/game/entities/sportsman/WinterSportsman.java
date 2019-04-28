@@ -57,6 +57,11 @@ public class WinterSportsman extends Sportsman implements Competitor {
         this.setLocation(new Point());
     }
 
+    @Override
+    public boolean isFinished() {
+        return arena.isFinished(this);
+    }
+
     public void setArena(IArena arena){
         ValidationUtils.assertNotNull(arena);
         this.arena = arena;
@@ -73,7 +78,7 @@ public class WinterSportsman extends Sportsman implements Competitor {
      */
     @Override
     public void run() {
-        while(!arena.isFinished(this)){
+        while(!isFinished()){
             move(arena.getFriction());
             try
             {
@@ -84,8 +89,12 @@ public class WinterSportsman extends Sportsman implements Competitor {
                 Thread.currentThread().interrupt();
             }
         }
+        resetLocation();
         setChanged();
         notifyObservers();
+    }
 
+    public void resetLocation() {
+        setLocation(new Point(arena.getLength(), 0));
     }
 }

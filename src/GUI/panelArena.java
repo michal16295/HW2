@@ -27,7 +27,7 @@ public class panelArena extends JPanel {
     private Border blackline;
 
 
-    public panelArena(panelGame _panelGame, mainFrame _mainFrame) {
+    public panelArena() {
         //Setting the layout
         setLayout(new GridLayout(8,1));
 
@@ -66,11 +66,13 @@ public class panelArena extends JPanel {
         BuildArenaBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                panelGame game = GuiManager.getInstance().get_panelGame();
+                mainFrame frame = GuiManager.getInstance().get_mainFrame();
                 if(ArenaLengthText.getText().isEmpty()){
                     ArenaLengthText.setText("700");
                 }
                 GameEngine.getInstance().setComp(null);
-                _panelGame.setIcon(null);
+                game.setIcon(null);
                 try{
                     double len;
                     try{
@@ -86,12 +88,13 @@ public class panelArena extends JPanel {
                     }
                     ARENA = new WinterArena(len, (SnowSurface)SnowSurfaceCombobox.getSelectedItem(), (WeatherCondition)WeatherConditionCombobox.getSelectedItem());
                     GameEngine.getInstance().setArena(ARENA);
-                    _panelGame.setImage((WeatherCondition)WeatherConditionCombobox.getSelectedItem());
-                    _panelGame.setImage(_panelGame.resizeImage(1000, (int)len,_panelGame.getImage()));
-                    _mainFrame.setSize(1000,(int)len);
-                    _panelGame.clearArray();
-                    _panelGame.setRatio();
+                    game.setImage((WeatherCondition)WeatherConditionCombobox.getSelectedItem());
+                    game.setImage(game.resizeImage(1000, (int)len,game.getImage()));
+                    frame.setSize(1000,(int)len);
+                    game.clearArray();
+                    game.setRatio();
 
+                    InfoTable.getModel().deleteData();
 
                 }catch (Exception ex){
                     ex.printStackTrace();

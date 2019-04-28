@@ -28,7 +28,7 @@ public class panelCompetitor extends JPanel {
     private JTextField AccelerationText;
     private JButton AddCompetitorBtn;
 
-    public panelCompetitor(panelGame _panelGame){
+    public panelCompetitor(){
         setLayout(new GridLayout(10 ,1));
         Border blackline = BorderFactory.createLineBorder(Color.black);
 
@@ -57,6 +57,10 @@ public class panelCompetitor extends JPanel {
         AddCompetitorBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (GuiManager.getInstance().get_panelInfo().isInRace()) {
+                    return;
+                }
+                panelGame game = GuiManager.getInstance().get_panelGame();
                 try{
                     if(GameEngine.getInstance().getArena() == null && GameEngine.getInstance().getComp() == null){
                         JOptionPane.showMessageDialog(null, "Please build arena, create competition and then add competitors", "Message", JOptionPane.ERROR_MESSAGE);
@@ -89,9 +93,10 @@ public class panelCompetitor extends JPanel {
                     Constructor ctor = aClass.getConstructor(String.class, double.class, Gender.class, double.class, double.class, Discipline.class, IArena.class);
                     Object o = ctor.newInstance(name, age, comp.getGender(),acceleration ,maxSpeed ,comp.getDiscipline(),GameEngine.getInstance().getArena());
                     GameEngine.getInstance().addtSportsman((WinterSportsman)o);
-                    _panelGame.playerIcon((WinterSportsman)o);
-                    _panelGame.addCompetitor((Competitor)o);
+                    game.playerIcon((WinterSportsman)o);
+                    game.addCompetitor((Competitor)o);
 
+                    InfoTable.getModel().addRow(name, 0.0, maxSpeed, 0.0, "No");
 
                 }catch (IllegalStateException ex){
                     JOptionPane.showMessageDialog(null, "Reached maximum competitors", "Message", JOptionPane.ERROR_MESSAGE);

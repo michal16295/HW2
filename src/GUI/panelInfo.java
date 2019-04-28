@@ -13,7 +13,7 @@ public class panelInfo extends JPanel {
     private JButton show;
     private boolean inRace;
 
-    public panelInfo(panelGame _panelGame){
+    public panelInfo(){
         setLayout(new GridLayout(2, 1));
         Border blackline = BorderFactory.createLineBorder(Color.black);
         start = new JButton("Start Competition");
@@ -24,9 +24,15 @@ public class panelInfo extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 if(!inRace){
                     GameEngine.getInstance().getComp().startRace();
-                    _panelGame.startRace();
+                    GuiManager.getInstance().get_panelGame().startRace();
                     inRace = true;
                 }
+            }
+        });
+        show.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                InfoTable.getInstance();
             }
         });
         add(start);
@@ -35,5 +41,9 @@ public class panelInfo extends JPanel {
     }
     public void setInRace(boolean inRace){
         this.inRace = inRace;
+    }
+
+    public boolean isInRace() {
+        return inRace;
     }
 }

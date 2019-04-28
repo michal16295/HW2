@@ -168,6 +168,10 @@ public class panelGame extends JPanel implements Runnable{
     public void run() {
         while(GameEngine.getInstance().getComp().hasActiveCompetitors()){
             updateUI();
+            for (int i = 0; i < tempActive.size(); ++i) {
+                Competitor c = tempActive.get(i);
+                InfoTable.getInstance().getModel().updateRow(i, c.getSpeed(), c.getLocation().getX(), c.isFinished());
+            }
             try{
                 Thread.sleep(30);
             }

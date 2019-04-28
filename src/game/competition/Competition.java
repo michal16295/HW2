@@ -118,9 +118,7 @@ public abstract class Competition implements Observer {
 
     @Override
     public synchronized void update(Observable o, Object arg){
-        Competitor c = (Competitor)o;
-        c.resetLocation();
-        finishedCompetitors.add(c);
+        finishedCompetitors.add((Competitor)o);
         activeCompetitors.remove(o);
         o.deleteObserver(this);
     }

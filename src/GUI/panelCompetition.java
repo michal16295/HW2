@@ -32,7 +32,7 @@ public class panelCompetition extends JPanel {
     private JButton CreateCompBtn;
     private Border blackLine;
 
-    public panelCompetition(panelGame _panelGame){
+    public panelCompetition(panelGame _panelGame, panelInfo _panelInfo){
         this.setSize(new Dimension(300,400));
         //Setting the layout
         setLayout(new GridLayout(12, 1));
@@ -116,6 +116,7 @@ public class panelCompetition extends JPanel {
                     Object o = ctor.newInstance(GameEngine.getInstance().getArena(), maxComp, discipline, league, gender);
                     GameEngine.getInstance().setComp((game.competition.Competition) o);
                     _panelGame.clearArray();
+                    _panelInfo.setInRace(false);
                 }
                 catch (Exception ex){
                     ex.printStackTrace();

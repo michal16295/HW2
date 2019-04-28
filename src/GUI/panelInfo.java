@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 public class panelInfo extends JPanel {
     private JButton start;
     private JButton show;
+    private boolean inRace;
 
     public panelInfo(panelGame _panelGame){
         setLayout(new GridLayout(2, 1));
@@ -21,13 +22,18 @@ public class panelInfo extends JPanel {
         start.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                GameEngine.getInstance().getComp().startRace();
-                _panelGame.startRace();
-
+                if(!inRace){
+                    GameEngine.getInstance().getComp().startRace();
+                    _panelGame.startRace();
+                    inRace = true;
+                }
             }
         });
         add(start);
         add(show);
         setBorder(blackline);
+    }
+    public void setInRace(boolean inRace){
+        this.inRace = inRace;
     }
 }

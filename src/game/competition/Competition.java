@@ -46,7 +46,7 @@ public abstract class Competition implements Observer {
 
     /**
      * Sets max competitors for the competition
-     * @param maxCompetitors
+     * @param maxCompetitors maximum competitors
      */
     private void setMaxCompetitors(int maxCompetitors){
         ValidationUtils.assertNotNegative(maxCompetitors);
@@ -57,7 +57,7 @@ public abstract class Competition implements Observer {
      * Add's a competitor to the competition
      * checks if the competition is not full  and if the competitor is valid to enter the competition
      * if TRUE inits the race and the competitor enters the competition
-     * @param competitor
+     * @param competitor the competitor to add
      */
     public void addCompetitor(Competitor competitor){
         ValidationUtils.assertNotNull(competitor);

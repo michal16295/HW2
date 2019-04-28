@@ -1,6 +1,4 @@
-package GUI;
-
-import utilities.Point;
+package GUI.leftpanel.infopanel;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
@@ -18,7 +16,6 @@ public class InfoTableModel extends AbstractTableModel {
     }
 
     /**
-     *
      * @return num of rows
      */
     @Override
@@ -27,7 +24,6 @@ public class InfoTableModel extends AbstractTableModel {
     }
 
     /**
-     *
      * @return num of cols
      */
     @Override
@@ -37,6 +33,7 @@ public class InfoTableModel extends AbstractTableModel {
 
     /**
      * return the value at data[row][col]
+     *
      * @param rowIndex
      * @param columnIndex
      * @return
@@ -46,17 +43,9 @@ public class InfoTableModel extends AbstractTableModel {
         return data.get(rowIndex).get(columnIndex);
     }
 
-    /*
-     * Don't need to implement this method unless your table's
-     * data can change.
-     */
-    public void setValueAt(Object value, int row, int col) {
-        data.get(row).set(col, value);
-        fireTableCellUpdated(row, col);
-    }
-
     /**
      * adding a player to the table with his initial data
+     *
      * @param name
      * @param speed
      * @param maxSpeed
@@ -71,11 +60,12 @@ public class InfoTableModel extends AbstractTableModel {
         player.add(location);
         player.add(finished);
         data.add(player);
-        fireTableRowsInserted(data.size()-1, data.size()-1);
+        fireTableRowsInserted(data.size() - 1, data.size() - 1);
     }
 
     /**
      * updating the data during the competition
+     *
      * @param index
      * @param speed
      * @param location

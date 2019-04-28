@@ -1,4 +1,7 @@
-package GUI;
+package GUI.leftpanel;
+
+import GUI.GuiManager;
+import GUI.leftpanel.infopanel.PanelInfo;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,20 +9,17 @@ import java.awt.*;
 /**
  * The right panel - holds: Build arena, Create competition, Add competitor, Start competition and show info
  */
-public class inputPane extends JPanel {
-    private panelArena arena;
-    private panelCompetition comp;
-    private panelCompetitor competitor;
-    private panelInfo info;
+public class InputPane extends JPanel {
+    private PanelInfo info;
 
     /**
      * Input panel ctor
      */
-    public inputPane(){
-        info = new panelInfo();
-        arena = new panelArena();
-        comp = new panelCompetition();
-        competitor = new panelCompetitor();
+    public InputPane() {
+        info = new PanelInfo();
+        PanelArena arena = new PanelArena();
+        PanelCompetition comp = new PanelCompetition();
+        PanelCompetitor competitor = new PanelCompetitor();
 
         // Setting the layout
         setLayout(new GridBagLayout());
@@ -47,17 +47,13 @@ public class inputPane extends JPanel {
         gbc.weighty = 0.1;
         add(info, gbc);
 
-        this.setGuiManager();
-
+        updateGuiManager();
     }
 
     /**
      * Setting the panels in the Gui manager
      */
-    public void setGuiManager(){
-        GuiManager.getInstance().set_panelInfo(info);
-        GuiManager.getInstance().set_panelArena(arena);
-        GuiManager.getInstance().set_panelCompetition(comp);
-        GuiManager.getInstance().set_panelCompetitor(competitor);
+    private void updateGuiManager() {
+        GuiManager.setPanelInfo(info);
     }
 }

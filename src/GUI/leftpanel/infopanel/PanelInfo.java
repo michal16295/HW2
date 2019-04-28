@@ -1,5 +1,6 @@
-package GUI;
+package GUI.leftpanel.infopanel;
 
+import GUI.GuiManager;
 import game.GameEngine;
 
 import javax.swing.*;
@@ -8,12 +9,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class panelInfo extends JPanel {
+public class PanelInfo extends JPanel {
     private JButton start;
     private JButton show;
     private boolean inRace;
 
-    public panelInfo(){
+    public PanelInfo() {
         setLayout(new GridLayout(2, 1));
         Border blackline = BorderFactory.createLineBorder(Color.black);
         start = new JButton("Start Competition");
@@ -22,9 +23,9 @@ public class panelInfo extends JPanel {
         start.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(!inRace){
+                if (!inRace) {
                     GameEngine.getInstance().getComp().startRace();
-                    GuiManager.getInstance().get_panelGame().startRace();
+                    GuiManager.getPanelGame().startRace();
                     inRace = true;
                 }
             }
@@ -32,14 +33,15 @@ public class panelInfo extends JPanel {
         show.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                InfoTable.getInstance();
+                InfoTable.createInstance();
             }
         });
         add(start);
         add(show);
         setBorder(blackline);
     }
-    public void setInRace(boolean inRace){
+
+    public void setInRace(boolean inRace) {
         this.inRace = inRace;
     }
 

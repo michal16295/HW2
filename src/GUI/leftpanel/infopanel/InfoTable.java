@@ -1,4 +1,4 @@
-package GUI;
+package GUI.leftpanel.infopanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,16 +10,15 @@ import java.awt.event.WindowEvent;
  * hold the information on each competitor before, during and after the competition
  */
 public class InfoTable extends JFrame {
-    private JTable table;
     private static InfoTableModel model = new InfoTableModel();
     private static InfoTable instance;
-    private static boolean opened;
 
     /**
      * Info table ctor
      */
-    private InfoTable(){
+    private InfoTable() {
         super("Competitors information");
+
         pack();
         setResizable(false);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -27,7 +26,7 @@ public class InfoTable extends JFrame {
         setVisible(true);
 
         // Initializing the JTable
-        table = new JTable(model);
+        JTable table = new JTable(model);
         table.setBounds(30, 40, 200, 300);
 
         // adding it to JScrollPane
@@ -38,30 +37,17 @@ public class InfoTable extends JFrame {
             @Override
             public void windowClosing(WindowEvent e) {
                 instance = null;
-                opened = false;
             }
         });
-
-        opened = true;
     }
 
     /**
-     * get instance
-     * @return Info table instance
+     * creates instance if not exists
      */
-    public static InfoTable getInstance() {
+    public static void createInstance() {
         if (instance == null) {
             instance = new InfoTable();
         }
-        return instance;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public static boolean isOpened() {
-        return opened;
     }
 
     public static InfoTableModel getModel() {

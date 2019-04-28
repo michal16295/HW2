@@ -15,13 +15,16 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class panelGame extends JPanel {
+public class panelGame extends JPanel implements Runnable{
     private BufferedImage image;
     private BufferedImage icon;
     ArrayList <Competitor> tempActive;
+    private double ratio;
 
 
-    public panelGame() { }
+    public panelGame() {
+        tempActive = new ArrayList<>();
+    }
     /**
      * Setting the background image
      * @param weatherCondition
@@ -94,10 +97,9 @@ public class panelGame extends JPanel {
     }
     public void paintComponent(Graphics g){
         g.drawImage(image,0, 0, null);
-        g.drawImage(icon, 0, 0, null);
-                int j = 0;
+        int j = 0;
         for(Competitor i: tempActive){
-            g.drawImage(icon, j, (int)i.getLocation().getX(), null);
+            g.drawImage(icon, j, (int)(i.getLocation().getX() * ratio), null);
             j += 100;
         }
     }
@@ -143,9 +145,35 @@ public class panelGame extends JPanel {
         icon = resizeImage(50,50,icon);
         updateUI();
     }
+    public void setTempActive(ArrayList <Competitor> tempActive){
+        this.tempActive = tempActive;
+    }
+    public ArrayList <Competitor> getTempActive(){
+        return tempActive;
+    }
+    public void addCompetitor(Competitor comp){
+        this.tempActive.add(comp);
+    }
+    public void clearArray(){
+        this.tempActive.clear();
+    }
     public void startRace(){
-        Competition comp = GameEngine.getInstance().getComp();
-        tempActive = new ArrayList<>(comp.getActiveCompetitors());
+        new Thread(this).start();
+    }
+    public void setRatio(){
+        ratio = (GameEngine.getInstance().getArena().getLength() - 90) / GameEngine.getInstance().getArena().getLength();
     }
 
+    @Override
+    public void run() {
+        while(GameEngine.getInstance().getComp().hasActiveCompetitors()){
+            updateUI();
+            try{
+                Thread.sleep(30);
+            }
+            catch (InterruptedException ex){
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
 }

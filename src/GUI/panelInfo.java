@@ -1,5 +1,7 @@
 package GUI;
 
+import game.GameEngine;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -10,7 +12,7 @@ public class panelInfo extends JPanel {
     private JButton start;
     private JButton show;
 
-    public panelInfo(){
+    public panelInfo(panelGame _panelGame){
         setLayout(new GridLayout(2, 1));
         Border blackline = BorderFactory.createLineBorder(Color.black);
         start = new JButton("Start Competition");
@@ -19,6 +21,8 @@ public class panelInfo extends JPanel {
         start.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                GameEngine.getInstance().getComp().startRace();
+                _panelGame.startRace();
 
             }
         });

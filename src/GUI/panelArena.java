@@ -89,6 +89,8 @@ public class panelArena extends JPanel {
                     _panelGame.setImage((WeatherCondition)WeatherConditionCombobox.getSelectedItem());
                     _panelGame.setImage(_panelGame.resizeImage(1000, (int)len,_panelGame.getImage()));
                     _mainFrame.setSize(1000,(int)len);
+                    _panelGame.clearArray();
+                    _panelGame.setRatio();
 
 
                 }catch (Exception ex){

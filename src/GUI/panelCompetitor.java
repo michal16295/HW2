@@ -3,6 +3,7 @@ package GUI;
 import game.GameEngine;
 import game.arena.IArena;
 import game.competition.Competition;
+import game.competition.Competitor;
 import game.entities.sportsman.WinterSportsman;
 import game.enums.Discipline;
 import game.enums.Gender;
@@ -89,6 +90,7 @@ public class panelCompetitor extends JPanel {
                     Object o = ctor.newInstance(name, age, comp.getGender(),acceleration ,maxSpeed ,comp.getDiscipline(),GameEngine.getInstance().getArena());
                     GameEngine.getInstance().addtSportsman((WinterSportsman)o);
                     _panelGame.playerIcon((WinterSportsman)o);
+                    _panelGame.addCompetitor((Competitor)o);
 
 
                 }catch (IllegalStateException ex){
@@ -100,8 +102,6 @@ public class panelCompetitor extends JPanel {
                     JOptionPane.showMessageDialog(null, "Invalid input! try again", "Message", JOptionPane.ERROR_MESSAGE);
                     ex.printStackTrace();
                 }
-
-
             }
         });
 

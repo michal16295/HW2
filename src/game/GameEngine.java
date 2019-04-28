@@ -3,10 +3,7 @@ package game;
 import game.arena.IArena;
 import game.arena.WinterArena;
 import game.competition.Competition;
-import game.competition.Competitor;
-import game.competition.WinterCompetition;
 import game.entities.sportsman.WinterSportsman;
-import utilities.ValidationUtils;
 
 /**
  * Engine that runs the game step by step.
@@ -14,7 +11,6 @@ import utilities.ValidationUtils;
 public class GameEngine {
 	private WinterArena arena;
 	private Competition comp;
-	private WinterSportsman sportsman;
 	private game.enums.Competition type;
 
 	/**
@@ -53,12 +49,8 @@ public class GameEngine {
 		return comp;
 	}
 
-	public void addtSportsman(WinterSportsman sportsman){
+	public void addSportsman(WinterSportsman sportsman){
 		getComp().addCompetitor(sportsman);
-
-	}
-	public WinterSportsman getSportsman(){
-		return sportsman;
 	}
 	public void setType(game.enums.Competition type){
 		this.type = type;

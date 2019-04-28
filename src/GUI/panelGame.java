@@ -172,17 +172,22 @@ public class panelGame extends JPanel implements Runnable{
     @Override
     public void run() {
         while(GameEngine.getInstance().getComp().hasActiveCompetitors()){
-            updateUI();
-            for (int i = 0; i < tempActive.size(); ++i) {
-                Competitor c = tempActive.get(i);
-                InfoTable.getInstance().getModel().updateRow(i, c.getSpeed(), c.getLocation().getX(), c.isFinished());
-            }
+            updatePlayers();
             try{
                 Thread.sleep(30);
             }
             catch (InterruptedException ex){
                 Thread.currentThread().interrupt();
             }
+        }
+        updatePlayers();
+    }
+
+    private void updatePlayers() {
+        updateUI();
+        for (int i = 0; i < tempActive.size(); ++i) {
+            Competitor c = tempActive.get(i);
+            InfoTable.getModel().updateRow(i, c.getSpeed(), c.getLocation().getX(), c.isFinished());
         }
     }
 }

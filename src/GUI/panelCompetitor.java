@@ -146,7 +146,7 @@ public class panelCompetitor extends JPanel {
             Class aClass = getClass().getClassLoader().loadClass(type);
             Constructor ctor = aClass.getConstructor(String.class, double.class, Gender.class, double.class, double.class, Discipline.class, IArena.class);
             Object o = ctor.newInstance(name, age, comp.getGender(),acceleration ,maxSpeed ,comp.getDiscipline(),GameEngine.getInstance().getArena());
-            GameEngine.getInstance().addtSportsman((WinterSportsman)o);
+            GameEngine.getInstance().addSportsman((WinterSportsman)o);
             game.playerIcon((WinterSportsman)o);
             game.addCompetitor((Competitor)o);
             //adding the player to the info table

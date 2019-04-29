@@ -17,6 +17,9 @@ import java.util.ArrayList;
 
 /**
  * Game panel
+ *
+ * @author Dima Zagorodny - 320552243
+ * @author Michal Barski - 205870934
  */
 public class PanelGame extends JPanel implements Runnable {
     private final String path = "assets/";
@@ -38,7 +41,7 @@ public class PanelGame extends JPanel implements Runnable {
      *
      * @param weatherCondition the weather condition
      */
-    public void setImage(WeatherCondition weatherCondition) {
+    private void setImage(WeatherCondition weatherCondition) {
         String pic = null;
         switch (weatherCondition) {
             case STORMY:
@@ -57,24 +60,6 @@ public class PanelGame extends JPanel implements Runnable {
             ex.printStackTrace();
         }
         updateUI();
-    }
-
-    /**
-     * get image
-     *
-     * @return image
-     */
-    public BufferedImage getImage() {
-        return image;
-    }
-
-    /**
-     * set image
-     *
-     * @param image
-     */
-    public void setImage(BufferedImage image) {
-        this.image = image;
     }
 
     /**

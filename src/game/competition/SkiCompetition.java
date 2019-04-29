@@ -9,6 +9,7 @@ import game.enums.League;
 /**
  * Ski Competition class
  * Represents a ski competitor.
+ *
  * @author Dima Zagorodny - 320552243
  * @author Michal Barski - 205870934
  */
@@ -16,18 +17,20 @@ public class SkiCompetition extends WinterCompetition {
 
     /**
      * Ctor with parameters of arena, maxComp, discipline, league, gender
-     * @param arena arena type
-     * @param maxComp maximum competitors in the game
+     *
+     * @param arena      arena type
+     * @param maxComp    maximum competitors in the game
      * @param discipline the discipline
-     * @param league league type
-     * @param gender MALE/FEMALE
+     * @param league     league type
+     * @param gender     MALE/FEMALE
      */
-    public SkiCompetition(IArena arena, int maxComp, Discipline discipline, League league, Gender gender){
+    public SkiCompetition(IArena arena, int maxComp, Discipline discipline, League league, Gender gender) {
         super(arena, maxComp, discipline, league, gender);
     }
 
     /**
      * Checks if the competitor is valid for the competition
+     *
      * @param competitor the competitor
      * @return True if the competitor is valid and instance of Skier
      */

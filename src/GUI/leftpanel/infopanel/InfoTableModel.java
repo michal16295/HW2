@@ -5,12 +5,21 @@ import java.util.ArrayList;
 
 /**
  * Holds the data of the table - Table manager
+ *
+ * @author Dima Zagorodny - 320552243
+ * @author Michal Barski - 205870934
  */
 public class InfoTableModel extends AbstractTableModel {
     private static ArrayList<ArrayList<Object>> data = new ArrayList<>();
 
     private final String[] columnNames = {"Name", "Speed", "Max Speed", "Location", "Finished"};
 
+    /**
+     * Returns the column name of index 'col'
+     *
+     * @param col the index of column
+     * @return the column name
+     */
     public String getColumnName(int col) {
         return columnNames[col];
     }

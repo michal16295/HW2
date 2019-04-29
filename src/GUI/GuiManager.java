@@ -1,13 +1,12 @@
 package GUI;
 
 import GUI.leftpanel.infopanel.PanelInfo;
-import GUI.leftpanel.InputPane;
-import GUI.leftpanel.PanelArena;
-import GUI.leftpanel.PanelCompetition;
-import GUI.leftpanel.PanelCompetitor;
 
 /**
  * Combines all the panels and the main frame
+ *
+ * @author Dima Zagorodny - 320552243
+ * @author Michal Barski - 205870934
  */
 public class GuiManager {
     private static PanelGame panelGame;
@@ -32,7 +31,7 @@ public class GuiManager {
     /**
      * setting the main frame
      *
-     * @param frame
+     * @param frame the main frame
      */
     public static void setMainFrame(MainFrame frame) {
         mainFrame = frame;
@@ -50,7 +49,7 @@ public class GuiManager {
     /**
      * set game panel
      *
-     * @param _panelGame
+     * @param _panelGame the panel game
      */
     public static void setPanelGame(PanelGame _panelGame) {
         panelGame = _panelGame;
@@ -68,7 +67,7 @@ public class GuiManager {
     /**
      * set info panel
      *
-     * @param _panelInfo
+     * @param _panelInfo the panel info
      */
     public static void setPanelInfo(PanelInfo _panelInfo) {
         panelInfo = _panelInfo;

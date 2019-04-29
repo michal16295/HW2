@@ -16,6 +16,9 @@ import java.awt.event.ActionListener;
 
 /**
  * Arena panel - Builds the arena
+ *
+ * @author Dima Zagorodny - 320552243
+ * @author Michal Barski - 205870934
  */
 public class PanelArena extends JPanel {
     private JLabel BuildArenaLabel;

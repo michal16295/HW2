@@ -18,6 +18,9 @@ import java.awt.event.ActionListener;
 
 /**
  * Competition panel - Creates the competition
+ *
+ * @author Dima Zagorodny - 320552243
+ * @author Michal Barski - 205870934
  */
 public class PanelCompetition extends JPanel {
     private JLabel createCompLabel;
@@ -56,9 +59,7 @@ public class PanelCompetition extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 PanelGame game = GuiManager.getPanelGame();
                 PanelInfo info = GuiManager.getPanelInfo();
-                String path = "game.competition.";
                 String type = chooseCompCombobox.getSelectedItem().toString();
-                String compClass = path + type + "Competition";
 
                 //check if arena exists
                 if (GameEngine.getInstance().getArena() == null) {
@@ -66,7 +67,7 @@ public class PanelCompetition extends JPanel {
                     return;
                 }
 
-                int maxComp = 0;
+                int maxComp;
                 try {
                     //max competitors
                     maxComp = Integer.parseInt(maxCompText.getText());
@@ -83,7 +84,7 @@ public class PanelCompetition extends JPanel {
                     return;
                 }
 
-                createCompetition(info, game, compClass, maxComp);
+                createCompetition(info, game, type, maxComp);
             }
         });
     }

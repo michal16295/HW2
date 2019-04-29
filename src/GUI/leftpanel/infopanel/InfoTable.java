@@ -8,6 +8,9 @@ import java.awt.event.WindowEvent;
 /**
  * Information table
  * hold the information on each competitor before, during and after the competition
+ *
+ * @author Dima Zagorodny - 320552243
+ * @author Michal Barski - 205870934
  */
 public class InfoTable extends JFrame {
     private static InfoTableModel model = new InfoTableModel();
@@ -50,6 +53,9 @@ public class InfoTable extends JFrame {
         }
     }
 
+    /**
+     * @return the info table model
+     */
     public static InfoTableModel getModel() {
         return model;
     }

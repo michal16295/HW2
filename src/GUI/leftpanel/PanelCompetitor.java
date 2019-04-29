@@ -15,6 +15,9 @@ import java.awt.event.ActionListener;
 
 /**
  * competition panel - creating and adding competitors to the panel
+ *
+ * @author Dima Zagorodny - 320552243
+ * @author Michal Barski - 205870934
  */
 public class PanelCompetitor extends JPanel {
     private JLabel addCompetitorLabel;

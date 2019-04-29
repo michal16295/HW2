@@ -9,16 +9,23 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Panel info - holds start competition and show info buttons
+ *
+ * @author Dima Zagorodny - 320552243
+ * @author Michal Barski - 205870934
+ */
 public class PanelInfo extends JPanel {
-    private JButton start;
-    private JButton show;
     private boolean inRace;
 
+    /**
+     * Default ctor
+     */
     public PanelInfo() {
         setLayout(new GridLayout(2, 1));
         Border blackline = BorderFactory.createLineBorder(Color.black);
-        start = new JButton("Start Competition");
-        show = new JButton("Show info");
+        JButton start = new JButton("Start Competition");
+        JButton show = new JButton("Show info");
 
         start.addActionListener(new ActionListener() {
             @Override
@@ -41,10 +48,18 @@ public class PanelInfo extends JPanel {
         setBorder(blackline);
     }
 
+    /**
+     * Updates the is the competition began
+     *
+     * @param inRace true if the competition began, false otherwise
+     */
     public void setInRace(boolean inRace) {
         this.inRace = inRace;
     }
 
+    /**
+     * @return if competition has began
+     */
     public boolean isInRace() {
         return inRace;
     }

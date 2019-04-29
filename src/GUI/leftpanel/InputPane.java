@@ -8,6 +8,9 @@ import java.awt.*;
 
 /**
  * The right panel - holds: Build arena, Create competition, Add competitor, Start competition and show info
+ *
+ * @author Dima Zagorodny - 320552243
+ * @author Michal Barski - 205870934
  */
 public class InputPane extends JPanel {
     private PanelInfo info;

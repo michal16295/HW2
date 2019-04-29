@@ -99,6 +99,9 @@ public class WinterArena implements IArena {
         return me.getLocation().getX() >= getLength();
     }
 
+    /**
+     * @return arena's details
+     */
     @Override
     public String toString() {
         return getClass().getSimpleName() + ' ' + getLength() + ' ' + getSurface() + ' ' + getFriction();

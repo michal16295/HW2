@@ -23,6 +23,8 @@ import java.util.ArrayList;
  */
 public class PanelGame extends JPanel implements Runnable {
     private final String path = "assets/";
+    private final double OFFSET_X = 60;
+
     private Thread thread;
     private BufferedImage image;
     private BufferedImage icon;
@@ -93,7 +95,7 @@ public class PanelGame extends JPanel implements Runnable {
         int j = 0;
         for (Competitor i : activeCompetitors) {
             g.drawImage(icon, j, (int) (i.getLocation().getX() * ratio), null);
-            j += 100;
+            j += OFFSET_X;
         }
     }
 
@@ -125,6 +127,24 @@ public class PanelGame extends JPanel implements Runnable {
      */
     public void addCompetitor(Competitor comp) {
         this.activeCompetitors.add(comp);
+        updateMainFrameWidth();
+    }
+
+    /**
+     * Updates main frame size if there too many competitors
+     */
+    private void updateMainFrameWidth() {
+        int width = 1000;
+        int height = GuiManager.getMainFrame().getHeight();
+
+        if (activeCompetitors.size() > 14) {
+            int numOfPlayers = activeCompetitors.size() - 14;
+            width += numOfPlayers * (OFFSET_X + 5);
+        }
+
+        GuiManager.getMainFrame().setSize(width, height);
+
+        image = resizeImage(width, height, image);
     }
 
     /**

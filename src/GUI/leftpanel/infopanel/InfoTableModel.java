@@ -1,11 +1,7 @@
 package GUI.leftpanel.infopanel;
 
 import javax.swing.table.AbstractTableModel;
-import java.util.ArrayList;
-
-import java.util.Collections;
-
-
+import java.util.*;
 
 
 /**
@@ -16,6 +12,7 @@ import java.util.Collections;
  */
 public class InfoTableModel extends AbstractTableModel {
     private static ArrayList<ArrayList<Object>> data = new ArrayList<>();
+    private static HashMap<Integer, Integer> indexer = new HashMap<>();
 
     private final String[] columnNames = {"Name", "Speed", "Max Speed", "Location", "Finished"};
 
@@ -75,6 +72,8 @@ public class InfoTableModel extends AbstractTableModel {
         player.add(finished);
         data.add(player);
         fireTableRowsInserted(data.size() - 1, data.size() - 1);
+
+        indexer.put(data.size() - 1, data.size() - 1);
     }
 
     /**
@@ -86,13 +85,15 @@ public class InfoTableModel extends AbstractTableModel {
      * @param isFinished
      */
     public void updateRow(int index, double speed, double location, boolean isFinished) {
-        ArrayList<Object> player = data.get(index);
+        int idx = indexer.get(index);
+
+        ArrayList<Object> player = data.get(idx);
         player.set(1, speed);
         player.set(3, location);
         player.set(4, isFinished ? "Yes" : "No");
-        fireTableCellUpdated(index, 1);
-        fireTableCellUpdated(index, 3);
-        fireTableCellUpdated(index, 4);
+        fireTableCellUpdated(idx, 1);
+        fireTableCellUpdated(idx, 3);
+        fireTableCellUpdated(idx, 4);
     }
 
     /**
@@ -100,18 +101,32 @@ public class InfoTableModel extends AbstractTableModel {
      * from top to bottom
      * the winner placed first in the table
      */
-
-    public void sortTable(){
-        for(int i = 0 ; i < data.size() - 1; i++){
-            for (int j = 0; j < data.size() - i - 1 ; j++){
+    public void sortTable() {
+        for(int i = 0 ; i < data.size() - 1; i++) {
+            for (int j = 0; j < data.size() - i - 1 ; j++) {
                 ArrayList<Object> player1 = data.get(j);
                 ArrayList<Object> player2 = data.get(j + 1);
-                if((Double)player1.get(3) < (Double)player2.get(3)){
+                if (player1.get(4).equals("Yes"))
+                    continue;
+                if ((Double)player1.get(3) < (Double)player2.get(3)) {
                     Collections.swap(data, j, j+1);
+                    swapIndexes(j, j+1);
                 }
             }
         }
         fireTableDataChanged();
+    }
+
+    /**
+     * swaps between 2 indexes to keep the table info correct according to players position
+     * @param idx1 first index
+     * @param idx2 second index
+     */
+    private void swapIndexes(int idx1, int idx2) {
+        int p1 = indexer.get(idx1);
+        int p2 = indexer.get(idx2);
+        indexer.put(idx1, p2);
+        indexer.put(idx2, p1);
     }
 
     /**

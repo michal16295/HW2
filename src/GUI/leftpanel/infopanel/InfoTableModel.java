@@ -3,6 +3,11 @@ package GUI.leftpanel.infopanel;
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 
+import java.util.Collections;
+
+
+
+
 /**
  * Holds the data of the table - Table manager
  *
@@ -88,6 +93,25 @@ public class InfoTableModel extends AbstractTableModel {
         fireTableCellUpdated(index, 1);
         fireTableCellUpdated(index, 3);
         fireTableCellUpdated(index, 4);
+    }
+
+    /**
+     * Sorts the info table by location in real time
+     * from top to bottom
+     * the winner placed first in the table
+     */
+
+    public void sortTable(){
+        for(int i = 0 ; i < data.size() - 1; i++){
+            for (int j = 0; j < data.size() - i - 1 ; j++){
+                ArrayList<Object> player1 = data.get(j);
+                ArrayList<Object> player2 = data.get(j + 1);
+                if((Double)player1.get(3) < (Double)player2.get(3)){
+                    Collections.swap(data, j, j+1);
+                }
+            }
+        }
+        fireTableDataChanged();
     }
 
     /**

@@ -197,6 +197,7 @@ public class PanelGame extends JPanel implements Runnable {
             Competitor c = activeCompetitors.get(i);
             InfoTable.getModel().updateRow(i, c.getSpeed(), c.getLocation().getX(), c.isFinished());
         }
+        InfoTable.getModel().sortTable();
     }
 
     /**

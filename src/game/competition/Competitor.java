@@ -12,7 +12,11 @@ import game.entities.IMobileEntity;
 public interface Competitor extends IMobileEntity, Runnable {
     void initRace();
 
+    String getName();
+
     double getSpeed();
+
+    double getMaxSpeed();
 
     boolean isFinished();
 

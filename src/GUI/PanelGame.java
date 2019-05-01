@@ -14,6 +14,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Game panel
@@ -29,6 +30,7 @@ public class PanelGame extends JPanel implements Runnable {
     private BufferedImage image;
     private BufferedImage icon;
     private ArrayList<Competitor> activeCompetitors;
+    private ArrayList<Competitor> competitors;
     private double ratio;
 
     /**
@@ -163,6 +165,7 @@ public class PanelGame extends JPanel implements Runnable {
             thread = new Thread(this);
             thread.start();
         }
+        competitors = new ArrayList<>(activeCompetitors);
     }
 
     /**
@@ -193,11 +196,31 @@ public class PanelGame extends JPanel implements Runnable {
      */
     private void updatePlayers() {
         updateUI();
-        for (int i = 0; i < activeCompetitors.size(); ++i) {
-            Competitor c = activeCompetitors.get(i);
-            InfoTable.getModel().updateRow(i, c.getSpeed(), c.getLocation().getX(), c.isFinished());
+        ArrayList<Competitor> temp = sortPlayers();
+        for (int i = 0; i < temp.size(); ++i) {
+            Competitor c = temp.get(i);
+            InfoTable.getModel().updateRow(i, c.getName(), c.getSpeed(), c.getMaxSpeed(), c.getLocation().getX(), c.isFinished());
         }
-        InfoTable.getModel().sortTable();
+    }
+
+    /**
+     * Sorts the info table by location in real time
+     * from top to bottom
+     * the winner placed first in the table
+     */
+    private ArrayList<Competitor> sortPlayers() {
+        for (int i = 0; i < competitors.size() - 1; i++) {
+            for (int j = 0; j < competitors.size() - i - 1; j++) {
+                Competitor player1 = competitors.get(j);
+                Competitor player2 = competitors.get(j + 1);
+                if (player1.isFinished() || player2.isFinished())
+                    continue;
+                if (player1.getLocation().getX() < player2.getLocation().getX()) {
+                    Collections.swap(competitors, j, j + 1);
+                }
+            }
+        }
+        return competitors;
     }
 
     /**

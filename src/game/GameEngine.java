@@ -1,10 +1,15 @@
 package game;
 
+import GUI.GuiManager;
+import GUI.PanelGame;
+import game.arena.ArenaFactory;
 import game.arena.IArena;
-import game.arena.WinterArena;
+import game.arena.Arena;
+import game.competition.*;
 import game.competition.Competition;
-import game.competition.Competitor;
+import game.entities.sportsman.Skier;
 import game.enums.*;
+
 
 import java.lang.reflect.Constructor;
 
@@ -15,7 +20,7 @@ import java.lang.reflect.Constructor;
  * @author Michal Barski - 205870934
  */
 public class GameEngine {
-    private WinterArena arena;
+    private Arena arena;
     private Competition comp;
     private game.enums.Competition type;
 
@@ -80,8 +85,8 @@ public class GameEngine {
      * @param surface          the surface
      * @param weatherCondition the weather condition
      */
-    public void buildArena(double len, SnowSurface surface, WeatherCondition weatherCondition) {
-        arena = new WinterArena(len, surface, weatherCondition);
+    public void buildArena(String type,double len, SnowSurface surface, WeatherCondition weatherCondition) {
+        arena = ArenaFactory.makeArena(type, len, surface, weatherCondition);
         comp = null;
     }
 
@@ -106,6 +111,18 @@ public class GameEngine {
             ex.printStackTrace();
         }
     }
+    public void buildDefaultComp(){
+        try{
+            this.arena = ArenaFactory.makeDefaultWinterArena();
+            SkiCompetitionBuilder cBuilder = new MyBuilder(arena);
+            CompetitionEngineer engineer = new CompetitionEngineer(cBuilder);
+            engineer.constructCompetition();
+            comp = engineer.getCompetition();
+            this.setType(game.enums.Competition.Ski);
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
 
     /**
      * Creates a sportsman using reflection and adds to the competition
@@ -118,13 +135,13 @@ public class GameEngine {
      * @throws IllegalStateException    Illegal competitor
      * @throws IllegalArgumentException Reached max competitors
      */
-    public Object createAndAddSportsman(String name, double age, double acceleration, double maxSpeed) throws IllegalStateException, IllegalArgumentException {
+    public Object createAndAddSportsman(int id,String name, double age, double acceleration, double maxSpeed) throws IllegalStateException, IllegalArgumentException {
         Object o;
         try {
             String type = getPlayerType();
             Class aClass = getClass().getClassLoader().loadClass(type);
-            Constructor ctor = aClass.getConstructor(String.class, double.class, Gender.class, double.class, double.class, Discipline.class, IArena.class);
-            o = ctor.newInstance(name, age, comp.getGender(), acceleration, maxSpeed, comp.getDiscipline(), arena);
+            Constructor ctor = aClass.getConstructor(int.class,String.class, double.class, Gender.class, double.class, double.class, Discipline.class, IArena.class);
+            o = ctor.newInstance(id,name, age, comp.getGender(), acceleration, maxSpeed, comp.getDiscipline(), arena);
         } catch (Exception ex) {
             ex.printStackTrace();
             return null;
@@ -132,4 +149,5 @@ public class GameEngine {
         comp.addCompetitor((Competitor) o);
         return o;
     }
+
 }

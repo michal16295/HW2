@@ -1,6 +1,7 @@
 package game.arena;
 
 import game.entities.IMobileEntity;
+import game.enums.WeatherCondition;
 
 /**
  * Arena interface
@@ -25,4 +26,6 @@ public interface IArena {
      * @return arena's length
      */
     double getLength();
+
+    WeatherCondition getCondition();
 }

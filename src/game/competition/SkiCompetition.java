@@ -27,6 +27,9 @@ public class SkiCompetition extends WinterCompetition {
     public SkiCompetition(IArena arena, int maxComp, Discipline discipline, League league, Gender gender) {
         super(arena, maxComp, discipline, league, gender);
     }
+    public SkiCompetition(IArena arena){
+        super(arena);
+    }
 
     /**
      * Checks if the competitor is valid for the competition

@@ -9,7 +9,7 @@ import game.entities.IMobileEntity;
  * @author Dima Zagorodny - 320552243
  * @author Michal Barski - 205870934
  */
-public interface Competitor extends IMobileEntity, Runnable {
+public interface Competitor extends IMobileEntity, Runnable, Cloneable{
     void initRace();
 
     String getName();
@@ -21,4 +21,11 @@ public interface Competitor extends IMobileEntity, Runnable {
     boolean isFinished();
 
     void resetLocation();
+
+    int getId();
+
+    String getColor();
+
+    void setId(int id);
+
 }

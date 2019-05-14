@@ -25,6 +25,8 @@ public class PanelArena extends JPanel {
     private JLabel SnowSurfaceLabel;
     private JLabel WeatherConditionLabel;
     private JLabel ArenaLengthLabel;
+    private JComboBox arenaTypeComboBox;
+    private JLabel arenaTypeLabel;
 
     private JTextField ArenaLengthText;
     private JComboBox SnowSurfaceCombobox;
@@ -80,11 +82,16 @@ public class PanelArena extends JPanel {
      * creating the labels, comboboxes and text fields
      */
     private void createUI() {
+        String[] arenaType = {"Summer", "Winter"};
         //Setting the layout
-        setLayout(new GridLayout(8, 1));
+        setLayout(new GridLayout(10, 1));
 
         //Setting the border
         blackline = BorderFactory.createLineBorder(Color.black);
+
+        //Setting arena type
+        arenaTypeLabel = new JLabel("Arena Type");
+        arenaTypeComboBox = new JComboBox(arenaType);
 
         //Build arena label
         BuildArenaLabel = new JLabel("BUILD ARENA");
@@ -117,6 +124,8 @@ public class PanelArena extends JPanel {
         add(SnowSurfaceCombobox);
         add(WeatherConditionLabel);
         add(WeatherConditionCombobox);
+        add(arenaTypeLabel);
+        add(arenaTypeComboBox);
         add(buildArenaBtn);
         setBorder(blackline);
     }
@@ -129,7 +138,7 @@ public class PanelArena extends JPanel {
      * @param len   arena length
      */
     private void buildArena(PanelGame game, MainFrame frame, double len) {
-        GameEngine.getInstance().buildArena(len, (SnowSurface) SnowSurfaceCombobox.getSelectedItem(), (WeatherCondition) WeatherConditionCombobox.getSelectedItem());
+        GameEngine.getInstance().buildArena(arenaTypeComboBox.getSelectedItem().toString(),len, (SnowSurface) SnowSurfaceCombobox.getSelectedItem(), (WeatherCondition) WeatherConditionCombobox.getSelectedItem());
         game.setBackgroundImage((WeatherCondition) WeatherConditionCombobox.getSelectedItem(), 1000, (int) len);
         frame.setSize(1000, (int) len);
 

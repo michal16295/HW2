@@ -18,7 +18,7 @@ import java.util.Observer;
  * @author Michal Barski - 205870934
  */
 
-public abstract class Competition implements Observer {
+public abstract class Competition implements Observer, CompetitionPlan {
     private IArena arena;
     private int maxCompetitors;
     private ArrayList<Competitor> activeCompetitors;
@@ -36,13 +36,12 @@ public abstract class Competition implements Observer {
         activeCompetitors = new ArrayList<>();
         finishedCompetitors = new ArrayList<>();
     }
-
     /**
      * Sets the arena.
      *
      * @param arena the length
      */
-    private void setArena(IArena arena) {
+    public void setArena(IArena arena) {
         ValidationUtils.assertNotNull(arena);
         this.arena = arena;
     }
@@ -52,7 +51,7 @@ public abstract class Competition implements Observer {
      *
      * @param maxCompetitors maximum competitors
      */
-    private void setMaxCompetitors(int maxCompetitors) {
+    public void setMaxCompetitors(int maxCompetitors) {
         ValidationUtils.assertNotNegative(maxCompetitors);
         this.maxCompetitors = maxCompetitors;
     }
@@ -74,6 +73,7 @@ public abstract class Competition implements Observer {
         }
         competitor.initRace();
         activeCompetitors.add(competitor);
+
     }
 
 
@@ -144,6 +144,37 @@ public abstract class Competition implements Observer {
         finishedCompetitors.add((Competitor) o);
         activeCompetitors.remove(o);
         o.deleteObserver(this);
+    }
+
+    public Competitor cloneCompetitor (int oldId,int newId, String color)throws IllegalStateException, IllegalAccessException, CloneNotSupportedException{
+        Competitor newCompetitor;
+        if(!activeCompetitors.isEmpty()){
+            newCompetitor = (Competitor)((Sportsman)getCompetitorById(oldId)).clone();
+            if(!IdExists(newId)){
+                ((Sportsman)newCompetitor).upgrade(newId,color);
+                addCompetitor(newCompetitor);
+                return newCompetitor;
+            }
+            else throw new IllegalArgumentException("Id already exists");
+
+        }else throw new IllegalStateException("There are no competitors");
+
+    }
+    public Competitor getCompetitorById(int id) throws IllegalAccessException {
+        for(Competitor i : activeCompetitors){
+            if(i.getId() == id){
+                return i;
+            }
+        }
+        throw new IllegalAccessException("Id doesnt exists");
+    }
+    public boolean IdExists(int id){
+        for(Competitor i : activeCompetitors){
+            if(i.getId() == id){
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

@@ -1,6 +1,7 @@
 package GUI.leftpanel.infopanel;
 
 import GUI.GuiManager;
+import GUI.PanelGame;
 import game.GameEngine;
 
 import javax.swing.*;
@@ -22,10 +23,11 @@ public class PanelInfo extends JPanel {
      * Default ctor
      */
     public PanelInfo() {
-        setLayout(new GridLayout(2, 1));
+        setLayout(new GridLayout(3, 1));
         Border blackline = BorderFactory.createLineBorder(Color.black);
         JButton start = new JButton("Start Competition");
         JButton show = new JButton("Show info");
+        JButton defaultBtn = new JButton("Create Default Competition");
 
         start.addActionListener(new ActionListener() {
             @Override
@@ -43,6 +45,15 @@ public class PanelInfo extends JPanel {
                 InfoTable.createInstance();
             }
         });
+        defaultBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                GuiManager.getPanelGame().clearCompetitorsArray();
+                InfoTable.getModel().deleteData();
+                new DefaultCompetitionPanel();
+            }
+        });
+        add(defaultBtn);
         add(start);
         add(show);
         setBorder(blackline);

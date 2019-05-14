@@ -25,12 +25,14 @@ public class PanelCompetitor extends JPanel {
     private JLabel ageLabel;
     private JLabel maxSpeedLabel;
     private JLabel accelerationLabel;
-
+    private JLabel idLabel;
+    private JTextField idText;
     private JTextField nameTextField;
     private JTextField ageTextField;
     private JTextField maxSpeedText;
     private JTextField accelerationText;
     private JButton addCompetitorBtn;
+    private JButton cloneBtn;
     private Border blackline;
 
     /**
@@ -67,13 +69,26 @@ public class PanelCompetitor extends JPanel {
                 addCompetitor();
             }
         });
+        cloneBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(GameEngine.getInstance().getComp().hasActiveCompetitors()){
+                     new CloneCompetitorPanel();
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "There are no competitors", "Message", JOptionPane.ERROR_MESSAGE);
+                    return;
+
+                }
+            }
+        });
     }
 
     /**
      * creating the labels, comboboxes and text fields
      */
     private void createUI() {
-        setLayout(new GridLayout(10, 1));
+        setLayout(new GridLayout(13, 1));
         blackline = BorderFactory.createLineBorder(Color.black);
 
         //Add competitor label
@@ -98,6 +113,13 @@ public class PanelCompetitor extends JPanel {
 
         //Add competitor button
         addCompetitorBtn = new JButton("Add competitor");
+
+        //Setting id
+        idLabel = new JLabel("ID");
+        idText = new JTextField();
+
+        //clone button
+        cloneBtn = new JButton("Clone Competitor");
     }
 
     /**
@@ -105,6 +127,8 @@ public class PanelCompetitor extends JPanel {
      */
     private void addUiToPanel() {
         add(addCompetitorLabel);
+        add(idLabel);
+        add(idText);
         add(nameLabel);
         add(nameTextField);
         add(ageLabel);
@@ -114,6 +138,7 @@ public class PanelCompetitor extends JPanel {
         add(accelerationLabel);
         add(accelerationText);
         add(addCompetitorBtn);
+        add(cloneBtn);
         setBorder(blackline);
     }
 
@@ -128,8 +153,9 @@ public class PanelCompetitor extends JPanel {
             double age = Double.parseDouble(ageTextField.getText());
             double maxSpeed = Double.parseDouble(maxSpeedText.getText());
             double acceleration = Double.parseDouble(accelerationText.getText());
+            int id = Integer.parseInt(idText.getText());
 
-            Object o = GameEngine.getInstance().createAndAddSportsman(name, age, acceleration, maxSpeed);
+            Object o = GameEngine.getInstance().createAndAddSportsman(id,name, age, acceleration, maxSpeed);
 
             game.setPlayerIcon((WinterSportsman) o);
             game.addCompetitor((Competitor) o);
@@ -157,6 +183,7 @@ public class PanelCompetitor extends JPanel {
      * Reset all fields
      */
     private void emptyFields() {
+        idText.setText("");
         nameTextField.setText("");
         ageTextField.setText("");
         maxSpeedText.setText("");

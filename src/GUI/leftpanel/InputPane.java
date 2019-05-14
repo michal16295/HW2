@@ -31,22 +31,24 @@ public class InputPane extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.weighty = 2;
+        gbc.weighty = 1;
         add(arena, gbc);
 
 
         gbc.gridx = 0;
         gbc.gridy = 1;
+        gbc.weighty = 1.5;
         add(comp, gbc);
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
         gbc.gridy = 2;
+        gbc.weighty = 1.6;
         add(competitor, gbc);
 
 
         gbc.gridx = 0;
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         gbc.weighty = 0.1;
         add(info, gbc);
 

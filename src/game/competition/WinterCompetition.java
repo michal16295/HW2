@@ -36,11 +36,20 @@ public class WinterCompetition extends Competition {
     }
 
     /**
+     * default ctor
+     * @param arena
+     */
+    public WinterCompetition(IArena arena){
+        super(arena,10);
+
+    }
+
+    /**
      * Sets the discipline type
      *
      * @param discipline the discipline
      */
-    private void setDiscipline(Discipline discipline) {
+    public void setDiscipline(Discipline discipline) {
         ValidationUtils.assertNotNull(discipline);
         this.discipline = discipline;
     }
@@ -54,7 +63,7 @@ public class WinterCompetition extends Competition {
      *
      * @param league the league
      */
-    private void setLeague(League league) {
+    public void setLeague(League league) {
         ValidationUtils.assertNotNull(league);
         this.league = league;
     }
@@ -64,7 +73,7 @@ public class WinterCompetition extends Competition {
      *
      * @param gender the gender MALE/FEMALE
      */
-    private void setGender(Gender gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 

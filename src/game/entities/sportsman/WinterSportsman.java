@@ -29,9 +29,13 @@ public class WinterSportsman extends Sportsman implements Competitor {
      * @param maxSpeed     the maximum speed
      * @param acceleration the acceleration
      */
-    public WinterSportsman(String name, double age, Gender gender, Discipline discipline, double maxSpeed, double acceleration, IArena arena) {
-        super(name, age, gender, maxSpeed, League.calcAccelerationBonus(age) + acceleration);
+    public WinterSportsman(int id,String name, double age, Gender gender, Discipline discipline, double maxSpeed, double acceleration, IArena arena) {
+        super(id,name, age, gender, maxSpeed, League.calcAccelerationBonus(age) + acceleration);
         this.setDiscipline(discipline);
+        this.setArena(arena);
+    }
+    public WinterSportsman(IArena arena){
+        this.setDiscipline(Discipline.SLALOM);
         this.setArena(arena);
     }
 

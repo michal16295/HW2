@@ -18,12 +18,12 @@ public class CloneCompetitorPanel extends JFrame{
     private JLabel idLabel;
     private JLabel colorLabel;
     private JTextField newIdText;
-    private JTextField colorText;
+    private JComboBox colorText;
     private JLabel cloneCompetitorLabel;
     private JButton cloneBtn;
 
 
-    public CloneCompetitorPanel(){
+    public CloneCompetitorPanel() {
         super("Clone Competitor");
         createUI();
 
@@ -48,7 +48,7 @@ public class CloneCompetitorPanel extends JFrame{
         add(cloneBtn);
     }
 
-    private void addButtonListener() {
+    private void addButtonListener() throws NullPointerException {
         cloneBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -56,7 +56,7 @@ public class CloneCompetitorPanel extends JFrame{
                     PanelGame game = GuiManager.getPanelGame();
                     int oldId = Integer.parseInt(idText.getText());
                     int newId = Integer.parseInt(newIdText.getText());
-                    String color = colorText.getText();
+                    String color = colorText.getSelectedItem().toString();
                     try {
                         Competitor newComp = GameEngine.getInstance().getComp().cloneCompetitor(oldId,newId,color);
                         game.addCompetitor(newComp);
@@ -94,6 +94,7 @@ public class CloneCompetitorPanel extends JFrame{
 
     private void createUI() {
         setLayout(new GridLayout(8, 1));
+        String [] colors = {"red", "blue","black","pink","green"};
 
         cloneCompetitorLabel = new JLabel("CLONE COMPETITOR");
         cloneCompetitorLabel.setForeground(Color.blue);
@@ -104,7 +105,7 @@ public class CloneCompetitorPanel extends JFrame{
         newIdText = new JTextField();
         //Setting the color
         colorLabel = new JLabel("Set a new Color");
-        colorText = new JTextField();
+        colorText = new JComboBox(colors);
         //Setting the button
         cloneBtn = new JButton("Clone Competitor");
     }

@@ -72,14 +72,20 @@ public class PanelCompetitor extends JPanel {
         cloneBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(GameEngine.getInstance().getComp().hasActiveCompetitors()){
-                     new CloneCompetitorPanel();
-                }
-                else{
-                    JOptionPane.showMessageDialog(null, "There are no competitors", "Message", JOptionPane.ERROR_MESSAGE);
-                    return;
+                try{
+                    if(GameEngine.getInstance().getComp().hasActiveCompetitors()){
+                        new CloneCompetitorPanel();
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "There are no competitors", "Message", JOptionPane.ERROR_MESSAGE);
+                        return;
+
+                    }
+                }catch (NullPointerException ex){
+                    JOptionPane.showMessageDialog(null, "Build Arena, create competition and then create competitors to clone", "Message", JOptionPane.ERROR_MESSAGE);
 
                 }
+
             }
         });
     }

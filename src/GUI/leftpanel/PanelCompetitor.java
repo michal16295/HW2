@@ -173,6 +173,9 @@ public class PanelCompetitor extends JPanel {
         } catch (IllegalStateException ex) {
             JOptionPane.showMessageDialog(null, "Reached maximum competitors", "Message", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
+        } catch (IllegalAccessException ex) {
+            JOptionPane.showMessageDialog(null, "Id already exists", "Message", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Invalid input! try again", "Message", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();

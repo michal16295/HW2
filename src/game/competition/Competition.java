@@ -63,10 +63,13 @@ public abstract class Competition implements Observer, CompetitionPlan {
      *
      * @param competitor the competitor to add
      */
-    public void addCompetitor(Competitor competitor) {
+    public void addCompetitor(Competitor competitor) throws IllegalAccessException {
         ValidationUtils.assertNotNull(competitor);
         if (activeCompetitors.size() == maxCompetitors) {
             throw new IllegalStateException("The Competition is full");
+        }
+        if(IdExists(competitor.getId())){
+            throw new IllegalAccessException("Id already exists");
         }
         if (!isValidCompetitor(competitor)) {
             throw new IllegalArgumentException("Invalid competitor " + competitor);

@@ -107,13 +107,20 @@ public class GameEngine {
             Constructor ctor = aClass.getConstructor(IArena.class, int.class, Discipline.class, League.class, Gender.class);
             Object o = ctor.newInstance(arena, maxComp, discipline, league, gender);
             comp = (Competition) o;
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
+
+    /**
+     * Building a default competition using the builder Design Pattern
+     */
     public void buildDefaultComp(){
         try{
+            //Building the arena first
             this.arena = ArenaFactory.makeDefaultWinterArena();
+            //Building the competition - Ski competition
             SkiCompetitionBuilder cBuilder = new MyBuilder(arena);
             CompetitionEngineer engineer = new CompetitionEngineer(cBuilder);
             engineer.constructCompetition();
@@ -135,7 +142,7 @@ public class GameEngine {
      * @throws IllegalStateException    Illegal competitor
      * @throws IllegalArgumentException Reached max competitors
      */
-    public Object createAndAddSportsman(int id,String name, double age, double acceleration, double maxSpeed) throws IllegalStateException, IllegalArgumentException {
+    public Object createAndAddSportsman(int id,String name, double age, double acceleration, double maxSpeed) throws IllegalStateException, IllegalArgumentException, IllegalAccessException {
         Object o;
         try {
             String type = getPlayerType();

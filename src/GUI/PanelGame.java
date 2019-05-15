@@ -98,7 +98,6 @@ public class PanelGame extends JPanel implements Runnable {
         for (Competitor i : activeCompetitors) {
             g.drawImage(icon, j, (int) (i.getLocation().getX() * ratio), null);
             j += OFFSET_X;
-            System.out.println(i);
         }
 
     }

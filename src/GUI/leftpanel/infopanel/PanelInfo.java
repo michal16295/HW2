@@ -29,6 +29,14 @@ public class PanelInfo extends JPanel {
         JButton show = new JButton("Show info");
         JButton defaultBtn = new JButton("Create Default Competition");
 
+        defaultBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                GuiManager.getPanelGame().clearCompetitorsArray();
+                InfoTable.getModel().deleteData();
+                new DefaultCompetitionPanel();
+            }
+        });
         start.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -43,14 +51,6 @@ public class PanelInfo extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 InfoTable.createInstance();
-            }
-        });
-        defaultBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                GuiManager.getPanelGame().clearCompetitorsArray();
-                InfoTable.getModel().deleteData();
-                new DefaultCompetitionPanel();
             }
         });
         add(defaultBtn);

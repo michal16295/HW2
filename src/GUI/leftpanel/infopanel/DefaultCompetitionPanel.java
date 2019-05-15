@@ -78,7 +78,12 @@ public class DefaultCompetitionPanel extends JFrame {
         Skier skier = new Skier(arena);
         skier.setId(0);
         game.setPlayerIcon(skier);
-        comp.addCompetitor(skier);
+        try{
+            comp.addCompetitor(skier);
+        }catch (IllegalAccessException ex){
+            JOptionPane.showMessageDialog(null, "Id already exists", "Message", JOptionPane.ERROR_MESSAGE);
+
+        }
         game.addCompetitor(skier);
         InfoTable.getModel().addRow(skier.getName(), 0.0, skier.getMaxSpeed(), 0.0, "No");
         for(int i = 1 ; i < numOfCompetitors  ; i++){

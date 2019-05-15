@@ -38,6 +38,11 @@ public class Sportsman extends MobileEntity implements Cloneable {
         this.setId(id);
 
     }
+
+    /**
+     * default ctor
+     * age: 12, gender: female, name: Daenrerys
+     */
     public Sportsman(){
         this.setAge(12.0);
         this.setGender(Gender.FEMALE);
@@ -101,29 +106,52 @@ public class Sportsman extends MobileEntity implements Cloneable {
         this.gender = gender;
     }
 
+    /**
+     * getting the id
+     * @return id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * stting the id
+     * @param id new id
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * getting the color
+     * @return color
+     */
     public String getColor() {
         return color;
     }
+
+    /**
+     * setting the color
+     * @param color new color
+     */
 
     public void setColor(String color) {
         this.color = color;
     }
     @Override
     /**
-     *
+     * clone the original competitor
      * @return
      */
     public Object clone() throws CloneNotSupportedException{
         return super.clone();
     }
+
+    /**
+     * upgrading the new clone we have created
+     * @param id setting a new id
+     * @param color setting a new color
+     */
     public void upgrade(int id, String color){
         this.setId(id);
         this.setColor(color);

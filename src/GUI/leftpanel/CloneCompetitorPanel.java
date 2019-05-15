@@ -12,6 +12,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Clone panel- the user enters the number of players he wants to clone
+ */
 public class CloneCompetitorPanel extends JFrame{
     private JTextField idText;
     private JLabel newIdLabel;
@@ -22,7 +25,9 @@ public class CloneCompetitorPanel extends JFrame{
     private JLabel cloneCompetitorLabel;
     private JButton cloneBtn;
 
-
+    /**
+     * default ctor
+     */
     public CloneCompetitorPanel() {
         super("Clone Competitor");
         createUI();
@@ -37,6 +42,9 @@ public class CloneCompetitorPanel extends JFrame{
         setVisible(true);
     }
 
+    /**
+     * adding all of the UI to the panel
+     */
     private void addUiToPanel() {
         add(cloneCompetitorLabel);
         add(idLabel);
@@ -48,6 +56,10 @@ public class CloneCompetitorPanel extends JFrame{
         add(cloneBtn);
     }
 
+    /**
+     * The clone button
+     * @throws NullPointerException
+     */
     private void addButtonListener() throws NullPointerException {
         cloneBtn.addActionListener(new ActionListener() {
             @Override
@@ -58,6 +70,7 @@ public class CloneCompetitorPanel extends JFrame{
                     int newId = Integer.parseInt(newIdText.getText());
                     String color = colorText.getSelectedItem().toString();
                     try {
+                        //cloning and creating a new player from the id that was given
                         Competitor newComp = GameEngine.getInstance().getComp().cloneCompetitor(oldId,newId,color);
                         game.addCompetitor(newComp);
                         game.setPlayerIcon((WinterSportsman) newComp);
@@ -92,6 +105,9 @@ public class CloneCompetitorPanel extends JFrame{
         });
     }
 
+    /**
+     * crating the UI
+     */
     private void createUI() {
         setLayout(new GridLayout(8, 1));
         String [] colors = {"red", "blue","black","pink","green"};

@@ -149,6 +149,16 @@ public abstract class Competition implements Observer, CompetitionPlan {
         o.deleteObserver(this);
     }
 
+    /**
+     * cloning players
+     * @param oldId the id of the player we wish to make clones of
+     * @param newId the new id for the new player
+     * @param color the color of the new player
+     * @return new competitor
+     * @throws IllegalStateException if there are no competitors
+     * @throws IllegalAccessException if player doesnt exists by the old id that was given
+     * @throws CloneNotSupportedException clone exception
+     */
     public Competitor cloneCompetitor (int oldId,int newId, String color)throws IllegalStateException, IllegalAccessException, CloneNotSupportedException{
         Competitor newCompetitor;
         if(!activeCompetitors.isEmpty()){
@@ -163,6 +173,13 @@ public abstract class Competition implements Observer, CompetitionPlan {
         }else throw new IllegalStateException("There are no competitors");
 
     }
+
+    /**
+     * getting competitor by his id
+     * @param id id of the competitor
+     * @return competitor
+     * @throws IllegalAccessException if competitor doesnt exists
+     */
     public Competitor getCompetitorById(int id) throws IllegalAccessException {
         for(Competitor i : activeCompetitors){
             if(i.getId() == id){
@@ -171,6 +188,12 @@ public abstract class Competition implements Observer, CompetitionPlan {
         }
         throw new IllegalAccessException("Id doesnt exists");
     }
+
+    /**
+     * checking if the id already exists
+     * @param id competitor id
+     * @return TRUE/FALSE
+     */
     public boolean IdExists(int id){
         for(Competitor i : activeCompetitors){
             if(i.getId() == id){

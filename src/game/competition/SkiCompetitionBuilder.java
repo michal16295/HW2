@@ -1,6 +1,8 @@
 package game.competition;
 
-
+/**
+ * ski competition builder interface
+ */
 public interface SkiCompetitionBuilder {
 
     Competition getCompetition();

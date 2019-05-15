@@ -5,6 +5,9 @@ import game.enums.Discipline;
 import game.enums.Gender;
 import game.enums.League;
 
+/**
+ * Competition plan interface
+ */
 public interface CompetitionPlan {
     void setArena(IArena arena);
 

@@ -120,6 +120,7 @@ public class GameEngine {
         try{
             //Building the arena first
             this.arena = ArenaFactory.makeDefaultWinterArena();
+            GuiManager.getPanelGame().setRatio(arena.getLength());
             //Building the competition - Ski competition
             SkiCompetitionBuilder cBuilder = new MyBuilder(arena);
             CompetitionEngineer engineer = new CompetitionEngineer(cBuilder);

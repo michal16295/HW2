@@ -28,4 +28,9 @@ public interface Competitor extends IMobileEntity, Runnable, Cloneable{
 
     void setId(int id);
 
+    void setColor(String color);
+
+    void setAcceleration(double acceleration);
+
+
 }

@@ -15,7 +15,7 @@ import utilities.ValidationUtils;
  * @author Dima Zagorodny - 320552243
  * @author Michal Barski - 205870934
  */
-public class WinterSportsman extends Sportsman implements Competitor {
+public class WinterSportsman extends Sportsman implements Competitor, IWinterSportsman {
     private Discipline discipline;
     private IArena arena;
 
@@ -115,5 +115,16 @@ public class WinterSportsman extends Sportsman implements Competitor {
      */
     public void resetLocation() {
         setLocation(new Point(arena.getLength(), 0));
+    }
+
+    @Override
+    public void setAcceleration(double acceleration) {
+        super.setAcceleration(acceleration);
+    }
+
+
+    @Override
+    public double getAcceleration() {
+        return super.getAcceleration();
     }
 }

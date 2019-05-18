@@ -5,6 +5,7 @@ import GUI.PanelGame;
 import GUI.leftpanel.infopanel.InfoTable;
 import game.GameEngine;
 import game.competition.Competitor;
+import game.entities.sportsman.IWinterSportsman;
 import game.entities.sportsman.WinterSportsman;
 
 import javax.swing.*;
@@ -67,6 +68,7 @@ public class PanelCompetitor extends JPanel {
                 }
 
                 addCompetitor();
+
             }
         });
         cloneBtn.addActionListener(new ActionListener() {
@@ -168,24 +170,31 @@ public class PanelCompetitor extends JPanel {
 
             //adding the player to the info table
             InfoTable.getModel().addRow(name, 0.0, maxSpeed, 0.0, "No");
+            new modifyPanel((IWinterSportsman) o);
 
             emptyFields();
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Age, Max Speed and Acceleration must be a number", "Message", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
+            return;
         } catch (IllegalArgumentException ex) {
             JOptionPane.showMessageDialog(null, "Illegal competitor", "Message", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
+            return;
         } catch (IllegalStateException ex) {
             JOptionPane.showMessageDialog(null, "Reached maximum competitors", "Message", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
+            return;
         } catch (IllegalAccessException ex) {
             JOptionPane.showMessageDialog(null, "Id already exists", "Message", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
+            return;
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Invalid input! try again", "Message", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
+            return;
         }
+
     }
 
     /**

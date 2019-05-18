@@ -47,7 +47,7 @@ public abstract class MobileEntity extends Entity implements IMobileEntity {
      *
      * @param acceleration the acceleration
      */
-    private void setAcceleration(double acceleration) {
+    protected void setAcceleration(double acceleration) {
         ValidationUtils.assertNotNegative(acceleration);
         this.acceleration = acceleration;
     }

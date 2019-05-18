@@ -36,6 +36,7 @@ public class Sportsman extends MobileEntity implements Cloneable {
         this.setGender(gender);
         this.setName(name);
         this.setId(id);
+        this.setColor("pink");
 
     }
 
@@ -47,6 +48,7 @@ public class Sportsman extends MobileEntity implements Cloneable {
         this.setAge(12.0);
         this.setGender(Gender.FEMALE);
         this.setName("Daenrerys");
+        this.setColor("pink");
     }
 
     /**

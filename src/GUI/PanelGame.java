@@ -97,9 +97,32 @@ public class PanelGame extends JPanel implements Runnable {
         int j = 0;
         for (Competitor i : activeCompetitors) {
             g.drawImage(icon, j, (int) (i.getLocation().getX() * ratio), null);
+            String[] colors = i.getColor().split(" ");
+            int k = 0;
+            for(String color : colors){
+                g.setColor(convertToColor(color));
+                g.drawRect(j + k, (int)(i.getLocation().getX() * ratio), 10 ,10);
+                g.fillRect(j + k, (int)(i.getLocation().getX() * ratio),10,10);
+                k += 10;
+            }
             j += OFFSET_X;
         }
 
+    }
+    public Color convertToColor(String c){
+        switch (c){
+            case "red":
+                return Color.red;
+            case "blue":
+                return Color.blue;
+            case "pink":
+                return Color.pink;
+            case "black":
+                return Color.black;
+            case "green":
+                return Color.green;
+                default:return Color.pink;
+        }
     }
 
     /**

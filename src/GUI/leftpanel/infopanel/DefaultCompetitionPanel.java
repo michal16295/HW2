@@ -121,7 +121,7 @@ public class DefaultCompetitionPanel extends JFrame {
         for(int i = 1 ; i < numOfCompetitors  ; i++){
            try{
                //using the clone method to clone players from the first player we created
-                Competitor skier1 = comp.cloneCompetitor(i-1, i, "red");
+                Competitor skier1 = comp.cloneCompetitor(i-1, i, "pink");
                 game.setPlayerIcon((WinterSportsman) skier1);
                 game.addCompetitor(skier1);
                 InfoTable.getModel().addRow(skier.getName(), 0.0, skier.getMaxSpeed(), 0.0, "No");

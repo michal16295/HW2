@@ -2,6 +2,7 @@ package game.competition;
 
 import game.arena.IArena;
 import game.entities.sportsman.Sportsman;
+import game.entities.sportsman.WinterSportsman;
 import game.enums.Discipline;
 import game.enums.Gender;
 import utilities.ValidationUtils;
@@ -9,6 +10,7 @@ import utilities.ValidationUtils;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Random;
 
 /**
  * Competition class
@@ -19,6 +21,7 @@ import java.util.Observer;
  */
 
 public abstract class Competition implements  CompetitionPlan {
+
     private IArena arena;
     private int maxCompetitors;
     private ArrayList<Competitor> activeCompetitors;
@@ -122,6 +125,7 @@ public abstract class Competition implements  CompetitionPlan {
      */
     public void startRace() {
         for (Competitor comp : activeCompetitors) {
+            comp.setRunning(true);
             new Thread(comp).start();
 
         }
@@ -147,7 +151,7 @@ public abstract class Competition implements  CompetitionPlan {
     public Competitor cloneCompetitor (int oldId,int newId, String color)throws IllegalStateException, IllegalAccessException, CloneNotSupportedException{
         Competitor newCompetitor;
         if(!activeCompetitors.isEmpty()){
-            newCompetitor = (Competitor)((Sportsman)getCompetitorById(oldId)).clone();
+            newCompetitor = (Competitor)((WinterSportsman)getCompetitorById(oldId)).clone();
             if(!IdExists(newId)){
                 ((Sportsman)newCompetitor).upgrade(newId,color);
                 addCompetitor(newCompetitor);
@@ -195,6 +199,28 @@ public abstract class Competition implements  CompetitionPlan {
      */
     public ArrayList<Competitor> getActiveCompetitors() {
         return activeCompetitors;
+    }
+
+    public IArena getArena() {
+        return arena;
+    }
+
+    public void destiny(){
+        Random rand = new Random();
+        for(Competitor comp: activeCompetitors){
+            WinterSportsman sportsman = (WinterSportsman)comp;
+            int n = rand.nextInt(3);
+            int distance = rand.nextInt((int) (getArena().getLength() - 1));
+            if(n == 0){
+                sportsman.setInjured(true);
+                sportsman.setDistanceStoped(distance);
+            }
+            if(n == 1){
+                sportsman.setDisabled(true);
+                sportsman.setDistanceStoped(distance);
+
+            }
+        }
     }
 
 

@@ -65,7 +65,7 @@ public class Sportsman extends MobileEntity implements Cloneable {
      *
      * @param name the name
      */
-    private void setName(String name) {
+    public void setName(String name) {
         ValidationUtils.assertNotNullOrEmptyString(name);
         this.name = name;
     }
@@ -84,7 +84,7 @@ public class Sportsman extends MobileEntity implements Cloneable {
      *
      * @param age the age
      */
-    private void setAge(Double age) {
+    public void setAge(Double age) {
         ValidationUtils.assertNotNegative(age);
         this.age = age;
     }
@@ -103,7 +103,7 @@ public class Sportsman extends MobileEntity implements Cloneable {
      *
      * @param gender the gender
      */
-    private void setGender(Gender gender) {
+    public void setGender(Gender gender) {
         ValidationUtils.assertNotNull(gender);
         this.gender = gender;
     }
@@ -140,14 +140,7 @@ public class Sportsman extends MobileEntity implements Cloneable {
     public void setColor(String color) {
         this.color = color;
     }
-    @Override
-    /**
-     * clone the original competitor
-     * @return
-     */
-    public Object clone() throws CloneNotSupportedException{
-        return super.clone();
-    }
+
 
     /**
      * upgrading the new clone we have created
@@ -158,6 +151,10 @@ public class Sportsman extends MobileEntity implements Cloneable {
         this.setId(id);
         this.setColor(color);
     }
+    public double getMaxSpeed(){
+        return super.getMaxSpeed();
+    }
+
 
     /**
      * @return sportsman name

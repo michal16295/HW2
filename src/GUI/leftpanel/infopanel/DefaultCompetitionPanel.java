@@ -116,7 +116,7 @@ public class DefaultCompetitionPanel extends JFrame {
         //adding the player to the game panel
         game.addCompetitor(skier);
         //adding the player to the info table
-        InfoTable.getModel().addRow(skier.getName(), 0.0, skier.getMaxSpeed(), 0.0, "No");
+        InfoTable.getModel().addRow(skier.getName(), 0.0, skier.getMaxSpeed(), 0.0, "No", skier.getState().toString());
         //loop that adds players by the number of players the user has chosen
         for(int i = 1 ; i < numOfCompetitors  ; i++){
            try{
@@ -124,7 +124,7 @@ public class DefaultCompetitionPanel extends JFrame {
                 Competitor skier1 = comp.cloneCompetitor(i-1, i, "pink");
                 game.setPlayerIcon((WinterSportsman) skier1);
                 game.addCompetitor(skier1);
-                InfoTable.getModel().addRow(skier.getName(), 0.0, skier.getMaxSpeed(), 0.0, "No");
+                InfoTable.getModel().addRow(skier.getName(), 0.0, skier.getMaxSpeed(), 0.0, "No", skier.getState().toString());
             }catch (Exception ex){
                ex.printStackTrace();
            }

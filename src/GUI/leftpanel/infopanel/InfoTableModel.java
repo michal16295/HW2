@@ -13,7 +13,7 @@ import java.util.*;
 public class InfoTableModel extends AbstractTableModel {
     private static ArrayList<ArrayList<Object>> data = new ArrayList<>();
 
-    private final String[] columnNames = {"Name", "Speed", "Max Speed", "Location", "Finished"};
+    private final String[] columnNames = {"Name", "Speed", "Max Speed", "Location", "Finished","State"};
 
     /**
      * Returns the column name of index 'col'
@@ -62,14 +62,16 @@ public class InfoTableModel extends AbstractTableModel {
      * @param location
      * @param finished
      */
-    public void addRow(String name, Double speed, Double maxSpeed, Double location, String finished) {
+    public void addRow(String name, Double speed, Double maxSpeed, Double location, String finished, String state) {
         ArrayList<Object> player = new ArrayList<>();
         player.add(name);
         player.add(speed);
         player.add(maxSpeed);
         player.add(location);
         player.add(finished);
+        player.add(state);
         data.add(player);
+
         fireTableRowsInserted(data.size() - 1, data.size() - 1);
     }
 
@@ -83,19 +85,24 @@ public class InfoTableModel extends AbstractTableModel {
      * @param location   player location
      * @param isFinished player is finished race
      */
-    public void updateRow(int index, String name, double speed, double maxSpeed, double location, boolean isFinished) {
+    public void updateRow(int index, String name, double speed, double maxSpeed, double location, boolean isFinished, String state) {
         ArrayList<Object> player = data.get(index);
         player.set(0, name);
         player.set(1, speed);
         player.set(2, maxSpeed);
         player.set(3, location);
         player.set(4, isFinished ? "Yes" : "No");
+        player.set(5, state);
+
 
         fireTableCellUpdated(index, 0);
         fireTableCellUpdated(index, 1);
         fireTableCellUpdated(index, 2);
         fireTableCellUpdated(index, 3);
         fireTableCellUpdated(index, 4);
+        fireTableCellUpdated(index, 5);
+
+
     }
 
     /**

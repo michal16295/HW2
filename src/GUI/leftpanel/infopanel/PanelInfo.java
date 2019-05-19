@@ -40,6 +40,7 @@ public class PanelInfo extends JPanel {
         start.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                GameEngine.getInstance().getComp().destiny();
                 if (!inRace) {
                     GameEngine.getInstance().getComp().startRace();
                     GuiManager.getPanelGame().startRace();

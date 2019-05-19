@@ -169,7 +169,7 @@ public class PanelCompetitor extends JPanel {
             game.addCompetitor((Competitor) o);
 
             //adding the player to the info table
-            InfoTable.getModel().addRow(name, 0.0, maxSpeed, 0.0, "No");
+            InfoTable.getModel().addRow(name, 0.0, maxSpeed, 0.0, "No", ((WinterSportsman) o).getState().toString());
             new modifyPanel((IWinterSportsman) o);
 
 

@@ -212,7 +212,7 @@ public class PanelGame extends JPanel implements Observer {
         ArrayList<Competitor> temp = sortPlayers();
         for (int i = 0; i < temp.size(); ++i) {
             Competitor c = temp.get(i);
-            InfoTable.getModel().updateRow(i, c.getName(), c.getSpeed(), c.getMaxSpeed(), c.getLocation().getX(), c.isFinished());
+            InfoTable.getModel().updateRow(i, c.getName(), c.getSpeed(), c.getMaxSpeed(), c.getLocation().getX(), c.isFinished(), c.getState().toString());
         }
     }
 

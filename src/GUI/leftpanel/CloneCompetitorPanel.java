@@ -76,7 +76,7 @@ public class CloneCompetitorPanel extends JFrame{
                         game.setPlayerIcon((WinterSportsman) newComp);
 
                         //adding the player to the info table
-                        InfoTable.getModel().addRow(newComp.getName(), 0.0, newComp.getMaxSpeed(), 0.0, "No");
+                        InfoTable.getModel().addRow(newComp.getName(), 0.0, newComp.getMaxSpeed(), 0.0, "No", ((WinterSportsman) newComp).getState().toString());
                     }
                     catch (IllegalStateException ex){
                         JOptionPane.showMessageDialog(null, "There are no competitors", "Message", JOptionPane.ERROR_MESSAGE);

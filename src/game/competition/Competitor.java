@@ -26,11 +26,24 @@ public interface Competitor extends IMobileEntity, Runnable, Cloneable{
 
     String getColor();
 
-    void setId(int id);
-
     void setColor(String color);
 
     void setAcceleration(double acceleration);
+
+    void setRunning(boolean state);
+
+    boolean isInjured();
+
+    boolean isDisabled();
+
+    void setState(CompetitionState state);
+
+    CompetitionState getState();
+
+
+
+
+
 
 
 }

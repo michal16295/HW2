@@ -172,6 +172,7 @@ public class PanelCompetitor extends JPanel {
             InfoTable.getModel().addRow(name, 0.0, maxSpeed, 0.0, "No");
             new modifyPanel((IWinterSportsman) o);
 
+
             emptyFields();
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Age, Max Speed and Acceleration must be a number", "Message", JOptionPane.ERROR_MESSAGE);

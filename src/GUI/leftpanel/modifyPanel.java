@@ -1,5 +1,7 @@
 package GUI.leftpanel;
 
+import GUI.GuiManager;
+import GUI.PanelGame;
 import game.GameEngine;
 import game.competition.Competitor;
 import game.entities.sportsman.ColoredSportsman;
@@ -11,6 +13,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 public class modifyPanel extends JFrame {
@@ -32,6 +36,15 @@ public class modifyPanel extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(new Dimension(300, 300));
         setVisible(true);
+
+        setAlwaysOnTop(true);
+        GuiManager.getMainFrame().setEnabled(false);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                GuiManager.getMainFrame().setEnabled(true);
+            }
+        });
     }
 
     private void addButtonListener(IWinterSportsman competitor) {
@@ -42,7 +55,7 @@ public class modifyPanel extends JFrame {
                 IWinterSportsman winterSportsman = new ColoredSportsman(competitor, color);
                 ArrayList<Competitor> competitors =  GameEngine.getInstance().getComp().getActiveCompetitors();
                 competitors.get(competitors.size() - 1).setColor(winterSportsman.getColor());
-                System.out.println(competitors.get(competitors.size() - 1).getColor());
+                GuiManager.getPanelGame().updateUI();
             }
         });
         AccelerationBtn.addActionListener(new ActionListener() {
@@ -52,6 +65,7 @@ public class modifyPanel extends JFrame {
                 IWinterSportsman winterSportsman = new SpeedySportsman(competitor, acc);
                 ArrayList<Competitor> competitors =  GameEngine.getInstance().getComp().getActiveCompetitors();
                 competitors.get(competitors.size() - 1).setAcceleration(winterSportsman.getAcceleration());
+                GuiManager.getPanelGame().updateUI();
             }
         });
     }

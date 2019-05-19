@@ -99,6 +99,8 @@ public class WinterSportsman extends Sportsman implements Competitor, IWinterSpo
     public void run() {
         while (!isFinished()) {
             move(arena.getFriction());
+            setChanged();
+            notifyObservers();
             try {
                 Thread.sleep(100);
             } catch (InterruptedException ex) {

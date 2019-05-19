@@ -18,7 +18,7 @@ import java.util.Observer;
  * @author Michal Barski - 205870934
  */
 
-public abstract class Competition implements Observer, CompetitionPlan {
+public abstract class Competition implements  CompetitionPlan {
     private IArena arena;
     private int maxCompetitors;
     private ArrayList<Competitor> activeCompetitors;
@@ -122,8 +122,6 @@ public abstract class Competition implements Observer, CompetitionPlan {
      */
     public void startRace() {
         for (Competitor comp : activeCompetitors) {
-            Sportsman sportsman = (Sportsman) comp;
-            sportsman.addObserver(this);
             new Thread(comp).start();
 
         }
@@ -134,19 +132,6 @@ public abstract class Competition implements Observer, CompetitionPlan {
      */
     public int getMaxCompetitors() {
         return maxCompetitors;
-    }
-
-    /**
-     * Updates finished sportsman and adds them to finished array
-     *
-     * @param o   the sportsman
-     * @param arg argument
-     */
-    @Override
-    public synchronized void update(Observable o, Object arg) {
-        finishedCompetitors.add((Competitor) o);
-        activeCompetitors.remove(o);
-        o.deleteObserver(this);
     }
 
     /**
@@ -211,5 +196,6 @@ public abstract class Competition implements Observer, CompetitionPlan {
     public ArrayList<Competitor> getActiveCompetitors() {
         return activeCompetitors;
     }
+
 
 }

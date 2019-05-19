@@ -4,6 +4,7 @@ import GUI.leftpanel.infopanel.InfoTable;
 import game.GameEngine;
 import game.competition.Competitor;
 import game.entities.sportsman.Skier;
+import game.entities.sportsman.Sportsman;
 import game.entities.sportsman.WinterSportsman;
 import game.enums.WeatherCondition;
 
@@ -15,6 +16,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Game panel
@@ -22,7 +25,7 @@ import java.util.Collections;
  * @author Dima Zagorodny - 320552243
  * @author Michal Barski - 205870934
  */
-public class PanelGame extends JPanel implements Runnable {
+public class PanelGame extends JPanel implements Observer {
     private final String path = "assets/";
     private final double OFFSET_X = 60;
 
@@ -185,11 +188,12 @@ public class PanelGame extends JPanel implements Runnable {
      * Starts the race and updates the graphics
      */
     public void startRace() {
-        if (thread == null || !thread.isAlive()) {
-            thread = new Thread(this);
-            thread.start();
-        }
         competitors = new ArrayList<>(activeCompetitors);
+        for(Competitor comp: competitors){
+            Sportsman sportsman = (Sportsman)comp;
+            sportsman.addObserver(this);
+;
+        }
     }
 
     /**
@@ -199,21 +203,6 @@ public class PanelGame extends JPanel implements Runnable {
         ratio = (len - 90) / len;
     }
 
-    /**
-     * While has active players - update the UI and info table every 30millis
-     */
-    @Override
-    public void run() {
-        while (GameEngine.getInstance().getComp().hasActiveCompetitors()) {
-            updatePlayers();
-            try {
-                Thread.sleep(30);
-            } catch (InterruptedException ex) {
-                Thread.currentThread().interrupt();
-            }
-        }
-        updatePlayers();
-    }
 
     /**
      * Updates the UI and info table for each player
@@ -257,5 +246,11 @@ public class PanelGame extends JPanel implements Runnable {
     public void setBackgroundImage(WeatherCondition weatherCondition, int width, int len) {
         setImage(weatherCondition);
         image = resizeImage(width, len, image);
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+       updatePlayers();
+       repaint();
     }
 }

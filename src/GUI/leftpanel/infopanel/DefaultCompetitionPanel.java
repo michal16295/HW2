@@ -38,7 +38,7 @@ public class DefaultCompetitionPanel extends JFrame {
 
         setResizable(false);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(new Dimension(300, 150));
+        setSize(new Dimension(400, 150));
         setVisible(true);
     }
 

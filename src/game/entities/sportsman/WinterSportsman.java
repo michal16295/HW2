@@ -1,7 +1,8 @@
 package game.entities.sportsman;
 
 import game.arena.IArena;
-import game.competition.*;
+import game.competition.Competitor;
+import game.competition.state.*;
 import game.enums.Discipline;
 import game.enums.Gender;
 import game.enums.League;
@@ -38,8 +39,8 @@ public class WinterSportsman extends Sportsman implements Competitor, IWinterSpo
      * @param maxSpeed     the maximum speed
      * @param acceleration the acceleration
      */
-    public WinterSportsman(int id,String name, double age, Gender gender, Discipline discipline, double maxSpeed, double acceleration, IArena arena) {
-        super(id,name, age, gender, maxSpeed, League.calcAccelerationBonus(age) + acceleration);
+    public WinterSportsman(int id, String name, double age, Gender gender, Discipline discipline, double maxSpeed, double acceleration, IArena arena) {
+        super(id, name, age, gender, maxSpeed, League.calcAccelerationBonus(age) + acceleration);
         this.setDiscipline(discipline);
         this.setArena(arena);
         this.setRunning(false);
@@ -49,16 +50,17 @@ public class WinterSportsman extends Sportsman implements Competitor, IWinterSpo
 
 
     }
-    public WinterSportsman(IArena arena){
+
+    public WinterSportsman(IArena arena) {
         this.setDiscipline(Discipline.SLALOM);
         this.setArena(arena);
         this.setRunning(false);
         this.setDisabled(false);
         this.setInjured(false);
-        this.activeState = new activeState(this);
-        this.completedState = new completedState(this);
-        this.disabledState = new disabledState(this);
-        this.injuredState = new injuredState(this);
+        this.activeState = new ActiveState(this);
+        this.completedState = new CompletedState(this);
+        this.disabledState = new DisabledState(this);
+        this.injuredState = new InjuredState(this);
         this.state = activeState;
 
     }
@@ -141,7 +143,7 @@ public class WinterSportsman extends Sportsman implements Competitor, IWinterSpo
      * Limits the sportsman location to be in cross line
      */
     public void resetLocation() {
-        if(getLocation().getX() >= 700)
+        if (getLocation().getX() >= 700)
             setLocation(new Point(arena.getLength(), 0));
     }
 
@@ -158,6 +160,7 @@ public class WinterSportsman extends Sportsman implements Competitor, IWinterSpo
 
     /**
      * state getter
+     *
      * @return competitor state
      */
 
@@ -175,22 +178,24 @@ public class WinterSportsman extends Sportsman implements Competitor, IWinterSpo
         super.setAge(age);
     }
 
-    public void setGender(Gender gender){
+    public void setGender(Gender gender) {
         super.setGender(gender);
     }
 
-    public void setMaxSpeed(double speed){
+    public void setMaxSpeed(double speed) {
 
     }
 
     /**
      * state setter
+     *
      * @param state competitor state
      */
     public void setState(CompetitionState state) {
         this.state = state;
     }
-    public void moveCompetitor(){
+
+    public void moveCompetitor() {
         this.getState().moveCompetitor();
     }
 
@@ -262,9 +267,9 @@ public class WinterSportsman extends Sportsman implements Competitor, IWinterSpo
         this.distanceStoped = distanceStoped;
     }
 
-    public WinterSportsman clone() throws CloneNotSupportedException{
+    public WinterSportsman clone() throws CloneNotSupportedException {
 
-        WinterSportsman sportsman = (WinterSportsman)super.clone();
+        WinterSportsman sportsman = (WinterSportsman) super.clone();
         sportsman.createStates();
         return sportsman;
 
@@ -272,10 +277,10 @@ public class WinterSportsman extends Sportsman implements Competitor, IWinterSpo
     }
 
     private void createStates() {
-        this.activeState = new activeState(this);
-        this.completedState = new completedState(this);
-        this.disabledState = new disabledState(this);
-        this.injuredState = new injuredState(this);
+        this.activeState = new ActiveState(this);
+        this.completedState = new CompletedState(this);
+        this.disabledState = new DisabledState(this);
+        this.injuredState = new InjuredState(this);
         this.state = activeState;
     }
 }

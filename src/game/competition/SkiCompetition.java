@@ -23,11 +23,13 @@ public class SkiCompetition extends WinterCompetition {
      * @param discipline the discipline
      * @param league     league type
      * @param gender     MALE/FEMALE
+     * @param threads    number of threads
      */
-    public SkiCompetition(IArena arena, int maxComp, Discipline discipline, League league, Gender gender) {
-        super(arena, maxComp, discipline, league, gender);
+    public SkiCompetition(IArena arena, int maxComp, Discipline discipline, League league, Gender gender, int threads) {
+        super(arena, maxComp, discipline, league, gender, threads);
     }
-    public SkiCompetition(IArena arena){
+
+    public SkiCompetition(IArena arena) {
         super(arena);
     }
 

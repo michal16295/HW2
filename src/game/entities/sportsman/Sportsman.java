@@ -5,8 +5,6 @@ import game.entities.MobileEntity;
 import game.enums.Gender;
 import utilities.ValidationUtils;
 
-import java.awt.*;
-
 /**
  * Sportsman class
  * Represents a mobile entity
@@ -30,7 +28,7 @@ public class Sportsman extends MobileEntity implements Cloneable {
      * @param maxSpeed     the maximum speed
      * @param acceleration the acceleration
      */
-    public Sportsman(int id,String name, double age, Gender gender, double maxSpeed, double acceleration) {
+    public Sportsman(int id, String name, double age, Gender gender, double maxSpeed, double acceleration) {
         super(maxSpeed, acceleration);
         this.setAge(age);
         this.setGender(gender);
@@ -44,7 +42,7 @@ public class Sportsman extends MobileEntity implements Cloneable {
      * default ctor
      * age: 12, gender: female, name: Daenrerys
      */
-    public Sportsman(){
+    public Sportsman() {
         this.setAge(12.0);
         this.setGender(Gender.FEMALE);
         this.setName("Daenrerys");
@@ -110,6 +108,7 @@ public class Sportsman extends MobileEntity implements Cloneable {
 
     /**
      * getting the id
+     *
      * @return id
      */
     public int getId() {
@@ -118,6 +117,7 @@ public class Sportsman extends MobileEntity implements Cloneable {
 
     /**
      * stting the id
+     *
      * @param id new id
      */
     public void setId(int id) {
@@ -126,6 +126,7 @@ public class Sportsman extends MobileEntity implements Cloneable {
 
     /**
      * getting the color
+     *
      * @return color
      */
     public String getColor() {
@@ -134,6 +135,7 @@ public class Sportsman extends MobileEntity implements Cloneable {
 
     /**
      * setting the color
+     *
      * @param color new color
      */
 
@@ -144,14 +146,16 @@ public class Sportsman extends MobileEntity implements Cloneable {
 
     /**
      * upgrading the new clone we have created
-     * @param id setting a new id
+     *
+     * @param id    setting a new id
      * @param color setting a new color
      */
-    public void upgrade(int id, String color){
+    public void upgrade(int id, String color) {
         this.setId(id);
         this.setColor(color);
     }
-    public double getMaxSpeed(){
+
+    public double getMaxSpeed() {
         return super.getMaxSpeed();
     }
 

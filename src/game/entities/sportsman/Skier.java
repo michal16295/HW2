@@ -21,10 +21,11 @@ public class Skier extends WinterSportsman {
      * @param maxSpeed     the maximum speed
      * @param acceleration the acceleration
      */
-    public Skier(int id,String name, double age, Gender gender, double acceleration, double maxSpeed, Discipline discipline, IArena arena) {
-        super(id,name, age, gender, discipline, maxSpeed, acceleration, arena);
+    public Skier(int id, String name, double age, Gender gender, double acceleration, double maxSpeed, Discipline discipline, IArena arena) {
+        super(id, name, age, gender, discipline, maxSpeed, acceleration, arena);
     }
-    public Skier(IArena arena){
+
+    public Skier(IArena arena) {
         super(arena);
     }
 

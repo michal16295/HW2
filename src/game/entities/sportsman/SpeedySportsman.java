@@ -1,7 +1,8 @@
 package game.entities.sportsman;
 
-public class SpeedySportsman extends  WSDecorator {
+public class SpeedySportsman extends WSDecorator {
     private double accelaration;
+
     public SpeedySportsman(IWinterSportsman winterSportsman, double accelaration) {
         super(winterSportsman);
         this.accelaration = accelaration;

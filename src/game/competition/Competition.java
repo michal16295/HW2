@@ -1,6 +1,7 @@
 package game.competition;
 
 import game.arena.IArena;
+import game.competition.builder.CompetitionPlan;
 import game.entities.sportsman.Sportsman;
 import game.entities.sportsman.WinterSportsman;
 import game.enums.Discipline;
@@ -8,9 +9,9 @@ import game.enums.Gender;
 import utilities.ValidationUtils;
 
 import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Competition class
@@ -20,12 +21,14 @@ import java.util.Random;
  * @author Michal Barski - 205870934
  */
 
-public abstract class Competition implements  CompetitionPlan {
+public abstract class Competition implements CompetitionPlan {
 
     private IArena arena;
     private int maxCompetitors;
     private ArrayList<Competitor> activeCompetitors;
     private ArrayList<Competitor> finishedCompetitors;
+    private int maxThreads;
+    private ExecutorService pool;
 
     /**
      * Ctor with parameters of arena and the max competitors in the competition.
@@ -33,12 +36,14 @@ public abstract class Competition implements  CompetitionPlan {
      * @param arena          competition arena
      * @param maxCompetitors number of maximum competitors
      */
-    public Competition(IArena arena, int maxCompetitors) {
+    public Competition(IArena arena, int maxCompetitors, int maxThreads) throws IllegalArgumentException {
         this.setArena(arena);
         this.setMaxCompetitors(maxCompetitors);
+        this.setMaxThreads(maxThreads);
         activeCompetitors = new ArrayList<>();
         finishedCompetitors = new ArrayList<>();
     }
+
     /**
      * Sets the arena.
      *
@@ -71,7 +76,7 @@ public abstract class Competition implements  CompetitionPlan {
         if (activeCompetitors.size() == maxCompetitors) {
             throw new IllegalStateException("The Competition is full");
         }
-        if(IdExists(competitor.getId())){
+        if (IdExists(competitor.getId())) {
             throw new IllegalAccessException("Id already exists");
         }
         if (!isValidCompetitor(competitor)) {
@@ -124,10 +129,10 @@ public abstract class Competition implements  CompetitionPlan {
      * Adding each competitor to the Observer
      */
     public void startRace() {
+        pool = Executors.newFixedThreadPool(maxThreads);
         for (Competitor comp : activeCompetitors) {
             comp.setRunning(true);
-            new Thread(comp).start();
-
+            pool.execute(comp);
         }
     }
 
@@ -140,52 +145,54 @@ public abstract class Competition implements  CompetitionPlan {
 
     /**
      * cloning players
+     *
      * @param oldId the id of the player we wish to make clones of
      * @param newId the new id for the new player
      * @param color the color of the new player
      * @return new competitor
-     * @throws IllegalStateException if there are no competitors
-     * @throws IllegalAccessException if player doesnt exists by the old id that was given
+     * @throws IllegalStateException      if there are no competitors
+     * @throws IllegalAccessException     if player doesnt exists by the old id that was given
      * @throws CloneNotSupportedException clone exception
      */
-    public Competitor cloneCompetitor (int oldId,int newId, String color)throws IllegalStateException, IllegalAccessException, CloneNotSupportedException{
+    public Competitor cloneCompetitor(int oldId, int newId, String color) throws IllegalStateException, IllegalAccessException, CloneNotSupportedException {
         Competitor newCompetitor;
-        if(!activeCompetitors.isEmpty()){
-            newCompetitor = (Competitor)((WinterSportsman)getCompetitorById(oldId)).clone();
-            if(!IdExists(newId)){
-                ((Sportsman)newCompetitor).upgrade(newId,color);
+        if (!activeCompetitors.isEmpty()) {
+            newCompetitor = ((WinterSportsman) getCompetitorById(oldId)).clone();
+            if (!IdExists(newId)) {
+                ((Sportsman) newCompetitor).upgrade(newId, color);
                 addCompetitor(newCompetitor);
                 return newCompetitor;
-            }
-            else throw new IllegalArgumentException("Id already exists");
+            } else throw new IllegalArgumentException("Id already exists");
 
-        }else throw new IllegalStateException("There are no competitors");
+        } else throw new IllegalStateException("There are no competitors");
 
     }
 
     /**
      * getting competitor by his id
+     *
      * @param id id of the competitor
      * @return competitor
      * @throws IllegalAccessException if competitor doesnt exists
      */
     public Competitor getCompetitorById(int id) throws IllegalAccessException {
-        for(Competitor i : activeCompetitors){
-            if(i.getId() == id){
+        for (Competitor i : activeCompetitors) {
+            if (i.getId() == id) {
                 return i;
             }
         }
-        throw new IllegalAccessException("Id doesnt exists");
+        throw new IllegalAccessException("Id doesn't exists");
     }
 
     /**
      * checking if the id already exists
+     *
      * @param id competitor id
      * @return TRUE/FALSE
      */
-    public boolean IdExists(int id){
-        for(Competitor i : activeCompetitors){
-            if(i.getId() == id){
+    public boolean IdExists(int id) {
+        for (Competitor i : activeCompetitors) {
+            if (i.getId() == id) {
                 return true;
             }
         }
@@ -205,23 +212,27 @@ public abstract class Competition implements  CompetitionPlan {
         return arena;
     }
 
-    public void destiny(){
+    public void destiny() {
         Random rand = new Random();
-        for(Competitor comp: activeCompetitors){
-            WinterSportsman sportsman = (WinterSportsman)comp;
+        for (Competitor comp : activeCompetitors) {
+            WinterSportsman sportsman = (WinterSportsman) comp;
             int n = rand.nextInt(3);
             int distance = rand.nextInt((int) (getArena().getLength() - 1));
-            if(n == 0){
+            if (n == 0) {
                 sportsman.setInjured(true);
                 sportsman.setDistanceStoped(distance);
             }
-            if(n == 1){
+            if (n == 1) {
                 sportsman.setDisabled(true);
                 sportsman.setDistanceStoped(distance);
-
             }
         }
     }
 
 
+    private void setMaxThreads(int maxThreads) throws IllegalArgumentException {
+        if (maxThreads < 1 || maxThreads > 10)
+            throw new IllegalArgumentException("Number of threads allowed is between 1 to 10");
+        this.maxThreads = maxThreads;
+    }
 }

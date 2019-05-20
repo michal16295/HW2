@@ -9,14 +9,15 @@ import game.enums.WeatherCondition;
  */
 public class ArenaFactory {
 
-    public static Arena makeArena(String newArenaType, double length, SnowSurface surface, WeatherCondition condition){
-        if(newArenaType.equals("Summer")){
+    public static Arena makeArena(String newArenaType, double length, SnowSurface surface, WeatherCondition condition) {
+        if (newArenaType.equals("Summer")) {
             return new SummerArena(length, surface, condition);
-        }else if(newArenaType.equals("Winter")){
+        } else if (newArenaType.equals("Winter")) {
             return new WinterArena(length, surface, condition);
-        }else return null;
+        } else return null;
     }
-    public static Arena makeDefaultWinterArena(){
+
+    public static Arena makeDefaultWinterArena() {
         return new WinterArena();
     }
 }

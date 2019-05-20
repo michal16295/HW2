@@ -1,11 +1,12 @@
-package game.competition;
+package game.competition.state;
 
 import game.entities.sportsman.WinterSportsman;
 
-public class injuredState implements CompetitionState {
+public class InjuredState implements CompetitionState {
+
     private WinterSportsman sportsman;
 
-    public injuredState(WinterSportsman sportsman) {
+    public InjuredState(WinterSportsman sportsman) {
         this.sportsman = sportsman;
     }
 

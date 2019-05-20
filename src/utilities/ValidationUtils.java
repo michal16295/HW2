@@ -1,7 +1,5 @@
 package utilities;
 
-import java.lang.reflect.Type;
-
 /**
  * Created by itzhak on 15-Mar-19.
  * Validate utils used to validate input across the program

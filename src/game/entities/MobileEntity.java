@@ -26,7 +26,8 @@ public abstract class MobileEntity extends Entity implements IMobileEntity {
         this.setAcceleration(acceleration);
         this.setMaxSpeed(maxSpeed);
     }
-    public MobileEntity(){
+
+    public MobileEntity() {
         this.setSpeed(0);
         this.setAcceleration(2);
         this.setMaxSpeed(10);

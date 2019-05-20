@@ -1,8 +1,8 @@
-package game.competition;
+package game.competition.builder;
 
 import game.arena.Arena;
-import game.arena.ArenaFactory;
-import game.arena.WinterArena;
+import game.competition.Competition;
+import game.competition.SkiCompetition;
 import game.enums.Discipline;
 import game.enums.Gender;
 import game.enums.League;
@@ -15,13 +15,13 @@ public class MyBuilder implements SkiCompetitionBuilder {
 
     /**
      * ctor
+     *
      * @param arena setting the arena for the competition
      */
     public MyBuilder(Arena arena) {
-
         competition = new SkiCompetition(arena);
-
     }
+
     @Override
     /**
      * Getting the competition

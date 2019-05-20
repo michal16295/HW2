@@ -1,4 +1,6 @@
-package game.competition;
+package game.competition.builder;
+
+import game.competition.Competition;
 
 /**
  * Competition engineer
@@ -8,24 +10,26 @@ public class CompetitionEngineer {
 
     /**
      * ctor
+     *
      * @param builder SkiCimpetitionBuilder
      */
-    public CompetitionEngineer(SkiCompetitionBuilder builder){
+    public CompetitionEngineer(SkiCompetitionBuilder builder) {
         this.builder = builder;
     }
 
     /**
      * getting the competition
+     *
      * @return competition
      */
-    public Competition getCompetition(){
+    public Competition getCompetition() {
         return builder.getCompetition();
     }
 
     /**
      * Building the competition
      */
-    public void constructCompetition(){
+    public void constructCompetition() {
         builder.buildDiscipline();
         builder.buildGender();
         builder.buildLeague();

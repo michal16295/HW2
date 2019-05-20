@@ -9,7 +9,6 @@ import game.competition.Competitor;
 import game.entities.sportsman.Skier;
 import game.entities.sportsman.WinterSportsman;
 
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -28,7 +27,7 @@ public class DefaultCompetitionPanel extends JFrame {
     /**
      * default ctor
      */
-    public DefaultCompetitionPanel(){
+    public DefaultCompetitionPanel() {
         super("Default Competition");
         createUI();
 
@@ -57,26 +56,26 @@ public class DefaultCompetitionPanel extends JFrame {
     /**
      * create competition button
      */
-    private void addButtonListener(){
+    private void addButtonListener() {
         createBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try{
+                try {
                     GuiManager.getPanelInfo().setInRace(false);
                     PanelGame game = GuiManager.getPanelGame();
                     int numOfCompetitors = Integer.parseInt(numOfCompText.getText());
                     //Building the competition
                     GameEngine.getInstance().buildDefaultComp();
-                    if(numOfCompetitors > GameEngine.getInstance().getComp().getMaxCompetitors()){
+                    if (numOfCompetitors > GameEngine.getInstance().getComp().getMaxCompetitors()) {
                         JOptionPane.showMessageDialog(null, "Reached maximum competitors", "Message", JOptionPane.ERROR_MESSAGE);
                         return;
                     }
                     //Getting the arena
                     IArena arena = GameEngine.getInstance().getArena();
-                    game.setBackgroundImage(arena.getCondition(), 1000, (int)arena.getLength());
-                    createDefaultCompetitors(numOfCompetitors,arena,game);
+                    game.setBackgroundImage(arena.getCondition(), 1000, (int) arena.getLength());
+                    createDefaultCompetitors(numOfCompetitors, arena, game);
 
-                }catch (Exception ex){
+                } catch (Exception ex) {
                     ex.printStackTrace();
                 }
                 dispose();
@@ -88,7 +87,7 @@ public class DefaultCompetitionPanel extends JFrame {
     /**
      * adding the UI to the panel
      */
-    private void addUiToPanel(){
+    private void addUiToPanel() {
         add(numOfCompetitorsLabel);
         add(numOfCompText);
         add(createBtn);
@@ -96,20 +95,21 @@ public class DefaultCompetitionPanel extends JFrame {
 
     /**
      * Creating a quick competition, the user enters the number of competitors
+     *
      * @param numOfCompetitors users input
-     * @param arena default arena - Winter Arena
-     * @param game the game panel
+     * @param arena            default arena - Winter Arena
+     * @param game             the game panel
      */
-    private void createDefaultCompetitors(int numOfCompetitors, IArena arena, PanelGame game){
+    private void createDefaultCompetitors(int numOfCompetitors, IArena arena, PanelGame game) {
         Competition comp = GameEngine.getInstance().getComp();
         //creating the first competitor- from him we will clone
         Skier skier = new Skier(arena);
         skier.setId(0);
         game.setPlayerIcon(skier);
         //adding the first player to the competition
-        try{
+        try {
             comp.addCompetitor(skier);
-        }catch (IllegalAccessException ex){
+        } catch (IllegalAccessException ex) {
             JOptionPane.showMessageDialog(null, "Id already exists", "Message", JOptionPane.ERROR_MESSAGE);
 
         }
@@ -118,16 +118,16 @@ public class DefaultCompetitionPanel extends JFrame {
         //adding the player to the info table
         InfoTable.getModel().addRow(skier.getName(), 0.0, skier.getMaxSpeed(), 0.0, "No", skier.getState().toString());
         //loop that adds players by the number of players the user has chosen
-        for(int i = 1 ; i < numOfCompetitors  ; i++){
-           try{
-               //using the clone method to clone players from the first player we created
-                Competitor skier1 = comp.cloneCompetitor(i-1, i, "pink");
+        for (int i = 1; i < numOfCompetitors; i++) {
+            try {
+                //using the clone method to clone players from the first player we created
+                Competitor skier1 = comp.cloneCompetitor(i - 1, i, "pink");
                 game.setPlayerIcon((WinterSportsman) skier1);
                 game.addCompetitor(skier1);
                 InfoTable.getModel().addRow(skier.getName(), 0.0, skier.getMaxSpeed(), 0.0, "No", skier.getState().toString());
-            }catch (Exception ex){
-               ex.printStackTrace();
-           }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
 

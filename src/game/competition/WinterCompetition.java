@@ -27,9 +27,10 @@ public class WinterCompetition extends Competition {
      * @param discipline the discipline
      * @param league     league type
      * @param gender     MALE/FEMALE
+     * @param threads    number of threads
      */
-    public WinterCompetition(IArena arena, int maxComp, Discipline discipline, League league, Gender gender) {
-        super(arena, maxComp);
+    public WinterCompetition(IArena arena, int maxComp, Discipline discipline, League league, Gender gender, int threads) {
+        super(arena, maxComp, threads);
         this.setDiscipline(discipline);
         this.setGender(gender);
         this.setLeague(league);
@@ -37,10 +38,11 @@ public class WinterCompetition extends Competition {
 
     /**
      * default ctor
+     *
      * @param arena
      */
-    public WinterCompetition(IArena arena){
-        super(arena,10);
+    public WinterCompetition(IArena arena) {
+        super(arena, 10, 5);
 
     }
 

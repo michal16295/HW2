@@ -74,16 +74,15 @@ public class PanelCompetitor extends JPanel {
         cloneBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try{
-                    if(GameEngine.getInstance().getComp().hasActiveCompetitors()){
+                try {
+                    if (GameEngine.getInstance().getComp().hasActiveCompetitors()) {
                         new CloneCompetitorPanel();
-                    }
-                    else{
+                    } else {
                         JOptionPane.showMessageDialog(null, "There are no competitors", "Message", JOptionPane.ERROR_MESSAGE);
                         return;
 
                     }
-                }catch (NullPointerException ex){
+                } catch (NullPointerException ex) {
                     JOptionPane.showMessageDialog(null, "Build Arena, create competition and then create competitors to clone", "Message", JOptionPane.ERROR_MESSAGE);
 
                 }
@@ -163,7 +162,7 @@ public class PanelCompetitor extends JPanel {
             double acceleration = Double.parseDouble(accelerationText.getText());
             int id = Integer.parseInt(idText.getText());
 
-            Object o = GameEngine.getInstance().createAndAddSportsman(id,name, age, acceleration, maxSpeed);
+            Object o = GameEngine.getInstance().createAndAddSportsman(id, name, age, acceleration, maxSpeed);
 
             game.setPlayerIcon((WinterSportsman) o);
             game.addCompetitor((Competitor) o);

@@ -29,6 +29,7 @@ public class PanelCompetition extends JPanel {
     private JLabel disciplineLabel;
     private JLabel leagueLabel;
     private JLabel genderLabel;
+    private JLabel threadsLabel;
 
     private JComboBox chooseCompCombobox;
     private JComboBox disciplineCombobox;
@@ -36,6 +37,7 @@ public class PanelCompetition extends JPanel {
     private JComboBox genderCombobox;
 
     private JTextField maxCompText;
+    private JTextField threadsText;
     private JButton createCompBtn;
     private Border blackLine;
 
@@ -84,7 +86,27 @@ public class PanelCompetition extends JPanel {
                     return;
                 }
 
-                createCompetition(info, game, type, maxComp);
+                int threads;
+                try {
+                    threads = Integer.parseInt(threadsText.getText());
+                    if (threads < 1 || threads > 10) {
+                        JOptionPane.showMessageDialog(null, "Threads should be a between 1 to 10", "Message", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Threads should be a number", "Message", JOptionPane.ERROR_MESSAGE);
+                    ex.printStackTrace();
+                    return;
+                } catch (IllegalArgumentException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Message", JOptionPane.ERROR_MESSAGE);
+                    ex.printStackTrace();
+                    return;
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    return;
+                }
+
+                createCompetition(info, game, type, maxComp, threads);
             }
         });
     }
@@ -95,7 +117,7 @@ public class PanelCompetition extends JPanel {
     private void createUI() {
         this.setSize(new Dimension(300, 400));
         //Setting the layout
-        setLayout(new GridLayout(12, 1));
+        setLayout(new GridLayout(14, 1));
         blackLine = BorderFactory.createLineBorder(Color.black);
 
         //Create competition label
@@ -122,6 +144,10 @@ public class PanelCompetition extends JPanel {
         genderLabel = new JLabel("Gender");
         genderCombobox = new JComboBox(Gender.values());
 
+        //Threads
+        threadsLabel = new JLabel("Threads");
+        threadsText = new JTextField("5");
+
         //Create comp button
         createCompBtn = new JButton("Create Competition");
     }
@@ -141,6 +167,8 @@ public class PanelCompetition extends JPanel {
         add(leagueCombobox);
         add(genderLabel);
         add(genderCombobox);
+        add(threadsLabel);
+        add(threadsText);
         add(createCompBtn);
         setBorder(blackLine);
     }
@@ -153,14 +181,14 @@ public class PanelCompetition extends JPanel {
      * @param type    the class type
      * @param maxComp maximum competitors
      */
-    private void createCompetition(PanelInfo info, PanelGame game, String type, int maxComp) {
+    private void createCompetition(PanelInfo info, PanelGame game, String type, int maxComp, int threads) {
         Discipline discipline = (Discipline) disciplineCombobox.getSelectedItem();
         League league = (League) leagueCombobox.getSelectedItem();
         Gender gender = (Gender) genderCombobox.getSelectedItem();
 
         GameEngine engine = GameEngine.getInstance();
         engine.setType((Competition) chooseCompCombobox.getSelectedItem());
-        engine.buildCompetition(type, maxComp, discipline, league, gender);
+        engine.buildCompetition(type, maxComp, discipline, league, gender, threads);
 
         //init the race
         game.clearCompetitorsArray();

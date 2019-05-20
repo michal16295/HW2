@@ -1,11 +1,12 @@
-package game.competition;
+package game.competition.state;
 
 import game.entities.sportsman.WinterSportsman;
 
-public class activeState implements CompetitionState {
+public class ActiveState implements CompetitionState {
+
     private WinterSportsman sportsman;
 
-    public activeState(WinterSportsman sportsman){
+    public ActiveState(WinterSportsman sportsman) {
         this.sportsman = sportsman;
     }
 
@@ -13,15 +14,15 @@ public class activeState implements CompetitionState {
     public void moveCompetitor() {
 
         sportsman.move(sportsman.getArena().getFriction());
-        if(sportsman.isInjured() && sportsman.getDistanceStoped() <= sportsman.getLocation().getX()){
+        if (sportsman.isInjured() && sportsman.getDistanceStoped() <= sportsman.getLocation().getX()) {
             sportsman.setState(sportsman.getInjuredState());
             sportsman.setRunning(false);
         }
-        if(sportsman.isDisabled() && sportsman.getDistanceStoped() <= sportsman.getLocation().getX()){
+        if (sportsman.isDisabled() && sportsman.getDistanceStoped() <= sportsman.getLocation().getX()) {
             sportsman.setState(sportsman.getDisabledState());
             sportsman.setRunning(false);
         }
-        if(sportsman.isFinished()){
+        if (sportsman.isFinished()) {
             sportsman.setState(sportsman.getCompletedState());
             sportsman.setRunning(false);
         }

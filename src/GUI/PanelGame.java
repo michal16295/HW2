@@ -1,7 +1,6 @@
 package GUI;
 
 import GUI.leftpanel.infopanel.InfoTable;
-import game.GameEngine;
 import game.competition.Competitor;
 import game.entities.sportsman.Skier;
 import game.entities.sportsman.Sportsman;
@@ -29,7 +28,6 @@ public class PanelGame extends JPanel implements Observer {
     private final String path = "assets/";
     private final double OFFSET_X = 60;
 
-    private Thread thread;
     private BufferedImage image;
     private BufferedImage icon;
     private ArrayList<Competitor> activeCompetitors;
@@ -102,29 +100,29 @@ public class PanelGame extends JPanel implements Observer {
             g.drawImage(icon, j, (int) (i.getLocation().getX() * ratio), null);
             String[] colors = i.getColor().split(" ");
             int k = 0;
-            for(String color : colors){
+            for (String color : colors) {
                 g.setColor(convertToColor(color));
-                g.drawRect(j + k, (int)(i.getLocation().getX() * ratio), 10 ,10);
-                g.fillRect(j + k, (int)(i.getLocation().getX() * ratio),10,10);
+                g.drawRect(j + k, (int) (i.getLocation().getX() * ratio), 10, 10);
+                g.fillRect(j + k, (int) (i.getLocation().getX() * ratio), 10, 10);
                 k += 10;
             }
             j += OFFSET_X;
         }
 
     }
-    public Color convertToColor(String c){
-        switch (c){
+
+    public Color convertToColor(String c) {
+        switch (c) {
             case "red":
                 return Color.red;
             case "blue":
                 return Color.blue;
-            case "pink":
-                return Color.pink;
             case "black":
                 return Color.black;
             case "green":
                 return Color.green;
-                default:return Color.pink;
+            default:
+                return Color.pink;
         }
     }
 
@@ -189,10 +187,9 @@ public class PanelGame extends JPanel implements Observer {
      */
     public void startRace() {
         competitors = new ArrayList<>(activeCompetitors);
-        for(Competitor comp: competitors){
-            Sportsman sportsman = (Sportsman)comp;
+        for (Competitor comp : competitors) {
+            Sportsman sportsman = (Sportsman) comp;
             sportsman.addObserver(this);
-;
         }
     }
 
@@ -209,9 +206,9 @@ public class PanelGame extends JPanel implements Observer {
      */
     private void updatePlayers() {
         updateUI();
-        ArrayList<Competitor> temp = sortPlayers();
-        for (int i = 0; i < temp.size(); ++i) {
-            Competitor c = temp.get(i);
+        sortPlayers();
+        for (int i = 0; i < competitors.size(); ++i) {
+            Competitor c = competitors.get(i);
             InfoTable.getModel().updateRow(i, c.getName(), c.getSpeed(), c.getMaxSpeed(), c.getLocation().getX(), c.isFinished(), c.getState().toString());
         }
     }
@@ -221,7 +218,7 @@ public class PanelGame extends JPanel implements Observer {
      * from top to bottom
      * the winner placed first in the table
      */
-    private ArrayList<Competitor> sortPlayers() {
+    private void sortPlayers() {
         for (int i = 0; i < competitors.size() - 1; i++) {
             for (int j = 0; j < competitors.size() - i - 1; j++) {
                 Competitor player1 = competitors.get(j);
@@ -233,7 +230,6 @@ public class PanelGame extends JPanel implements Observer {
                 }
             }
         }
-        return competitors;
     }
 
     /**
@@ -250,7 +246,7 @@ public class PanelGame extends JPanel implements Observer {
 
     @Override
     public synchronized void update(Observable o, Object arg) {
-       updatePlayers();
-       repaint();
+        updatePlayers();
+        repaint();
     }
 }

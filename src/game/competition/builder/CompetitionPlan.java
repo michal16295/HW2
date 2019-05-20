@@ -1,4 +1,4 @@
-package game.competition;
+package game.competition.builder;
 
 import game.arena.IArena;
 import game.enums.Discipline;

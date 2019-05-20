@@ -1,7 +1,6 @@
 package GUI.leftpanel.infopanel;
 
 import GUI.GuiManager;
-import GUI.PanelGame;
 import game.GameEngine;
 
 import javax.swing.*;

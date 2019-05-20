@@ -2,7 +2,7 @@ package game.entities.sportsman;
 
 public interface IWinterSportsman {
 
-    double  getAcceleration();
+    double getAcceleration();
 
     String getColor();
 

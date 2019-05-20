@@ -1,4 +1,6 @@
-package game.competition;
+package game.competition.builder;
+
+import game.competition.Competition;
 
 /**
  * ski competition builder interface

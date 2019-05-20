@@ -1,15 +1,15 @@
 package game;
 
 import GUI.GuiManager;
-import GUI.PanelGame;
+import game.arena.Arena;
 import game.arena.ArenaFactory;
 import game.arena.IArena;
-import game.arena.Arena;
-import game.competition.*;
 import game.competition.Competition;
-import game.entities.sportsman.Skier;
+import game.competition.Competitor;
+import game.competition.builder.CompetitionEngineer;
+import game.competition.builder.MyBuilder;
+import game.competition.builder.SkiCompetitionBuilder;
 import game.enums.*;
-
 
 import java.lang.reflect.Constructor;
 
@@ -85,7 +85,7 @@ public class GameEngine {
      * @param surface          the surface
      * @param weatherCondition the weather condition
      */
-    public void buildArena(String type,double len, SnowSurface surface, WeatherCondition weatherCondition) {
+    public void buildArena(String type, double len, SnowSurface surface, WeatherCondition weatherCondition) {
         arena = ArenaFactory.makeArena(type, len, surface, weatherCondition);
         comp = null;
     }
@@ -99,13 +99,13 @@ public class GameEngine {
      * @param league     the league
      * @param gender     the gender
      */
-    public void buildCompetition(String type, int maxComp, Discipline discipline, League league, Gender gender) {
+    public void buildCompetition(String type, int maxComp, Discipline discipline, League league, Gender gender, int threads) {
         try {
             String path = "game.competition.";
             String compClass = path + type + "Competition";
             Class aClass = getClass().getClassLoader().loadClass(compClass);
-            Constructor ctor = aClass.getConstructor(IArena.class, int.class, Discipline.class, League.class, Gender.class);
-            Object o = ctor.newInstance(arena, maxComp, discipline, league, gender);
+            Constructor ctor = aClass.getConstructor(IArena.class, int.class, Discipline.class, League.class, Gender.class, int.class);
+            Object o = ctor.newInstance(arena, maxComp, discipline, league, gender, threads);
             comp = (Competition) o;
 
         } catch (Exception ex) {
@@ -116,8 +116,8 @@ public class GameEngine {
     /**
      * Building a default competition using the builder Design Pattern
      */
-    public void buildDefaultComp(){
-        try{
+    public void buildDefaultComp() {
+        try {
             //Building the arena first
             this.arena = ArenaFactory.makeDefaultWinterArena();
             GuiManager.getPanelGame().setRatio(arena.getLength());
@@ -127,7 +127,7 @@ public class GameEngine {
             engineer.constructCompetition();
             comp = engineer.getCompetition();
             this.setType(game.enums.Competition.Ski);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
@@ -143,13 +143,13 @@ public class GameEngine {
      * @throws IllegalStateException    Illegal competitor
      * @throws IllegalArgumentException Reached max competitors
      */
-    public Object createAndAddSportsman(int id,String name, double age, double acceleration, double maxSpeed) throws IllegalStateException, IllegalArgumentException, IllegalAccessException {
+    public Object createAndAddSportsman(int id, String name, double age, double acceleration, double maxSpeed) throws IllegalStateException, IllegalArgumentException, IllegalAccessException {
         Object o;
         try {
             String type = getPlayerType();
             Class aClass = getClass().getClassLoader().loadClass(type);
-            Constructor ctor = aClass.getConstructor(int.class,String.class, double.class, Gender.class, double.class, double.class, Discipline.class, IArena.class);
-            o = ctor.newInstance(id,name, age, comp.getGender(), acceleration, maxSpeed, comp.getDiscipline(), arena);
+            Constructor ctor = aClass.getConstructor(int.class, String.class, double.class, Gender.class, double.class, double.class, Discipline.class, IArena.class);
+            o = ctor.newInstance(id, name, age, comp.getGender(), acceleration, maxSpeed, comp.getDiscipline(), arena);
         } catch (Exception ex) {
             ex.printStackTrace();
             return null;

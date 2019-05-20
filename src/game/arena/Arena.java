@@ -8,6 +8,7 @@ import utilities.ValidationUtils;
 /**
  * Winter Arena class
  * Represents an arena with friction of snow surface.
+ *
  * @author Dima Zagorodny - 320552243
  * @author Michal Barski - 205870934
  */
@@ -18,11 +19,12 @@ public abstract class Arena implements IArena {
 
     /**
      * Ctor with parameters of arena's length, the surface and weather condition.
-     * @param length length of arena
-     * @param surface the surface
+     *
+     * @param length    length of arena
+     * @param surface   the surface
      * @param condition the weather condition
      */
-    public Arena(double length, SnowSurface surface, WeatherCondition condition){
+    public Arena(double length, SnowSurface surface, WeatherCondition condition) {
         this.setLength(length);
         this.setCondition(condition);
         this.setSurface(surface);
@@ -35,7 +37,7 @@ public abstract class Arena implements IArena {
     /**
      * default ctor
      */
-    public Arena(){
+    public Arena() {
         this.setLength(700);
         this.setCondition(WeatherCondition.SUNNY);
         this.setSurface(SnowSurface.POWDER);
@@ -43,9 +45,10 @@ public abstract class Arena implements IArena {
 
     /**
      * Copy Ctor - copies the arena from other arena.
+     *
      * @param other arena to copy from
      */
-    public Arena(Arena other){
+    public Arena(Arena other) {
         ValidationUtils.assertNotNull(other);
         this.setLength(other.length);
         this.setCondition(other.condition);
@@ -54,33 +57,37 @@ public abstract class Arena implements IArena {
 
     /**
      * Sets the length of the arena.
+     *
      * @param length the length
      */
-    private void setLength(double length){
+    private void setLength(double length) {
         ValidationUtils.assertNotNegative(length);
         this.length = length;
     }
 
     /**
      * Sets the surface of the arena.
+     *
      * @param surface the surface
      */
-    private void setSurface(SnowSurface surface){
+    private void setSurface(SnowSurface surface) {
         ValidationUtils.assertNotNull(surface);
         this.surface = surface;
     }
 
     /**
      * Sets the weather condition of the arena.
+     *
      * @param condition the weather condition
      */
-    private void setCondition(WeatherCondition condition){
+    private void setCondition(WeatherCondition condition) {
         ValidationUtils.assertNotNull(condition);
         this.condition = condition;
     }
 
     /**
      * Returns the arena's surface.
+     *
      * @return arena's surface
      */
     public SnowSurface getSurface() {
@@ -89,26 +96,29 @@ public abstract class Arena implements IArena {
 
     /**
      * Returns the arena's length.
+     *
      * @return arena's length
      */
-    public double getLength(){
+    public double getLength() {
         return this.length;
     }
 
     /**
      * Returns the surface's friction.
+     *
      * @return surface's friction
      */
-    public double getFriction(){
+    public double getFriction() {
         return getSurface().getFriction();
     }
 
     /**
      * Check whether the entity has crossed the finish line.
+     *
      * @param me the entity
      * @return true if crossed, false otherwise
      */
-    public boolean isFinished(IMobileEntity me){
+    public boolean isFinished(IMobileEntity me) {
         return me.getLocation().getX() >= getLength();
     }
 

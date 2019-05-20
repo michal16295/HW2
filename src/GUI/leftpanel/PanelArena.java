@@ -138,7 +138,7 @@ public class PanelArena extends JPanel {
      * @param len   arena length
      */
     private void buildArena(PanelGame game, MainFrame frame, double len) {
-        GameEngine.getInstance().buildArena(arenaTypeComboBox.getSelectedItem().toString(),len, (SnowSurface) SnowSurfaceCombobox.getSelectedItem(), (WeatherCondition) WeatherConditionCombobox.getSelectedItem());
+        GameEngine.getInstance().buildArena(arenaTypeComboBox.getSelectedItem().toString(), len, (SnowSurface) SnowSurfaceCombobox.getSelectedItem(), (WeatherCondition) WeatherConditionCombobox.getSelectedItem());
         game.setBackgroundImage((WeatherCondition) WeatherConditionCombobox.getSelectedItem(), 1000, (int) len);
         frame.setSize(1000, (int) len);
 

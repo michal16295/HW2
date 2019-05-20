@@ -1,14 +1,15 @@
-package game.competition;
+package game.competition.state;
 
 import game.entities.sportsman.WinterSportsman;
 
-public class completedState implements CompetitionState {
+public class DisabledState implements CompetitionState {
 
     private WinterSportsman sportsman;
 
-    public completedState(WinterSportsman sportsman) {
+    public DisabledState(WinterSportsman sportsman) {
         this.sportsman = sportsman;
     }
+
     @Override
     public void moveCompetitor() {
 
@@ -16,6 +17,6 @@ public class completedState implements CompetitionState {
 
     @Override
     public String toString() {
-        return "completed";
+        return "disabled";
     }
 }

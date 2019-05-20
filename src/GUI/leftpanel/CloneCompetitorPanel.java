@@ -15,7 +15,7 @@ import java.awt.event.ActionListener;
 /**
  * Clone panel- the user enters the number of players he wants to clone
  */
-public class CloneCompetitorPanel extends JFrame{
+public class CloneCompetitorPanel extends JFrame {
     private JTextField idText;
     private JLabel newIdLabel;
     private JLabel idLabel;
@@ -58,37 +58,34 @@ public class CloneCompetitorPanel extends JFrame{
 
     /**
      * The clone button
+     *
      * @throws NullPointerException
      */
     private void addButtonListener() throws NullPointerException {
         cloneBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try{
+                try {
                     PanelGame game = GuiManager.getPanelGame();
                     int oldId = Integer.parseInt(idText.getText());
                     int newId = Integer.parseInt(newIdText.getText());
                     String color = colorText.getSelectedItem().toString();
                     try {
                         //cloning and creating a new player from the id that was given
-                        Competitor newComp = GameEngine.getInstance().getComp().cloneCompetitor(oldId,newId,color);
+                        Competitor newComp = GameEngine.getInstance().getComp().cloneCompetitor(oldId, newId, color);
                         game.addCompetitor(newComp);
                         game.setPlayerIcon((WinterSportsman) newComp);
 
                         //adding the player to the info table
                         InfoTable.getModel().addRow(newComp.getName(), 0.0, newComp.getMaxSpeed(), 0.0, "No", ((WinterSportsman) newComp).getState().toString());
-                    }
-                    catch (IllegalStateException ex){
+                    } catch (IllegalStateException ex) {
                         JOptionPane.showMessageDialog(null, "There are no competitors", "Message", JOptionPane.ERROR_MESSAGE);
                         ex.printStackTrace();
-                    }
-
-                    catch (IllegalArgumentException ex) {
+                    } catch (IllegalArgumentException ex) {
                         JOptionPane.showMessageDialog(null, "Id already exists", "Message", JOptionPane.ERROR_MESSAGE);
                         ex.printStackTrace();
-                    }
-                    catch (IllegalAccessException ex) {
-                        JOptionPane.showMessageDialog(null, "Id doesnt exists", "Message", JOptionPane.ERROR_MESSAGE);
+                    } catch (IllegalAccessException ex) {
+                        JOptionPane.showMessageDialog(null, "Id doesn't exists", "Message", JOptionPane.ERROR_MESSAGE);
                         ex.printStackTrace();
                     }
 
@@ -96,7 +93,7 @@ public class CloneCompetitorPanel extends JFrame{
                     JOptionPane.showMessageDialog(null, "Id must be a number", "Message", JOptionPane.ERROR_MESSAGE);
                     ex.printStackTrace();
 
-                }catch (Exception ex){
+                } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Invalid input!", "Message", JOptionPane.ERROR_MESSAGE);
                     ex.printStackTrace();
                 }
@@ -110,7 +107,7 @@ public class CloneCompetitorPanel extends JFrame{
      */
     private void createUI() {
         setLayout(new GridLayout(8, 1));
-        String [] colors = {"red", "blue","black","pink","green"};
+        String[] colors = {"red", "blue", "black", "pink", "green"};
 
         cloneCompetitorLabel = new JLabel("CLONE COMPETITOR");
         cloneCompetitorLabel.setForeground(Color.blue);

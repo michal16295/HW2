@@ -1,5 +1,6 @@
 package game.competition;
 
+import game.competition.state.CompetitionState;
 import game.entities.IMobileEntity;
 
 /**
@@ -9,7 +10,7 @@ import game.entities.IMobileEntity;
  * @author Dima Zagorodny - 320552243
  * @author Michal Barski - 205870934
  */
-public interface Competitor extends IMobileEntity, Runnable, Cloneable{
+public interface Competitor extends IMobileEntity, Runnable, Cloneable {
     void initRace();
 
     String getName();
@@ -39,11 +40,6 @@ public interface Competitor extends IMobileEntity, Runnable, Cloneable{
     void setState(CompetitionState state);
 
     CompetitionState getState();
-
-
-
-
-
 
 
 }

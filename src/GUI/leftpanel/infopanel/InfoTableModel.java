@@ -1,7 +1,7 @@
 package GUI.leftpanel.infopanel;
 
 import javax.swing.table.AbstractTableModel;
-import java.util.*;
+import java.util.ArrayList;
 
 
 /**
@@ -13,7 +13,7 @@ import java.util.*;
 public class InfoTableModel extends AbstractTableModel {
     private static ArrayList<ArrayList<Object>> data = new ArrayList<>();
 
-    private final String[] columnNames = {"Name", "Speed", "Max Speed", "Location", "Finished","State"};
+    private final String[] columnNames = {"Name", "Speed", "Max Speed", "Location", "Finished", "State"};
 
     /**
      * Returns the column name of index 'col'
@@ -95,14 +95,9 @@ public class InfoTableModel extends AbstractTableModel {
         player.set(5, state);
 
 
-        fireTableCellUpdated(index, 0);
-        fireTableCellUpdated(index, 1);
-        fireTableCellUpdated(index, 2);
-        fireTableCellUpdated(index, 3);
-        fireTableCellUpdated(index, 4);
-        fireTableCellUpdated(index, 5);
-
-
+        for (int i = 0; i < 6; ++i) {
+            fireTableCellUpdated(index, i);
+        }
     }
 
     /**

@@ -226,7 +226,7 @@ public class PanelGame extends JPanel implements Observer {
             for (int j = 0; j < competitors.size() - i - 1; j++) {
                 Competitor player1 = competitors.get(j);
                 Competitor player2 = competitors.get(j + 1);
-                if (player1.isFinished() || player2.isFinished())
+                if (player1.isFinished() && player2.isFinished())
                     continue;
                 if (player1.getLocation().getX() < player2.getLocation().getX()) {
                     Collections.swap(competitors, j, j + 1);

@@ -117,7 +117,9 @@ public abstract class Competition implements CompetitionPlan {
      * Adding each competitor to the Observer
      */
     public void startRace() {
-        pool.shutdownNow();
+        if (pool != null) {
+            pool.shutdownNow();
+        }
         pool = Executors.newFixedThreadPool(maxThreads);
         for (Competitor comp : activeCompetitors) {
             comp.setRunning(true);

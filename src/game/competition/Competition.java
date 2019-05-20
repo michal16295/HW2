@@ -26,7 +26,6 @@ public abstract class Competition implements CompetitionPlan {
     private IArena arena;
     private int maxCompetitors;
     private ArrayList<Competitor> activeCompetitors;
-    private ArrayList<Competitor> finishedCompetitors;
     private int maxThreads;
     private ExecutorService pool;
 
@@ -41,7 +40,6 @@ public abstract class Competition implements CompetitionPlan {
         this.setMaxCompetitors(maxCompetitors);
         this.setMaxThreads(maxThreads);
         activeCompetitors = new ArrayList<>();
-        finishedCompetitors = new ArrayList<>();
     }
 
     /**
@@ -87,7 +85,6 @@ public abstract class Competition implements CompetitionPlan {
 
     }
 
-
     /**
      * Returns the competition status
      *
@@ -95,15 +92,6 @@ public abstract class Competition implements CompetitionPlan {
      */
     public boolean hasActiveCompetitors() {
         return activeCompetitors.size() > 0;
-    }
-
-    /**
-     * Returns list of finished competitors
-     *
-     * @return finished competitors list
-     */
-    public ArrayList<Competitor> getFinishedCompetitors() {
-        return finishedCompetitors;
     }
 
     /**
@@ -129,6 +117,7 @@ public abstract class Competition implements CompetitionPlan {
      * Adding each competitor to the Observer
      */
     public void startRace() {
+        pool.shutdownNow();
         pool = Executors.newFixedThreadPool(maxThreads);
         for (Competitor comp : activeCompetitors) {
             comp.setRunning(true);
@@ -208,10 +197,16 @@ public abstract class Competition implements CompetitionPlan {
         return activeCompetitors;
     }
 
+    /**
+     * @return arena
+     */
     public IArena getArena() {
         return arena;
     }
 
+    /**
+     * Choose for all competitors their state in the future randomly
+     */
     public void destiny() {
         Random rand = new Random();
         for (Competitor comp : activeCompetitors) {
@@ -220,16 +215,21 @@ public abstract class Competition implements CompetitionPlan {
             int distance = rand.nextInt((int) (getArena().getLength() - 1));
             if (n == 0) {
                 sportsman.setInjured(true);
-                sportsman.setDistanceStoped(distance);
+                sportsman.setDistanceStopped(distance);
             }
             if (n == 1) {
                 sportsman.setDisabled(true);
-                sportsman.setDistanceStoped(distance);
+                sportsman.setDistanceStopped(distance);
             }
         }
     }
 
-
+    /**
+     * Sets max threads for threadpool that will run the players
+     *
+     * @param maxThreads maximum threads to run at once
+     * @throws IllegalArgumentException if the maxThreads in not between 1 to 10
+     */
     private void setMaxThreads(int maxThreads) throws IllegalArgumentException {
         if (maxThreads < 1 || maxThreads > 10)
             throw new IllegalArgumentException("Number of threads allowed is between 1 to 10");

@@ -14,6 +14,9 @@ import java.awt.event.ActionListener;
 
 /**
  * Clone panel- the user enters the number of players he wants to clone
+ *
+ * @author Dima Zagorodny - 320552243
+ * @author Michal Barski - 205870934
  */
 public class CloneCompetitorPanel extends JFrame {
     private JTextField idText;

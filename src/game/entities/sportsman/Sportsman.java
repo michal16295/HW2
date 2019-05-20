@@ -35,7 +35,6 @@ public class Sportsman extends MobileEntity implements Cloneable {
         this.setName(name);
         this.setId(id);
         this.setColor("pink");
-
     }
 
     /**
@@ -45,7 +44,7 @@ public class Sportsman extends MobileEntity implements Cloneable {
     public Sportsman() {
         this.setAge(12.0);
         this.setGender(Gender.FEMALE);
-        this.setName("Daenrerys");
+        this.setName("Daenerys");
         this.setColor("pink");
     }
 
@@ -138,14 +137,13 @@ public class Sportsman extends MobileEntity implements Cloneable {
      *
      * @param color new color
      */
-
     public void setColor(String color) {
         this.color = color;
     }
 
 
     /**
-     * upgrading the new clone we have created
+     * setting new id and color for the clone we have created
      *
      * @param id    setting a new id
      * @param color setting a new color
@@ -155,6 +153,9 @@ public class Sportsman extends MobileEntity implements Cloneable {
         this.setColor(color);
     }
 
+    /**
+     * @return max speed
+     */
     public double getMaxSpeed() {
         return super.getMaxSpeed();
     }

@@ -3,9 +3,9 @@ package GUI.leftpanel;
 import GUI.GuiManager;
 import game.GameEngine;
 import game.competition.Competitor;
-import game.entities.sportsman.ColoredSportsman;
-import game.entities.sportsman.IWinterSportsman;
-import game.entities.sportsman.SpeedySportsman;
+import game.entities.sportsman.decorator.ColoredSportsman;
+import game.entities.sportsman.decorator.IWinterSportsman;
+import game.entities.sportsman.decorator.SpeedySportsman;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +15,14 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
-public class modifyPanel extends JFrame {
+/**
+ * Modify frame allows to decorate the competitor
+ * Colors and acceleration are allowed
+ *
+ * @author Dima Zagorodny - 320552243
+ * @author Michal Barski - 205870934
+ */
+public class ModifyFrame extends JFrame {
     private JLabel playerName;
     private JLabel ColorLabel;
     private JLabel AccelerationLabel;
@@ -25,7 +32,12 @@ public class modifyPanel extends JFrame {
     private JButton AccelerationBtn;
 
 
-    public modifyPanel(IWinterSportsman competitor) {
+    /**
+     * Ctor for the frame with competitor
+     *
+     * @param competitor the competitor to decorate
+     */
+    public ModifyFrame(IWinterSportsman competitor) {
         super("Modify Competitor");
         createUI(competitor);
         addUI();
@@ -45,6 +57,11 @@ public class modifyPanel extends JFrame {
         });
     }
 
+    /**
+     * Adds the button listeners for color button and acceleration button
+     *
+     * @param competitor the competitor to decorate
+     */
     private void addButtonListener(IWinterSportsman competitor) {
         ColorBtn.addActionListener(new ActionListener() {
             @Override
@@ -68,6 +85,11 @@ public class modifyPanel extends JFrame {
         });
     }
 
+    /**
+     * Builds the UI of the frame
+     *
+     * @param competitor the competitor to decorate
+     */
     private void createUI(IWinterSportsman competitor) {
         setLayout(new GridLayout(7, 1));
         playerName = new JLabel("Player: " + competitor.getName());
@@ -81,10 +103,11 @@ public class modifyPanel extends JFrame {
         AccelerationLabel = new JLabel("Add acceleration");
         AccelerationText = new JTextField();
         AccelerationBtn = new JButton("Add Acceleration");
-
-
     }
 
+    /**
+     * Adds all elements to the frame
+     */
     private void addUI() {
         add(playerName);
         add(ColorLabel);

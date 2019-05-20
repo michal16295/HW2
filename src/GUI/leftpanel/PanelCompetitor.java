@@ -5,8 +5,8 @@ import GUI.PanelGame;
 import GUI.leftpanel.infopanel.InfoTable;
 import game.GameEngine;
 import game.competition.Competitor;
-import game.entities.sportsman.IWinterSportsman;
 import game.entities.sportsman.WinterSportsman;
+import game.entities.sportsman.decorator.IWinterSportsman;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -169,7 +169,7 @@ public class PanelCompetitor extends JPanel {
 
             //adding the player to the info table
             InfoTable.getModel().addRow(name, 0.0, maxSpeed, 0.0, "No", ((WinterSportsman) o).getState().toString());
-            new modifyPanel((IWinterSportsman) o);
+            new ModifyFrame((IWinterSportsman) o);
 
 
             emptyFields();

@@ -99,7 +99,6 @@ public class WinterCompetition extends Competition {
             if (league.isInLeague(comp.getAge())) {
                 if (comp.getGender() == this.gender) {
                     if (comp.getDiscipline() == this.discipline)
-
                         return true;
                 }
             }

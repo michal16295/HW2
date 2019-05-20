@@ -25,6 +25,11 @@ public class Snowboarder extends WinterSportsman {
         super(id, name, age, gender, discipline, maxSpeed, acceleration, arena);
     }
 
+    /**
+     * Default ctor with arena only
+     *
+     * @param arena the arena
+     */
     public Snowboarder(IArena arena) {
         super(arena);
     }

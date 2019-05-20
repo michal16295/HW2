@@ -30,6 +30,9 @@ public abstract class Arena implements IArena {
         this.setSurface(surface);
     }
 
+    /**
+     * @return weather condition
+     */
     public WeatherCondition getCondition() {
         return condition;
     }

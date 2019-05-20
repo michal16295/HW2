@@ -3,6 +3,7 @@ package game.entities.sportsman;
 import game.arena.IArena;
 import game.competition.Competitor;
 import game.competition.state.*;
+import game.entities.sportsman.decorator.IWinterSportsman;
 import game.enums.Discipline;
 import game.enums.Gender;
 import game.enums.League;
@@ -19,15 +20,15 @@ import utilities.ValidationUtils;
 public class WinterSportsman extends Sportsman implements Competitor, IWinterSportsman {
     private Discipline discipline;
     private IArena arena;
-    private CompetitionState state;
-    private CompetitionState activeState;
-    private CompetitionState completedState;
-    private CompetitionState disabledState;
-    private CompetitionState injuredState;
+    private CompetitorState state;
+    private CompetitorState activeState;
+    private CompetitorState completedState;
+    private CompetitorState disabledState;
+    private CompetitorState injuredState;
     private boolean isRunning;
     private boolean injured;
     private boolean disabled;
-    private int distanceStoped;
+    private int distanceStopped;
 
     /**
      * Ctor that creates a sportsman with parameters.
@@ -51,6 +52,11 @@ public class WinterSportsman extends Sportsman implements Competitor, IWinterSpo
 
     }
 
+    /**
+     * Default ctor with arena only
+     *
+     * @param arena the arena
+     */
     public WinterSportsman(IArena arena) {
         this.setDiscipline(Discipline.SLALOM);
         this.setArena(arena);
@@ -62,7 +68,6 @@ public class WinterSportsman extends Sportsman implements Competitor, IWinterSpo
         this.disabledState = new DisabledState(this);
         this.injuredState = new InjuredState(this);
         this.state = activeState;
-
     }
 
     /**
@@ -147,135 +152,190 @@ public class WinterSportsman extends Sportsman implements Competitor, IWinterSpo
             setLocation(new Point(arena.getLength(), 0));
     }
 
+    /**
+     * Sets the acceleration of the competitor
+     *
+     * @param acceleration the acceleration
+     */
     @Override
     public void setAcceleration(double acceleration) {
         super.setAcceleration(acceleration);
     }
 
 
+    /**
+     * @return the acceleration of the competitor
+     */
     @Override
     public double getAcceleration() {
         return super.getAcceleration();
     }
 
     /**
-     * state getter
+     * State getter
      *
      * @return competitor state
      */
-
-    public CompetitionState getState() {
+    public CompetitorState getState() {
         return state;
     }
 
-
+    /**
+     * Sets competitors name
+     *
+     * @param name the name
+     */
     public void setName(String name) {
         super.setName(name);
     }
 
-
+    /**
+     * Sets competitor's age
+     *
+     * @param age the age
+     */
     public void setAge(double age) {
         super.setAge(age);
     }
 
+    /**
+     * Sets competitor's gender
+     *
+     * @param gender the gender
+     */
     public void setGender(Gender gender) {
         super.setGender(gender);
     }
 
-    public void setMaxSpeed(double speed) {
-
-    }
-
     /**
-     * state setter
+     * State setter
      *
      * @param state competitor state
      */
-    public void setState(CompetitionState state) {
+    public void setState(CompetitorState state) {
         this.state = state;
     }
 
+    /**
+     * Moves the competitor
+     */
     public void moveCompetitor() {
         this.getState().moveCompetitor();
     }
 
+    /**
+     * Gets the arena
+     *
+     * @return the arena
+     */
     public IArena getArena() {
         return arena;
     }
 
+    /**
+     * @return weather the competitor is moving
+     */
     public boolean isRunning() {
         return isRunning;
     }
 
+    /**
+     * Sets the competitor moving state
+     *
+     * @param running moving (true) or stopped (false)
+     */
     public void setRunning(boolean running) {
         isRunning = running;
     }
 
+    /**
+     * Weather will be injured in the future
+     *
+     * @return true if will be injured, false otherwise
+     */
     public boolean isInjured() {
         return injured;
     }
 
+    /**
+     * Sets if will be injured in the future
+     *
+     * @param injured true if will be injured, false otherwise
+     */
     public void setInjured(boolean injured) {
         this.injured = injured;
     }
 
+    /**
+     * Weather will be disabled in the future
+     *
+     * @return true if will be disabled, false otherwise
+     */
     public boolean isDisabled() {
         return disabled;
     }
 
+    /**
+     * Sets if will be disabled in the future
+     *
+     * @param disabled true if will be disabled, false otherwise
+     */
     public void setDisabled(boolean disabled) {
         this.disabled = disabled;
     }
 
-    public CompetitionState getActiveState() {
-        return activeState;
-    }
-
-    public void setActiveState(CompetitionState activeState) {
-        this.activeState = activeState;
-    }
-
-    public CompetitionState getCompletedState() {
+    /**
+     * @return Completed state
+     */
+    public CompetitorState getCompletedState() {
         return completedState;
     }
 
-    public void setCompletedState(CompetitionState completedState) {
-        this.completedState = completedState;
-    }
-
-    public CompetitionState getDisabledState() {
+    /**
+     * @return Disabled state
+     */
+    public CompetitorState getDisabledState() {
         return disabledState;
     }
 
-    public void setDisabledState(CompetitionState disabledState) {
-        this.disabledState = disabledState;
-    }
-
-    public CompetitionState getInjuredState() {
+    /**
+     * @return Injured state
+     */
+    public CompetitorState getInjuredState() {
         return injuredState;
     }
 
-    public void setInjuredState(CompetitionState injuredState) {
-        this.injuredState = injuredState;
+    /**
+     * @return the distance where competitor stops
+     */
+    public int getDistanceStopped() {
+        return distanceStopped;
     }
 
-    public int getDistanceStoped() {
-        return distanceStoped;
+    /**
+     * Sets the distance where the competitor stops (in case of disabled/injury)
+     *
+     * @param distanceStopped the distance measured in arena length
+     */
+    public void setDistanceStopped(int distanceStopped) {
+        this.distanceStopped = distanceStopped;
     }
 
-    public void setDistanceStoped(int distanceStoped) {
-        this.distanceStoped = distanceStoped;
-    }
-
+    /**
+     * Makes a deep copy of the competitor
+     *
+     * @return a new object of winter sportsman
+     * @throws CloneNotSupportedException
+     */
     public WinterSportsman clone() throws CloneNotSupportedException {
-
         WinterSportsman sportsman = (WinterSportsman) super.clone();
         sportsman.createStates();
         return sportsman;
-
-
     }
 
+    /**
+     * Create the states and sets the current state to active
+     */
     private void createStates() {
         this.activeState = new ActiveState(this);
         this.completedState = new CompletedState(this);

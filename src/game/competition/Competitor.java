@@ -1,6 +1,6 @@
 package game.competition;
 
-import game.competition.state.CompetitionState;
+import game.competition.state.CompetitorState;
 import game.entities.IMobileEntity;
 
 /**
@@ -37,9 +37,9 @@ public interface Competitor extends IMobileEntity, Runnable, Cloneable {
 
     boolean isDisabled();
 
-    void setState(CompetitionState state);
+    void setState(CompetitorState state);
 
-    CompetitionState getState();
+    CompetitorState getState();
 
 
 }

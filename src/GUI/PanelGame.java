@@ -83,7 +83,6 @@ public class PanelGame extends JPanel implements Observer {
         g2d.drawImage(tmp, 0, 0, null);
         g2d.dispose();
         return dimg;
-
     }
 
     /**
@@ -111,6 +110,12 @@ public class PanelGame extends JPanel implements Observer {
 
     }
 
+    /**
+     * Converts the string to a color class
+     *
+     * @param c the color name
+     * @return the color class
+     */
     public Color convertToColor(String c) {
         switch (c) {
             case "red":
@@ -244,6 +249,12 @@ public class PanelGame extends JPanel implements Observer {
         image = resizeImage(width, len, image);
     }
 
+    /**
+     * Updates the screen when received an update from a competitor
+     *
+     * @param o   the competitor
+     * @param arg the argument
+     */
     @Override
     public synchronized void update(Observable o, Object arg) {
         updatePlayers();

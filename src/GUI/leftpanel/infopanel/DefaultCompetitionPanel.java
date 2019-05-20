@@ -17,6 +17,9 @@ import java.awt.event.ActionListener;
 /**
  * Quick Competition panel - creates default competition.
  * Creating a default Arena , Competition and competitors
+ *
+ * @author Dima Zagorodny - 320552243
+ * @author Michal Barski - 205870934
  */
 
 public class DefaultCompetitionPanel extends JFrame {

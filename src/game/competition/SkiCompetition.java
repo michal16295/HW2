@@ -29,6 +29,11 @@ public class SkiCompetition extends WinterCompetition {
         super(arena, maxComp, discipline, league, gender, threads);
     }
 
+    /**
+     * Ctor that builds the competition with arena using default ctor
+     *
+     * @param arena
+     */
     public SkiCompetition(IArena arena) {
         super(arena);
     }

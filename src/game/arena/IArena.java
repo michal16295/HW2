@@ -18,7 +18,7 @@ public interface IArena {
 
     /**
      * @param me mobile entity / sportsman
-     * @return if crossed the finish line
+     * @return weather crossed the finish line
      */
     boolean isFinished(IMobileEntity me);
 
@@ -27,5 +27,8 @@ public interface IArena {
      */
     double getLength();
 
+    /**
+     * @return weather condition
+     */
     WeatherCondition getCondition();
 }

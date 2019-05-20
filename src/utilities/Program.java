@@ -12,8 +12,8 @@ import GUI.MainFrame;
  */
 public class Program {
 
-	public static void main(String[] args) {
-		new MainFrame();
-	}
+    public static void main(String[] args) {
+        new MainFrame();
+    }
 
 }

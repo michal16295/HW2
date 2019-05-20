@@ -12,6 +12,13 @@ import game.enums.WeatherCondition;
  */
 public class SummerArena extends Arena {
 
+    /**
+     * Ctor for summer arena
+     *
+     * @param length    arena length
+     * @param surface   arena surface
+     * @param condition weather condition
+     */
     public SummerArena(double length, SnowSurface surface, WeatherCondition condition) {
         super(length, surface, condition);
     }

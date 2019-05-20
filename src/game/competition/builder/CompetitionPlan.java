@@ -7,6 +7,9 @@ import game.enums.League;
 
 /**
  * Competition plan interface
+ *
+ * @author Dima Zagorodny - 320552243
+ * @author Michal Barski - 205870934
  */
 public interface CompetitionPlan {
     void setArena(IArena arena);

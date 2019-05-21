@@ -145,7 +145,7 @@ public class WinterSportsman extends Sportsman implements Competitor, IWinterSpo
      * Limits the sportsman location to be in cross line
      */
     public void resetLocation() {
-        if (getLocation().getX() >= 700)
+        if (getLocation().getX() >= arena.getLength())
             setLocation(new Point(arena.getLength(), 0));
     }
 

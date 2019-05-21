@@ -28,6 +28,7 @@ public abstract class Competition implements CompetitionPlan {
     private ArrayList<Competitor> activeCompetitors;
     private int maxThreads;
     private ExecutorService pool;
+    private long startTime;
 
     /**
      * Ctor with parameters of arena and the max competitors in the competition.
@@ -125,6 +126,7 @@ public abstract class Competition implements CompetitionPlan {
             comp.setRunning(true);
             pool.execute(comp);
         }
+        startTime = System.currentTimeMillis();
     }
 
     /**
@@ -236,5 +238,12 @@ public abstract class Competition implements CompetitionPlan {
         if (maxThreads < 1 || maxThreads > 10)
             throw new IllegalArgumentException("Number of threads allowed is between 1 to 10");
         this.maxThreads = maxThreads;
+    }
+
+    /**
+     * @return start of the competition in milliseconds
+     */
+    public long getStartTime() {
+        return startTime;
     }
 }

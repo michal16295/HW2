@@ -1,5 +1,6 @@
 package game.entities.sportsman;
 
+import game.GameEngine;
 import game.arena.IArena;
 import game.competition.Competitor;
 import game.competition.state.*;
@@ -29,6 +30,7 @@ public class WinterSportsman extends Sportsman implements Competitor, IWinterSpo
     private boolean injured;
     private boolean disabled;
     private int distanceStopped;
+    private double time;
 
     /**
      * Ctor that creates a sportsman with parameters.
@@ -48,8 +50,6 @@ public class WinterSportsman extends Sportsman implements Competitor, IWinterSpo
         this.setDisabled(false);
         this.setInjured(false);
         createStates();
-
-
     }
 
     /**
@@ -63,11 +63,7 @@ public class WinterSportsman extends Sportsman implements Competitor, IWinterSpo
         this.setRunning(false);
         this.setDisabled(false);
         this.setInjured(false);
-        this.activeState = new ActiveState(this);
-        this.completedState = new CompletedState(this);
-        this.disabledState = new DisabledState(this);
-        this.injuredState = new InjuredState(this);
-        this.state = activeState;
+        createStates();
     }
 
     /**
@@ -93,8 +89,8 @@ public class WinterSportsman extends Sportsman implements Competitor, IWinterSpo
      * Sets the location to initial position (0,0).
      */
     public void initRace() {
-
         this.setLocation(new Point());
+        time = 0;
     }
 
     /**
@@ -139,6 +135,7 @@ public class WinterSportsman extends Sportsman implements Competitor, IWinterSpo
                 Thread.currentThread().interrupt();
             }
         }
+        time = (System.currentTimeMillis() - GameEngine.getInstance().getComp().getStartTime()) / 1000.0;
         resetLocation();
         setChanged();
         notifyObservers();
@@ -178,6 +175,14 @@ public class WinterSportsman extends Sportsman implements Competitor, IWinterSpo
      */
     public CompetitorState getState() {
         return state;
+    }
+
+    /**
+     * @return the stop time of competitor
+     */
+    @Override
+    public double getTime() {
+        return time;
     }
 
     /**

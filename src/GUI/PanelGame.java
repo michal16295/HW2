@@ -33,6 +33,7 @@ public class PanelGame extends JPanel implements Observer {
     private ArrayList<Competitor> activeCompetitors;
     private ArrayList<Competitor> competitors;
     private double ratio;
+    private long startTime;
 
     /**
      * Default ctor
@@ -191,6 +192,7 @@ public class PanelGame extends JPanel implements Observer {
      * Starts the race and updates the graphics
      */
     public void startRace() {
+        startTime = System.currentTimeMillis();
         competitors = new ArrayList<>(activeCompetitors);
         for (Competitor comp : competitors) {
             Sportsman sportsman = (Sportsman) comp;
@@ -214,7 +216,11 @@ public class PanelGame extends JPanel implements Observer {
         sortPlayers();
         for (int i = 0; i < competitors.size(); ++i) {
             Competitor c = competitors.get(i);
-            InfoTable.getModel().updateRow(i, c.getName(), c.getSpeed(), c.getMaxSpeed(), c.getLocation().getX(), c.isFinished(), c.getState().toString());
+            if (c.getState().toString().equals("disabled")) {
+                InfoTable.getModel().updateFailed(i, c.getName(), c.getTime());
+            } else {
+                InfoTable.getModel().updateRow(i, c.getName(), c.getSpeed(), c.getMaxSpeed(), c.getLocation().getX(), c.isFinished(), c.getState().toString(), c.getTime());
+            }
         }
     }
 

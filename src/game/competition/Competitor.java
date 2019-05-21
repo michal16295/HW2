@@ -41,5 +41,5 @@ public interface Competitor extends IMobileEntity, Runnable, Cloneable {
 
     CompetitorState getState();
 
-
+    double getTime();
 }

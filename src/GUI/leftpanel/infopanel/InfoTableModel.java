@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class InfoTableModel extends AbstractTableModel {
     private static ArrayList<ArrayList<Object>> data = new ArrayList<>();
 
-    private final String[] columnNames = {"Name", "Speed", "Max Speed", "Location", "Finished", "State"};
+    private final String[] columnNames = {"Name", "Speed", "Max Speed", "Location", "Finished", "State", "Time"};
 
     /**
      * Returns the column name of index 'col'
@@ -70,6 +70,7 @@ public class InfoTableModel extends AbstractTableModel {
         player.add(location);
         player.add(finished);
         player.add(state);
+        player.add(0L);
         data.add(player);
 
         fireTableRowsInserted(data.size() - 1, data.size() - 1);
@@ -85,7 +86,7 @@ public class InfoTableModel extends AbstractTableModel {
      * @param location   player location
      * @param isFinished player is finished race
      */
-    public void updateRow(int index, String name, double speed, double maxSpeed, double location, boolean isFinished, String state) {
+    public void updateRow(int index, String name, double speed, double maxSpeed, double location, boolean isFinished, String state, double time) {
         ArrayList<Object> player = data.get(index);
         player.set(0, name);
         player.set(1, speed);
@@ -93,9 +94,9 @@ public class InfoTableModel extends AbstractTableModel {
         player.set(3, location);
         player.set(4, isFinished ? "Yes" : "No");
         player.set(5, state);
+        player.set(6, time);
 
-
-        for (int i = 0; i < 6; ++i) {
+        for (int i = 0; i <= 6; ++i) {
             fireTableCellUpdated(index, i);
         }
     }
@@ -106,5 +107,20 @@ public class InfoTableModel extends AbstractTableModel {
     public void deleteData() {
         data = new ArrayList<>();
         fireTableDataChanged();
+    }
+
+    public void updateFailed(int index, String name, double time) {
+        ArrayList<Object> player = data.get(index);
+        player.set(0, name);
+        player.set(1, "Failed");
+        player.set(2, "Failed");
+        player.set(3, "Failed");
+        player.set(4, "Failed");
+        player.set(5, "Failed");
+        player.set(6, time);
+
+        for (int i = 0; i <= 6; ++i) {
+            fireTableCellUpdated(index, i);
+        }
     }
 }
